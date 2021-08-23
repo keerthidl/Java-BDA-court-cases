@@ -347,7 +347,7 @@ public class LegalOpinionsController {
 	/**
 	 * employee enrollment service
 	 */
-	@GetMapping(value=AppConstants.LEGAL_OPINIONS_URL)
+	@PostMapping(value=AppConstants.LEGAL_OPINIONS_URL)
 	public String getLegalOpinionRequests(@RequestBody String searchModel, HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
 		LOG.info(" Entered Legal Opinion Details Request ");
 		LegalOpinionRequestEntity legalOpinionRequestEntity = null;
