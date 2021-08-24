@@ -56,9 +56,9 @@ public class CommunicationService {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		ResponseEntity<String> serviceResponseEntity = restTemplate.postForEntity(SMS_COMMUNICATION_URL, gson.toJson(notificationRequestModel), String.class);
+// 		ResponseEntity<String> serviceResponseEntity = restTemplate.postForEntity(SMS_COMMUNICATION_URL, gson.toJson(notificationRequestModel), String.class);
 		
-		System.out.println(" RESPONSE ENTITY "+serviceResponseEntity);
+// 		System.out.println(" RESPONSE ENTITY "+serviceResponseEntity);
 	}
 
 }
