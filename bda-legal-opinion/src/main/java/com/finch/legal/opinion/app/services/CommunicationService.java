@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 public class CommunicationService {
 	
 	/** SMS Communication URL **/
-	private final static String SMS_COMMUNICATION_URL="http://finchnotifications-env.eba-yepdppsg.ap-south-1.elasticbeanstalk.com//notifications/api/v1/message";
+	private final static String SMS_COMMUNICATION_URL="http://157.245.105.132:5200/notifications/api/v1/message";
 	/**
 	 * default constructor
 	 */
