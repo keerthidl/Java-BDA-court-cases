@@ -38,12 +38,12 @@ public class NotificationProcessService {
 	/** Logger **/
 	private static Logger LOG = LogManager.getLogger(NotificationProcessService.class);
 	/** repo reference **/
-	 @Autowired
-	 private NotificationRepository repository;
+// 	 @Autowired
+// 	 private NotificationRepository repository;
 	 
 	 /** repo reference **/
-	 @Autowired
-	 private NotificationTemplatesRepository notificationTemplatesRepository;
+// 	 @Autowired
+// 	 private NotificationTemplatesRepository notificationTemplatesRepository;
 	 
 	 /** SMS channel Properties **/
 	 private Properties smsProperties = new Properties();
@@ -139,21 +139,21 @@ public class NotificationProcessService {
 						  LOG.info("Received a notification for channel."+channelType+" << template id >> "+templateID);
 					}else {
 						notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_FAILED);
-						repository.save(notification);
+// 						repository.save(notification);
 						LOG.info("error while processing the notifications."+channelType+" << template id >> "+templateID);
 						LOG.info(" No Channel Type mentioned .....");
 						throw new NotificationDeliveryException(NotificationConstants.INVALID_REQUEST_ERROR_ODE, "Channel Type is Missing allowed values (EMAIL,SMS");
 					}
 				}else {
 					notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_FAILED);
-					repository.save(notification);
+// 					repository.save(notification);
 					LOG.info("error while processing the notifications. No Hash Properties mentioned ");
 					
 					throw new NotificationDeliveryException(NotificationConstants.INVALID_REQUEST_ERROR_ODE, "Channel Type is Missing allowed values (EMAIL,SMS");
 				}
 			}else {
 				notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_FAILED);
-				repository.save(notification);
+// 				repository.save(notification);
 				LOG.info("error while processing the notifications. 2 No Hash Properties mentioned ");
 				throw new NotificationDeliveryException(NotificationConstants.INVALID_REQUEST_ERROR_ODE, "Channel Type is Missing allowed values (EMAIL,SMS");
 			}
@@ -163,29 +163,29 @@ public class NotificationProcessService {
 			LOG.error(jsonParseException);
 			
 			notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_FAILED);
-			repository.save(notification);
+// 			repository.save(notification);
 			throw new NotificationDeliveryException(NotificationConstants.INVALID_REQUEST_ERROR_ODE, jsonParseException.getMessage());
 		}catch(JsonMappingException jsonMappingException) {
 			LOG.error(jsonMappingException);
 			notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_FAILED);
-			repository.save(notification);
+// 			repository.save(notification);
 			
 			throw new NotificationDeliveryException(NotificationConstants.INVALID_REQUEST_ERROR_ODE, jsonMappingException.getMessage());
 		}catch(IOException ioException) {
 			LOG.error(ioException);
 			notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_FAILED);
-			repository.save(notification);
+// 			repository.save(notification);
 			
 			throw new NotificationDeliveryException(NotificationConstants.INVALID_REQUEST_ERROR_ODE, ioException.getMessage());
 		}catch(Exception exception) {
 			LOG.error(exception);
 			System.out.println(" CHECK THIS ::: "+notification);
 			notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_FAILED);
-			repository.save(notification);
+// 			repository.save(notification);
 			throw new NotificationDeliveryException(NotificationConstants.INTERNAL_SERVER_ERROR_ODE, exception.getMessage());
 		}
 		notification.setStatus(NotificationConstants.NOTIFICATION_STATUS_DELIVERED);
-		repository.save(notification);
+// 		repository.save(notification);
 		return notification.getNotificationId();
 	}
 
