@@ -10,12 +10,12 @@ public interface NotificationTemplatesRepository  extends CrudRepository<Message
 	/**
 	 * find by method
 	 */
-    Optional<MessageFormat> findById(Long id);
+//     Optional<MessageFormat> findById(Long id);
     
     /**
 	 * find by method
 	 */
-    Optional<MessageFormat> findByTemplateID(String templateID);
+//     Optional<MessageFormat> findByTemplateID(String templateID);
     
    
     
