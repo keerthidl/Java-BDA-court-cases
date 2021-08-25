@@ -16,9 +16,9 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 	/**
 	 * find by method
 	 */
-    Optional<Notification> findById(Long id);
+//     Optional<Notification> findById(Long id);
     
-    @Query("SELECT count(*) as c FROM Notifications WHERE channel = ?1")
-    int findChannelwiseCount(String channelType);
+//     @Query("SELECT count(*) as c FROM Notifications WHERE channel = ?1")
+//     int findChannelwiseCount(String channelType);
     
 }
