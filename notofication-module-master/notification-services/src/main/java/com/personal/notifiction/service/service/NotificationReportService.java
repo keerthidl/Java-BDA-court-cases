@@ -39,10 +39,10 @@ public class NotificationReportService {
 		
 		int iCount = 0;// notificationRepository.findChannelwiseCount("EMAIL");
 		Number countResult=null;
-		System.out.println(" HHHHHHHHHHHHHHHHHHH    "+notificationRepository.findChannelwiseCount("SMS"));
+// 		System.out.println(" HHHHHHHHHHHHHHHHHHH    "+notificationRepository.findChannelwiseCount("SMS"));
 		
 		try{
-			EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
+			/*EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
 			EntityManager em=emf.createEntityManager();
 			
 			System.out.println(" AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA    ");
@@ -51,14 +51,14 @@ public class NotificationReportService {
 			countResult=(Number) query.getSingleResult();
 			System.out.println(" VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVv    ");
 			
-			System.out.println("Count result:"+countResult);
+			System.out.println("Count result:"+countResult);*/
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-		System.out.println(" COUNT IS "+iCount);
-		return "COUNT= "+countResult.intValue();
+// 		System.out.println(" COUNT IS "+iCount);
+		return "COUNT= "; //+countResult.intValue();
 		/**
 		 * Channel wise summary
 		 *     a. Total count
