@@ -1,0 +1,5 @@
+com\personal\notification\rest\client\ServiceClient.class
+com\personal\notification\sms\data\model\SMSMessageModel.class
+com\personal\notification\sms\data\model\MobilNxtSMSMessageModel.class
+com\personal\notifiction\sms\client\SMSClient.class
+com\personal\notification\sms\data\model\TemplateBasedSMSMessageModel.class

@@ -33,6 +33,7 @@ public class CommunicationService {
 	 * send notification on new request
 	 */
 	public void sendNewRequest(List<String> lstToAddresses,String strMessage) {
+		ResponseEntity<String> serviceResponseEntity = null;
 		Gson gson = new Gson();
 		HashMap<String, String> hashMapSMSProperties = new HashMap();
 		
@@ -55,10 +56,13 @@ public class CommunicationService {
 		notificationRequestModel.setMessage(gson.toJson(templateBasedSMSMessageModel));
 		
 		RestTemplate restTemplate = new RestTemplate();
+		try{
+		serviceResponseEntity = restTemplate.postForEntity(SMS_COMMUNICATION_URL, gson.toJson(notificationRequestModel), String.class);
 		
-// 		ResponseEntity<String> serviceResponseEntity = restTemplate.postForEntity(SMS_COMMUNICATION_URL, gson.toJson(notificationRequestModel), String.class);
-		
-// 		System.out.println(" RESPONSE ENTITY "+serviceResponseEntity);
+		System.out.println(" RESPONSE ENTITY "+serviceResponseEntity);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }
