@@ -1,0 +1,12 @@
+com\personal\notification\core\model\TemplateDetails.class
+com\personal\notification\common\logging\LogManager.class
+com\personal\notification\core\util\JSONConverter.class
+com\personal\notification\core\exceptions\NotificationDeliveryException.class
+com\personal\notification\core\exceptions\ExceptionBuilder.class
+com\personal\notification\core\util\SecurityUtil.class
+com\personal\notification\core\constants\NotificationConstants.class
+com\personal\notification\core\model\INotificationService.class
+com\personal\notification\core\model\NotificationRequestModel.class
+com\personal\notification\common\logging\Logger.class
+com\personal\notification\core\exceptions\InvalidRequestException.class
+com\personal\notification\core\exceptions\InternalServerException.class

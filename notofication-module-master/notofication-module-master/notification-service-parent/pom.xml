@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.personal</groupId>
+  <artifactId>notification-service-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>notification-service-parent</name>
+  <description>notification-service-parent</description>
+  <modules>
+  	<module>../email-service</module>
+  	<module>../notification-service-common</module>
+  	<module>../notification-services</module>
+  	<module>../persistent-services</module>
+  	<module>../sms-services</module>
+  </modules>
+</project>

@@ -1,0 +1,6 @@
+EMAIL_001_SUBJECT=Hi $Subject1, Welcome to my app $Subject2
+EMAIL_001_BODY=Hi $Name, Welcome to my app $MyApp
+EMAIL_001_KEYS=Subject1,Subject2,Name,MyApp
+
+SMS_001_BODY=Your OTP from BDA portal is $OTP Team, BLRBDA 
+SMS_001_KEYS=OTP

@@ -1,0 +1,4 @@
+com\personal\notifiction\email\client\EmailClient$1.class
+com\personal\notifiction\email\client\EmailClient.class
+com\personal\notifiction\email\data\model\EmailMessageModel.class
+com\personal\notifiction\email\data\model\TemplateBasedEmailMessageModel.class
