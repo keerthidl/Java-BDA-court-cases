@@ -230,7 +230,7 @@ public class EmailClient implements INotificationService {
 		Session session = Session.getDefaultInstance(channelProperties,new javax.mail.Authenticator() {
 
 		protected PasswordAuthentication getPasswordAuthentication() {
-				    String decryptedPassword = SecurityUtil.decrypt(fromAddressProperties.getProperty("PASSWORD"), SecurityUtil.SECURITY_KEY);
+				       String decryptedPassword = "";//SecurityUtil.decrypt(fromAddressProperties.getProperty("PASSWORD"), SecurityUtil.SECURITY_KEY);
 				   	
 					return new PasswordAuthentication(fromAddressProperties.getProperty("FROM_ADDRESS"), decryptedPassword);
 			}
