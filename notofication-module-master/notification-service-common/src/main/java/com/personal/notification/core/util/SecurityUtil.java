@@ -20,8 +20,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
  
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
+//import javax.crypto.Cipher;
+//import javax.crypto.spec.SecretKeySpec;
 
 /**
  * 
