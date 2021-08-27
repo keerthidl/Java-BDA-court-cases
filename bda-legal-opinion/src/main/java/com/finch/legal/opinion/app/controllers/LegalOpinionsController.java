@@ -27,7 +27,7 @@ import com.finch.common.logger.AppLogger;
 import com.finch.common.logger.LogManager;
 import com.finch.legal.opinion.app.constants.AppConstants;
 import com.finch.legal.opinion.app.employee.model.LegalOpinionAddResponse;
-import com.finch.legal.opinion.app.employee.model.LegalOpinionSearchResponse;
+import com.finch.legal.opinion.app.employee.model.LegalOpinionQueryResponse;
 import com.finch.legal.opinion.app.employee.model.LegalOpinionUpdateRequest;
 import com.finch.legal.opinion.app.employee.model.LegalOpinionsSearchModel;
 import com.finch.legal.opinion.app.employee.model.SupportingDocumentsResponse;
@@ -355,7 +355,7 @@ public class LegalOpinionsController {
 		LegalOpinionRequestEntity legalOpinionRequestEntity = null;
 		LegalOpinionsSearchModel legalOpinionsSearchModel = null;
 		List<ErrorDetails> lstErrorDetails = null;
-		LegalOpinionSearchResponse legalOpinionSearchResponse = new LegalOpinionSearchResponse();
+		LegalOpinionQueryResponse legalOpinionSearchResponse = new LegalOpinionQueryResponse();
 		List<LegalOpinionRequestEntity> lstLegalOpinionRequestEntities = null;
 		String strRquestId="";
 		ValidateLegalOpinionSearchRequest validateLegalOpinionSearchRequest = new ValidateLegalOpinionSearchRequest();

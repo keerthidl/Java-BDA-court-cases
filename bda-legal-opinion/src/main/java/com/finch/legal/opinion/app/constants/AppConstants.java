@@ -28,7 +28,7 @@ public class AppConstants {
 	public final static String WILD_CARD_URL="*";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_1="SELECT * FROM legalopinions WHERE assigned_To=?1";
+	public final static String SEARCH_QUERY_1="SELECT * FROM legalopinions WHERE advocate_id=?1";
 	
 	/** UI URL **/
 	public final static String SEARCH_QUERY_2="SELECT * FROM legalopinions where requestor_emp_id=?1";
