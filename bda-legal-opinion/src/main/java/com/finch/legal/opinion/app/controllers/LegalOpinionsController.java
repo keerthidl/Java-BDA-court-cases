@@ -188,6 +188,7 @@ public class LegalOpinionsController {
 				legalOpinionRequestEntity.setRequestDetails(legalOpinionUpdateRequest.getRequestDetails());
 				legalOpinionRequestEntity.setSurveyNumber(legalOpinionUpdateRequest.getSurveyNumber());
 				legalOpinionRequestEntity.setStatus(legalOpinionUpdateRequest.getStatus());
+				legalOpinionRequestEntity.setExpectedDate(legalOpinionUpdateRequest.getExpectedDate());
 				legalOpinionRequestEntity.setPropertyNumber(legalOpinionUpdateRequest.getPropertyNumber());
 			}else if((employeeEntity!=null && employeeEntity.getRoleId()!=null) && employeeEntity.getRoleId().equalsIgnoreCase(AppConstants.ADVOCATE_ROLEID)) {
 				legalOpinionRequestEntity.setOpinion(legalOpinionUpdateRequest.getOpinionDetails());
@@ -197,6 +198,7 @@ public class LegalOpinionsController {
 				legalOpinionRequestEntity.setSurveyNumber(legalOpinionUpdateRequest.getSurveyNumber());
 				legalOpinionRequestEntity.setStatus(legalOpinionUpdateRequest.getStatus());
 				legalOpinionRequestEntity.setPropertyNumber(legalOpinionUpdateRequest.getPropertyNumber());
+				legalOpinionRequestEntity.setExpectedDate(legalOpinionUpdateRequest.getExpectedDate());
 			}else if((employeeEntity!=null && employeeEntity.getRoleId()!=null) && employeeEntity.getRoleId().equalsIgnoreCase(AppConstants.LAW_OFFICER_ROLEID)) {
 				legalOpinionRequestEntity.setOpinion(legalOpinionUpdateRequest.getOpinionDetails());
 				legalOpinionRequestEntity.setStatus(legalOpinionUpdateRequest.getStatus());
