@@ -1,10 +1,12 @@
 package com.finch.legal.opinion.app.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finch.legal.opinion.app.employee.model.RegisteredAdvocatesModel;
 import com.finch.legal.opinion.app.entities.EmployeeEntity;
 import com.finch.legal.opinion.app.repositories.EmployeeRepository;
 
@@ -36,6 +38,27 @@ public class EmployeeService {
 	public List<EmployeeEntity> getEmpByRole(String roleId) {
 		
 		 return employeeRepository.findByRoleId(roleId);
+	
+	}
+	
+	/**
+	 * is employee exists
+	 */
+	public List<RegisteredAdvocatesModel> getAdvocates(String roleId) {
+		
+		 List<EmployeeEntity> lstEmployeeEntity =  employeeRepository.findByRoleId(roleId);
+		 
+		 List<RegisteredAdvocatesModel> lstRegisteredAdvocates = new ArrayList();
+		 RegisteredAdvocatesModel registeredAdvocatesModel = null;
+		 
+		 for(EmployeeEntity employeeEntity: lstEmployeeEntity) {
+			 registeredAdvocatesModel = new RegisteredAdvocatesModel();
+			 registeredAdvocatesModel.setEmpId(employeeEntity.getLoginId());
+			 registeredAdvocatesModel.setName(employeeEntity.getName());
+			 lstRegisteredAdvocates.add(registeredAdvocatesModel);
+		 }
+		 
+		 return lstRegisteredAdvocates;
 	
 	}
 	

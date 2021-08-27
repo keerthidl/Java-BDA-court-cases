@@ -42,6 +42,10 @@ public class AppConstants {
 	/** UI URL **/
 	public final static String ENROLL_URL="/enroll";
 	
+	
+	/** ADVOCATES_LIST_URL **/
+	public final static String ADVOCATES_LIST_URL="/advocates";
+	
 	/** UI URL **/
 	public final static String EMPLOYEES_URL="/employees";
 	

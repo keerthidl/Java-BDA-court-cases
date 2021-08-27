@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
+Built-By: 91948
+Build-Jdk: 16.0.1
 Implementation-Title: persistent-services
 Implementation-Version: 0.0.2-SNAPSHOT
-Built-By: dvsnk
 Implementation-Vendor-Id: com.personal
-Build-Jdk: 1.8.0_271
-Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
- ot-starter-parent/persistent-services
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/persistent-services
 Created-By: Maven Integration for Eclipse
 
