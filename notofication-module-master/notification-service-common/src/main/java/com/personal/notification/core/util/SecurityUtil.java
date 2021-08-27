@@ -31,19 +31,19 @@ import javax.crypto.spec.SecretKeySpec;
 public class SecurityUtil {
  
 	/** secret key **/
-    private static SecretKeySpec secretKey;
+   // private static SecretKeySpec secretKey;
     
     /** key **/
-    private static byte[] key;
+   // private static byte[] key;
     /** security key **/
-    public static final String SECURITY_KEY="ssshhhhhhhhhhh!!!!";
+   // public static final String SECURITY_KEY="ssshhhhhhhhhhh!!!!";
  
     /**
      * 
      * @param myKey
      */
     public static void setKey(String myKey) {
-        MessageDigest sha = null;
+       /** MessageDigest sha = null;
         try {
             key = myKey.getBytes("UTF-8");
             sha = MessageDigest.getInstance("SHA-1");
@@ -56,7 +56,7 @@ public class SecurityUtil {
         } 
         catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
+        }**/
     }
  
     /**
@@ -66,7 +66,7 @@ public class SecurityUtil {
      * @return
      */
     public static String encrypt(String strToEncrypt) {
-        try
+       /** try
         {
             setKey(SECURITY_KEY);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -76,7 +76,7 @@ public class SecurityUtil {
         catch (Exception e) 
         {
             System.out.println("Error while encrypting: " + e.toString());
-        }
+        }**/
         return null;
     }
  
@@ -88,7 +88,7 @@ public class SecurityUtil {
      */
     public static String decrypt(String strToDecrypt, String secret) 
     {
-        try
+      /** try
         {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
@@ -99,6 +99,7 @@ public class SecurityUtil {
         {
             System.out.println("Error while decrypting: " + e.toString());
         }
+	**/
         return null;
     }
     
@@ -106,10 +107,11 @@ public class SecurityUtil {
      * encrypt
      */
     public static void main(String[] args) {
-    	String strEncrypted = SecurityUtil.encrypt("Nagendra_72");
+    	/** String strEncrypted = SecurityUtil.encrypt("Nagendra_72");
     	
     	System.out.println(" ENCRYPTED :::   "+strEncrypted);
     	
     	System.out.println(" ENCRYPTED :::   "+decrypt(strEncrypted, SECURITY_KEY));
+	**/
     }
 }
