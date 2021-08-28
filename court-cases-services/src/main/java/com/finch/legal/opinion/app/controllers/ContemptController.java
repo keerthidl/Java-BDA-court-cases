@@ -22,7 +22,9 @@ import com.finch.legal.opinion.app.employee.model.AddCaseResponse;
 import com.finch.legal.opinion.app.employee.model.AddCaseResult;
 import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
+import com.finch.legal.opinion.app.employee.model.ReadAllContemptResponse;
 import com.finch.legal.opinion.app.employee.model.ReadCaseResponse;
+import com.finch.legal.opinion.app.employee.model.ReadContempResponse;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
 import com.finch.legal.opinion.app.entities.CourtCaseEntity;
 import com.finch.legal.opinion.app.exceptions.InternalServerException;
@@ -75,7 +77,7 @@ public class ContemptController {
 			contemptEntity = contemptService.addContempt(((ContemptEntity)JSONFormatter.buildJSONObject(strContempt, ContemptEntity.class)));
 			
 			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(contemptEntity));
+			baseResponse.setResult(""+contemptEntity.getId());
 			
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
@@ -98,7 +100,7 @@ public class ContemptController {
 	public String getContempt(@PathVariable("id") String id) {
 		LOG.info(" Entered Reading contempt");
 		ContemptEntity contemptEntity = null;
-		BaseResponse baseResponse = new BaseResponse();
+		ReadContempResponse readContempResponse = new ReadContempResponse();
 		
 		try {
 			
@@ -114,9 +116,9 @@ public class ContemptController {
 			if(contemptEntity==null) {
 				throw new ResourceNotFoundException(" Requested Court Case Details Not Found");
 			}
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(contemptEntity));
-			return JSONFormatter.buildStringObject(baseResponse);
+			readContempResponse.setStatus("200");
+			readContempResponse.setResult(contemptEntity);
+			return JSONFormatter.buildStringObject(readContempResponse);
 		}catch(JSONConverterException e) {
 			e.printStackTrace();
 			LOG.error(" retreiving contempt details failed",e);
@@ -164,7 +166,7 @@ public class ContemptController {
 			contemptEntity = contemptService.updateContempt(contemptEntity);
 			
 			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(contemptEntity));
+			baseResponse.setResult(""+contemptEntity.getId());
 	
 			return JSONFormatter.buildStringObject(baseResponse);
 			
@@ -234,7 +236,7 @@ public class ContemptController {
 	
 	public String getCase(@PathVariable("caseid") String caseId) {
 		System.out.println(" Retreiving contempts Details ");
-		BaseResponse baseResponse = new BaseResponse();
+		ReadAllContemptResponse readAllContemptResponse = new ReadAllContemptResponse();
 		List<ContemptEntity> lstContempt = null;
 		try {
 			
@@ -248,9 +250,9 @@ public class ContemptController {
 			if(lstContempt==null || lstContempt.size()<1) {
 				throw new ResourceNotFoundException("Resource Not Found Exception ");
 			}
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(lstContempt));
-			return JSONFormatter.buildStringObject(baseResponse);
+			readAllContemptResponse.setStatus("200");
+			readAllContemptResponse.setResult(lstContempt);
+			return JSONFormatter.buildStringObject(readAllContemptResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" add court case failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid enrolment details");

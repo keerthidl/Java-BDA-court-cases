@@ -22,7 +22,9 @@ import com.finch.legal.opinion.app.employee.model.AddCaseResponse;
 import com.finch.legal.opinion.app.employee.model.AddCaseResult;
 import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
+import com.finch.legal.opinion.app.employee.model.ReadAllCommentResponse;
 import com.finch.legal.opinion.app.employee.model.ReadCaseResponse;
+import com.finch.legal.opinion.app.employee.model.ReadCommentResponse;
 import com.finch.legal.opinion.app.entities.CommentEntity;
 import com.finch.legal.opinion.app.exceptions.InternalServerException;
 import com.finch.legal.opinion.app.exceptions.InvalidRequestException;
@@ -72,7 +74,7 @@ public class CommentsController {
 			commentEntity = commentService.addComment(((CommentEntity)JSONFormatter.buildJSONObject(strComment, CommentEntity.class)));
 			
 		    baseResponse.setStatus("200");
-		    baseResponse.setResult(JSONFormatter.buildStringObject(commentEntity));
+		    baseResponse.setResult(""+commentEntity.getId());
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" add comment failed with JSON Conversion",e);
@@ -94,7 +96,7 @@ public class CommentsController {
 	public String getContempt(@PathVariable("id") String id) {
 		LOG.info(" Entered Reading Comment");
 		CommentEntity commentEntity = null;
-	    BaseResponse baseResponse = new BaseResponse();
+	    ReadCommentResponse readCommentResponse = new ReadCommentResponse();
 		try {
 			
 			if(id==null || id.trim().length()<1) {
@@ -109,9 +111,9 @@ public class CommentsController {
 				throw new ResourceNotFoundException(" Requested comment Details Not Found");
 			}
 			
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(commentEntity));
-			return JSONFormatter.buildStringObject(baseResponse);
+			readCommentResponse.setStatus("200");
+			readCommentResponse.setResult(commentEntity);
+			return JSONFormatter.buildStringObject(readCommentResponse);
 		}catch(JSONConverterException e) {
 			
 			LOG.error(" retreiving comment details failed",e);
@@ -160,7 +162,7 @@ public class CommentsController {
 			commentEntity = commentService.updateComment(commentEntity);
 			
 			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(commentEntity));
+			baseResponse.setResult(""+commentEntity.getId());
 			
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
@@ -236,7 +238,7 @@ public class CommentsController {
 	public String getCase(@PathVariable("caseid") String caseId) {
 		System.out.println(" Retreiving all comments "+caseId);
 		CourtCaseDetailsModel courtCaseDetailsModel = null;
-		BaseResponse baseResponse = new BaseResponse();
+		ReadAllCommentResponse readAllCommentResponse = new ReadAllCommentResponse();
 		
 		try {
 			
@@ -252,9 +254,9 @@ public class CommentsController {
 				throw new ResourceNotFoundException("Requested Resource Not Found");
 			}
 			
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(lstCommentEntity));
-			return JSONFormatter.buildStringObject(baseResponse);
+			readAllCommentResponse.setStatus("200");
+			readAllCommentResponse.setResult(lstCommentEntity);
+			return JSONFormatter.buildStringObject(readAllCommentResponse);
 			
 		}catch(JSONConverterException e) {
 			LOG.error(" update comment failed with JSON Conversion",e);

@@ -100,16 +100,7 @@ public class CourtCaseService {
 			sectionEntity.setSectionId(scetionId);
 			sectionsService.addSection(sectionEntity);
 		}
-		
-		List<String> lstPrayers = courtCaseDetailsModel.getPrayers();
-		
-		for(String prayerId:lstPrayers) {
-			prayerEntity = new PrayerEntity();
-			prayerEntity.setCase_main_id(courtCaseEntity.getId());	
-			prayerEntity.setPrayerId(prayerId);
-			prayerService.addPrayer(prayerEntity);
-		}
-		
+
 		caseHistoryService.addCaseHistory(buildCaseHistory(courtCaseEntity.getId(),courtCaseDetailsModel.getCase_no(),"Case Created","case Created","ADMIN"));
 		return courtCaseEntity.getId();
 		
@@ -130,7 +121,7 @@ public class CourtCaseService {
 		
 		CourtCaseEntity courtCaseEntity = courtCasesRepository.findById(Integer.parseInt(id)).get();
 		
-		List<ScheduleEntity> lstScheduleEntity = scheduleRepository.findByCase_no(courtCaseEntity.getCase_no());
+		List<ScheduleEntity> lstScheduleEntity = scheduleRepository.findByCase_no(Integer.parseInt(id));
 		
 		List<CaseHistoryEntity> lstCaseHistoryEntity = caseHistoryService.getLstCaseHistoryEntity(""+courtCaseEntity.getId());
 		
@@ -141,6 +132,7 @@ public class CourtCaseService {
 		List<FileMovementEntity> lsFileMovementEntity = fileMovementService.getAllRecords(""+courtCaseEntity.getId());
 		
 		CourtCaseDetailsModel courtCaseDetailsModel = transformCaseEntityToModel(courtCaseEntity);
+		courtCaseDetailsModel.setCase_id(""+courtCaseEntity.getId());
 		
 		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
 			lstScheduleDetailsModel.add(transformScheduleEntityToModel(scheduleEntity));
@@ -148,26 +140,19 @@ public class CourtCaseService {
 		}
 		
 		List<SectionEntity> sections = sectionsService.getAllRecords(""+id);
-		List<PrayerEntity> prayers  = prayerService.getAllRecords(""+id);
+		
 		
 		for(SectionEntity sectionEntity:sections) {
 			lstSections.add(sectionEntity.getSectionId());
 		}
 		
-		for(PrayerEntity prayerEntity:prayers) {
-			lstSections.add(prayerEntity.getPrayerId());
-		}
-		
+
 		courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
-		courtCaseDetailsModel.setContempt(lstContemptEntity);
 		courtCaseDetailsModel.setCase_history(lstCaseHistoryEntity);
 		courtCaseDetailsModel.setSections(lstSections);
-		courtCaseDetailsModel.setPrayers(lstPrayers);
+		courtCaseDetailsModel.setContempt(lstContemptEntity);
 		courtCaseDetailsModel.setDocument(lstDocumentEntity);
 		courtCaseDetailsModel.setFile_movement(lsFileMovementEntity);
-		
-	
-		
 		return courtCaseDetailsModel;
 		
 	}
@@ -239,7 +224,7 @@ public class CourtCaseService {
 		courtCaseEntity.setPrayer(courtCaseDetailsModel.getPrayer());
 		courtCaseEntity.setRemark(courtCaseDetailsModel.getRemark());
 		courtCaseEntity.setSchedule(courtCaseDetailsModel.getSchedule());
-		courtCaseEntity.setSection(courtCaseDetailsModel.getSection());
+		
 		courtCaseEntity.setSob_filed(courtCaseDetailsModel.getSob_filed());
 		courtCaseEntity.setStatus(courtCaseDetailsModel.getStatus());
 		courtCaseEntity.setThaluk(courtCaseDetailsModel.getThaluk());
@@ -279,6 +264,7 @@ public class CourtCaseService {
 		CourtCaseDetailsModel courtCaseDetailsModel = new CourtCaseDetailsModel();
 		
 		courtCaseDetailsModel.setAction_date(courtCaseEntity.getAction_date());
+		courtCaseDetailsModel.setCase_id(""+courtCaseEntity.getId());
 		courtCaseDetailsModel.setAdvocate_id(""+courtCaseEntity.getAdvocate_id());
 		courtCaseDetailsModel.setBill_amount(courtCaseEntity.getBill_amount());
 		courtCaseDetailsModel.setCase_created_date(courtCaseEntity.getCase_created_date());
@@ -301,7 +287,7 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setPrayer(courtCaseEntity.getPrayer());
 		courtCaseDetailsModel.setRemark(courtCaseEntity.getRemark());
 		courtCaseDetailsModel.setSchedule(courtCaseEntity.getSchedule());
-		courtCaseDetailsModel.setSection(courtCaseEntity.getSection());
+		
 		courtCaseDetailsModel.setSob_filed(courtCaseEntity.getSob_filed());
 		courtCaseDetailsModel.setStatus(courtCaseEntity.getStatus());
 		courtCaseDetailsModel.setThaluk(courtCaseEntity.getThaluk());

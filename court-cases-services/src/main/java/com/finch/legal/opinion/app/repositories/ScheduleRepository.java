@@ -19,6 +19,6 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Intege
 	ScheduleEntity findById(String id);
 	/** find by id **/
 	/** find by id **/
-	@Query(value="SELECT * FROM schedule  WHERE case_no=?1",nativeQuery = true)
-	 List<ScheduleEntity> findByCase_no(String case_no);
+	@Query(value="SELECT * FROM schedules  WHERE case_main_id=?1",nativeQuery = true)
+	 List<ScheduleEntity> findByCase_no(int case_main_id);
 }

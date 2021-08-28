@@ -119,4 +119,21 @@ public class AppConstants {
 	
 	/** court case add URL **/
 	public final static String DOCUMENT_DELETE_URL="document/{id}";
+	
+	
+	
+	/** court case add URL **/
+	public final static String CASE_APPEAL_ADD_URL="caseappeals/appeal";
+	/** court case add URL **/
+	public final static String ALL_CASE_APPEALS_URL="caseappeals/";
+	
+	
+	/** court case add URL **/
+	public final static String CASE_APPEAL_READ_URL="caseappeals/appeal/{id}";
+	
+	/** court case add URL **/
+	public final static String CASE_APPEAL_UPDATE_URL="caseappeals/appeal/{id}";
+	
+	/** court case add URL **/
+	public final static String CASE_APPEAL_DELETE_URL="caseappeals/appeal/{id}";
 }

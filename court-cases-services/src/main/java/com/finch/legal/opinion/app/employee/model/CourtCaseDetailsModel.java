@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.finch.legal.opinion.app.entities.CaseHistoryEntity;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
 import com.finch.legal.opinion.app.entities.DocumentEntity;
@@ -15,10 +17,14 @@ import com.finch.legal.opinion.app.entities.FileMovementEntity;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(Include.NON_NULL)
 public class CourtCaseDetailsModel {
 
 	/** employee id **/
 	private String case_no="";
+	
+	/** employee id **/
+	private String case_id="";
 	
 
 	/** employee id **/
@@ -60,10 +66,6 @@ public class CourtCaseDetailsModel {
 	private String schedule="";
 	/** employee id **/
 	private String advocate_id="";
-	/** employee id **/
-	private String section="";
-	
-	
 	
 	/** employee id **/
 	private String court_id="";
@@ -98,6 +100,14 @@ public class CourtCaseDetailsModel {
 	/** employee id **/
 	private String opponent_advocate_id_number="";
 	
+	
+	
+   /** order summary **/    
+	private String order_summary="";
+
+	
+	
+	
 	/** employee id **/
 	private List<ScheduleDetailsModel> schedules=new ArrayList();
 	
@@ -116,8 +126,7 @@ public class CourtCaseDetailsModel {
 	/** employee id **/
 	private List<String> sections=new ArrayList();
 	
-	/** employee id **/
-	private List<String> prayers=new ArrayList();
+	
 	
 	/** default constructor **/
 	public CourtCaseDetailsModel() {
@@ -354,20 +363,6 @@ public class CourtCaseDetailsModel {
 	 */
 	public void setAdvocate_id(String advocate_id) {
 		this.advocate_id = advocate_id;
-	}
-
-	/**
-	 * @return the section
-	 */
-	public String getSection() {
-		return section;
-	}
-
-	/**
-	 * @param section the section to set
-	 */
-	public void setSection(String section) {
-		this.section = section;
 	}
 
 	/**
@@ -639,17 +634,45 @@ public class CourtCaseDetailsModel {
 	}
 
 	/**
-	 * @return the prayers
+	 * @return the case_id
 	 */
-	public List<String> getPrayers() {
-		return prayers;
+	public String getCase_id() {
+		return case_id;
 	}
 
 	/**
-	 * @param prayers the prayers to set
+	 * @param case_id the case_id to set
 	 */
-	public void setPrayers(List<String> prayers) {
-		this.prayers = prayers;
+	public void setCase_id(String case_id) {
+		this.case_id = case_id;
+	}
+
+	/**
+	 * @return the order_summary
+	 */
+	public String getOrder_summary() {
+		return order_summary;
+	}
+
+	/**
+	 * @param order_summary the order_summary to set
+	 */
+	public void setOrder_summary(String order_summary) {
+		this.order_summary = order_summary;
+	}
+
+	/**
+	 * @return the documents
+	 */
+	public List<DocumentEntity> getDocuments() {
+		return documents;
+	}
+
+	/**
+	 * @param documents the documents to set
+	 */
+	public void setDocuments(List<DocumentEntity> documents) {
+		this.documents = documents;
 	}
 	
 }

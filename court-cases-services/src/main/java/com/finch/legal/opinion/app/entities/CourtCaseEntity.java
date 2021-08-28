@@ -14,8 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Entity
 @Table(name = "court_cases")
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(Include.NON_NULL)
 public class CourtCaseEntity {
 	
 	@Id
@@ -98,7 +104,7 @@ public class CourtCaseEntity {
 	private String remark="";
 	
 	/** name **/
-	@Column(name = "case_status")
+	@Column(name = "status")
 	private String status="";
 	
 	/** name **/

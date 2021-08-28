@@ -6,7 +6,7 @@
   <name>court-cases-services</name>
   <description>court-cases-services</description>
   
-  <parent>
+   <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.1.RELEASE</version>
@@ -18,6 +18,17 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>1.11.837</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 	<dependencies>
 	 	<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -36,6 +47,14 @@
 			<scope>runtime</scope>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.6</version>
+		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -47,6 +66,35 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/software.amazon.awssdk/s3 -->
+		<dependency>
+		    <groupId>software.amazon.awssdk</groupId>
+		    <artifactId>s3</artifactId>
+		    <version>2.17.15</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.finch</groupId>
+  			<artifactId>common-logger</artifactId>
+ 			 <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+	
+		 <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sts</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-iam</artifactId>
+        </dependency>
+		
 	</dependencies>
 
 	<build>
@@ -54,14 +102,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			
-			<plugin>
-    				<groupId>org.springframework.boot</groupId>
-    				<artifactId>spring-boot-maven-plugin</artifactId>
-    				 <configuration>
-           				<executable>true</executable>
-    			 </configuration>
 			</plugin>
 		</plugins>
 	</build>

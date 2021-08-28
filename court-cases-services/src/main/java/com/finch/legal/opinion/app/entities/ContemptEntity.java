@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.finch.legal.opinion.app.exceptions.JSONConverterException;
 import com.finch.legal.opinion.app.util.JSONFormatter;
 
@@ -17,7 +20,9 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  */
 
 @Entity
-@Table(name = "courtcase_contempt")
+@Table(name = "case_contempt")
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(Include.NON_NULL)
 public class ContemptEntity {
 
 	

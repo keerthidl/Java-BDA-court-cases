@@ -1,5 +1,6 @@
 package com.finch.legal.opinion.app.util;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finch.legal.opinion.app.constants.AppConstants;
 import com.finch.legal.opinion.app.exceptions.JSONConverterException;
@@ -18,7 +19,9 @@ public class JSONFormatter {
 	public static Object buildJSONObject(String strJSON, Class className) throws JSONConverterException{
 		
 		try {
-			return new ObjectMapper().readValue(strJSON, className); 
+			ObjectMapper objMapper = new ObjectMapper();
+			objMapper.configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false);
+			return objMapper.readValue(strJSON, className); 
 		}catch(Exception e) {
 			throw new JSONConverterException(AppConstants.STRING_TO_JSONOBJ_ERR_CODE, AppConstants.STRING_TO_JSONOBJ_ERR_MSG);
 		}

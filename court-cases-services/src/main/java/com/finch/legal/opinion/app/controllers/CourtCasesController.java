@@ -22,6 +22,7 @@ import com.finch.legal.opinion.app.employee.model.AddCaseResponse;
 import com.finch.legal.opinion.app.employee.model.AddCaseResult;
 import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
+import com.finch.legal.opinion.app.employee.model.ReadAllCasesResponse;
 import com.finch.legal.opinion.app.employee.model.ReadCaseResponse;
 import com.finch.legal.opinion.app.entities.CourtCaseEntity;
 import com.finch.legal.opinion.app.exceptions.InternalServerException;
@@ -96,6 +97,7 @@ public class CourtCasesController {
 		    baseResponse.setResult(""+id);
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
+			e.printStackTrace();
 			LOG.error(" add court case failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid enrolment details");
 		}catch(InvalidRequestException e) {
@@ -115,8 +117,8 @@ public class CourtCasesController {
 	public String getCourtCases(@PathVariable("id") String id) {
 		LOG.info(" Entered Reading acourt case");
 		CourtCaseDetailsModel courtCaseDetailsModel = null;
-	    BaseResponse baseResponse = new BaseResponse();
-		
+	   
+	    ReadCaseResponse readCaseResponse = null;
 		try {
 			
 			if(id==null || id.trim().length()<1) {
@@ -124,18 +126,20 @@ public class CourtCasesController {
 			
 			}
 			
-			
 			courtCaseDetailsModel = courtCaseService.getCourtCaseDetails(id);
-			
 			contemptService.getContemptEntity(id);
 			caseHistoryService.getLstCaseHistoryEntity(id);
+			
+			courtCaseDetailsModel.setSections(null);
 			
 			if(courtCaseDetailsModel==null) {
 				throw new ResourceNotFoundException(" Requested Court Case Details Not Found");
 			}
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(courtCaseDetailsModel));
-			return JSONFormatter.buildStringObject(baseResponse);
+			
+			readCaseResponse = new ReadCaseResponse();
+			readCaseResponse.setStatus("200");
+			readCaseResponse.setResult(courtCaseDetailsModel);
+			return JSONFormatter.buildStringObject(readCaseResponse);
 		}catch(JSONConverterException e) {
 			e.printStackTrace();
 			LOG.error(" retreiving court case details failed",e);
@@ -174,19 +178,23 @@ public class CourtCasesController {
 			}
 			
 			courtCaseDetailsModel = courtCaseService.getCourtCaseDetails(""+id);
-			
+			LOG.info(" COURT DETAILS "+strCourtCase);
 			if(courtCaseDetailsModel==null) {
 				throw new ResourceNotFoundException("Requested Resource Not Found");
 			}
 				
-			courtCaseDetailsModel = (CourtCaseDetailsModel)JSONFormatter.buildJSONObject(strCourtCase, CourtCaseDetailsModel.class);
+			id1 = courtCaseService.updateCourtCase(((CourtCaseDetailsModel)JSONFormatter.buildJSONObject(strCourtCase, CourtCaseDetailsModel.class)),id);
 			
-			id1 = courtCaseService.updateCourtCase(courtCaseDetailsModel,id);
+			
+			//courtCaseDetailsModel = (CourtCaseDetailsModel)JSONFormatter.buildJSONObject(strCourtCase, CourtCaseDetailsModel.class);
+			
+			//id1 = courtCaseService.updateCourtCase(courtCaseDetailsModel,id);
 		
 			baseResponse.setStatus("200");
 		    baseResponse.setResult(""+id);
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
+			e.printStackTrace();
 			LOG.error(" add court case failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid enrolment details");
 		}catch(InvalidRequestException e) {
@@ -257,7 +265,7 @@ public class CourtCasesController {
 	public String getAllCases() {
 		LOG.info(" Entered retreiving all court cases");
 	    List<CourtCaseDetailsModel> lstCourtCaseDetailsModel=null; 
-	    BaseResponse baseResponse = new BaseResponse();
+	    ReadAllCasesResponse readAllcasesResponse = new ReadAllCasesResponse();
 		try {
 			lstCourtCaseDetailsModel = courtCaseService.getAllCourtCases();
 			
@@ -266,10 +274,10 @@ public class CourtCasesController {
 	        }
 			
 			
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(lstCourtCaseDetailsModel));
+			readAllcasesResponse.setStatus("200");
+			readAllcasesResponse.setResult(lstCourtCaseDetailsModel);
 			
-			return JSONFormatter.buildStringObject(baseResponse);
+			return JSONFormatter.buildStringObject(readAllcasesResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" add court case failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid enrolment details");

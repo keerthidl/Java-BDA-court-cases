@@ -22,7 +22,9 @@ import com.finch.legal.opinion.app.employee.model.AddCaseResponse;
 import com.finch.legal.opinion.app.employee.model.AddCaseResult;
 import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
+import com.finch.legal.opinion.app.employee.model.ReadAllFileMovementResponse;
 import com.finch.legal.opinion.app.employee.model.ReadCaseResponse;
+import com.finch.legal.opinion.app.employee.model.ReadFileMovementResponse;
 import com.finch.legal.opinion.app.entities.FileMovementEntity;
 import com.finch.legal.opinion.app.exceptions.InternalServerException;
 import com.finch.legal.opinion.app.exceptions.InvalidRequestException;
@@ -74,7 +76,7 @@ public class FileMovementController {
 			fileMovementEntity = fileMovementService.addFileMovement(((FileMovementEntity)JSONFormatter.buildJSONObject(strFileMovementModel, FileMovementEntity.class)));
 			
 			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(fileMovementEntity));
+			baseResponse.setResult(""+fileMovementEntity.getId());
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" add file movement failed with JSON Conversion",e);
@@ -96,7 +98,7 @@ public class FileMovementController {
 	public String getFileMovementEntity(@PathVariable("id") String id) {
 		LOG.info(" Entered Reading File Movement");
 		FileMovementEntity fileMovementEntity = null;
-		BaseResponse addCaseResponse = new BaseResponse();
+		ReadFileMovementResponse readFileMovementResponse = new ReadFileMovementResponse();
 		
 		try {
 			
@@ -109,10 +111,10 @@ public class FileMovementController {
 			if(fileMovementEntity==null) {
 				throw new ResourceNotFoundException(" Requested File Movement Details Not Found");
 			}
-			addCaseResponse.setStatus("200");
-			addCaseResponse.setResult(JSONFormatter.buildStringObject(fileMovementEntity));
+			readFileMovementResponse.setStatus("200");
+			readFileMovementResponse.setResult(fileMovementEntity);
 		
-			return JSONFormatter.buildStringObject(addCaseResponse);
+			return JSONFormatter.buildStringObject(readFileMovementResponse);
 		}catch(JSONConverterException e) {
 			e.printStackTrace();
 			LOG.error(" retreiving File Movement details failed",e);
@@ -159,7 +161,7 @@ public class FileMovementController {
 			fileMovementEntity.setId(Integer.parseInt(id));
 			fileMovementEntity = fileMovementService.updateFileMovement(fileMovementEntity);
 			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(fileMovementEntity));
+			baseResponse.setResult(""+fileMovementEntity.getId());
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" update filemovement failed with JSON Conversion",e);
@@ -224,7 +226,7 @@ public class FileMovementController {
 	public String getFileMovement(@PathVariable("caseid") String caseId) {
 		LOG.info(" Retreiving file movements Details ");
 		
-		BaseResponse baseResponse = new BaseResponse();
+	    ReadAllFileMovementResponse readAllFileMovementResponse = new ReadAllFileMovementResponse();
 		List<FileMovementEntity> lstFileMovementEntity=null;
 		try {
 			
@@ -238,10 +240,10 @@ public class FileMovementController {
 			if(lstFileMovementEntity==null) {
 				throw new ResourceNotFoundException("Requested Resource Not Found");
 			}
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(lstFileMovementEntity));
+			readAllFileMovementResponse.setStatus("200");
+			readAllFileMovementResponse.setResult(lstFileMovementEntity);
 				
-			return JSONFormatter.buildStringObject(baseResponse);
+			return JSONFormatter.buildStringObject(readAllFileMovementResponse);
 		}catch(JSONConverterException e) {
 			e.printStackTrace();
 			LOG.error(" retreiving file movement details failed",e);

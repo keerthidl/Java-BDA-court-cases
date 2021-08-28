@@ -67,9 +67,10 @@ public class LegalOpinionService {
 		}else if(employeeEntity!=null && (employeeEntity.getRoleId()!=null && employeeEntity.getRoleId().equalsIgnoreCase(AppConstants.ADMIN_ROLEID))){
 			lstLegalOpinionRequestEntity =legalOpinionRequestRepository.findAll();
 		}else if(employeeEntity!=null && (employeeEntity.getRoleId()!=null && employeeEntity.getRoleId().equalsIgnoreCase(AppConstants.ADVOCATE_ROLEID))){
-			lstLegalOpinionRequestEntity = legalOpinionRequestRepository.findByAssignedTo(legalOpinionsSearchModel.getUserId());
+			LOG.info(" REQUESTED BY IS "+requestedBy);
+			lstLegalOpinionRequestEntity = legalOpinionRequestRepository.findByAssignedTo(requestedBy);
 		}else if(employeeEntity!=null && (employeeEntity.getRoleId()!=null && employeeEntity.getRoleId().equalsIgnoreCase(AppConstants.HOD_ROLEID))){
-			lstLegalOpinionRequestEntity = legalOpinionRequestRepository.findByAssignedTo(legalOpinionsSearchModel.getUserId());
+			lstLegalOpinionRequestEntity = legalOpinionRequestRepository.findByRequestedBy(requestedBy);
 		}
 		
 		return  lstLegalOpinionRequestEntity;

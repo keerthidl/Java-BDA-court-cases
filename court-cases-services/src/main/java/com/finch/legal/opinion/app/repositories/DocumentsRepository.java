@@ -16,6 +16,6 @@ public interface DocumentsRepository extends JpaRepository<DocumentEntity, Integ
 	DocumentEntity findById(String id);
 	/** find by id **/
 	/** find by id **/
-	@Query(value="SELECT * FROM documents  WHERE case_no=?1",nativeQuery = true)
+	@Query(value="SELECT * FROM case_file_upload  WHERE case_main_id=?1",nativeQuery = true)
 	 List<DocumentEntity> findByCase_no(String case_no);
 }

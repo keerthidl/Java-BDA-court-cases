@@ -10,13 +10,13 @@ import java.util.List;
 public class ReadCaseResponse {
 
 	/** status **/
-	private boolean status;
+	private String status="200";
 	
 	/** status **/
-	private String message;
+	private String message="";
 	
 	/** result **/
-	private List<CourtCaseDetailsModel> result;
+	private CourtCaseDetailsModel result=new CourtCaseDetailsModel();
     	
     	/**
     	 * default constructor
@@ -25,19 +25,25 @@ public class ReadCaseResponse {
     	
     }
 
+		
+
 		/**
 		 * @return the status
 		 */
-		public boolean isStatus() {
+		public String getStatus() {
 			return status;
 		}
+
+
 
 		/**
 		 * @param status the status to set
 		 */
-		public void setStatus(boolean status) {
+		public void setStatus(String status) {
 			this.status = status;
 		}
+
+
 
 		/**
 		 * @return the message
@@ -56,15 +62,16 @@ public class ReadCaseResponse {
 		/**
 		 * @return the result
 		 */
-		public List<CourtCaseDetailsModel> getResult() {
+		public CourtCaseDetailsModel getResult() {
 			return result;
 		}
 
 		/**
 		 * @param result the result to set
 		 */
-		public void setResult(List<CourtCaseDetailsModel> result) {
+		public void setResult(CourtCaseDetailsModel result) {
 			this.result = result;
 		}
 
+		
 }

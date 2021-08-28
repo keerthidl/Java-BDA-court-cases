@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.finch.legal.opinion.app.exceptions.JSONConverterException;
 import com.finch.legal.opinion.app.util.JSONFormatter;
 
@@ -16,7 +19,9 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  *
  */
 @Entity
-@Table(name = "courtcase_coment")
+@Table(name = "case_comments")
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(Include.NON_NULL)
 public class CommentEntity {
 
 	
@@ -25,13 +30,14 @@ public class CommentEntity {
 	/** id **/
 	private int id=0;
 	
-	 /** case activity **/
-	@Column(name = "contempt_no")
-    private String contempt_no="";
     
     /** case activity **/
 	@Column(name = "comment")
     private String comment="";
+	
+	 /** case activity **/
+	@Column(name = "type")
+	private String type="";
     
     /** case activity **/
 	@Column(name = "recorded_on")
@@ -74,20 +80,21 @@ public class CommentEntity {
 
 
 
+	
 	/**
-	 * @return the contempt_no
+	 * @return the type
 	 */
-	public String getContempt_no() {
-		return contempt_no;
+	public String getType() {
+		return type;
 	}
 
 
 
 	/**
-	 * @param contempt_no the contempt_no to set
+	 * @param type the type to set
 	 */
-	public void setContempt_no(String contempt_no) {
-		this.contempt_no = contempt_no;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 
@@ -171,7 +178,7 @@ public class CommentEntity {
 		commentEntity.setCase_main_id(1);
 		commentEntity.setComment(" TESTSTSTSTST ");
 		commentEntity.setCommented_by("admin");
-		commentEntity.setContempt_no("123");
+		commentEntity.setType("Appeal");
 		commentEntity.setRecorded_on("12/12/2021");
 		
 		try {

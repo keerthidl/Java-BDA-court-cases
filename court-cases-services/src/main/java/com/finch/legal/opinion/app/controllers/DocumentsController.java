@@ -22,7 +22,9 @@ import com.finch.legal.opinion.app.employee.model.AddCaseResponse;
 import com.finch.legal.opinion.app.employee.model.AddCaseResult;
 import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
+import com.finch.legal.opinion.app.employee.model.ReadAllDocumentResponse;
 import com.finch.legal.opinion.app.employee.model.ReadCaseResponse;
+import com.finch.legal.opinion.app.employee.model.ReadDocumentResponse;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
 import com.finch.legal.opinion.app.entities.CourtCaseEntity;
 import com.finch.legal.opinion.app.entities.DocumentEntity;
@@ -73,7 +75,7 @@ public class DocumentsController {
 				
 			documentEntity = documentsService.addDocument(((DocumentEntity)JSONFormatter.buildJSONObject(strDocument, DocumentEntity.class)));
 		    baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(documentEntity));
+			baseResponse.setResult(""+documentEntity.getId());
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" add document failed with JSON Conversion",e);
@@ -98,7 +100,7 @@ public class DocumentsController {
 	@GetMapping(value=AppConstants.DOCUMENTS_URL)
 	public String getDocuments(@PathParam("id") String caseId) {
 		LOG.info(" Entered Reading contempt");
-		BaseResponse baseResponse = new BaseResponse();
+		ReadAllDocumentResponse readAllDocumentResponse = new ReadAllDocumentResponse();
 		List<DocumentEntity> lstDocumentEntity = null;
 		
 		try {
@@ -112,10 +114,10 @@ public class DocumentsController {
 			if(lstDocumentEntity==null) {
 				throw new ResourceNotFoundException(" Requested Court Case Details Not Found");
 			}
-			baseResponse.setStatus("200");
-			baseResponse.setResult(JSONFormatter.buildStringObject(lstDocumentEntity));
+			readAllDocumentResponse.setStatus("200");
+			readAllDocumentResponse.setResult(lstDocumentEntity);
 		
-			return JSONFormatter.buildStringObject(baseResponse);
+			return JSONFormatter.buildStringObject(readAllDocumentResponse);
 		}catch(JSONConverterException e) {
 			e.printStackTrace();
 			LOG.error(" retreiving contempt details failed",e);
@@ -157,7 +159,8 @@ public class DocumentsController {
 				throw new ResourceNotFoundException("Requested Document Not Found");
 			}
 			documentEntity = documentsService.updateDocumentEntity(((DocumentEntity)JSONFormatter.buildJSONObject(strDocumentEntity, DocumentEntity.class)));
-			baseResponse.setResult(JSONFormatter.buildStringObject(documentEntity));
+			baseResponse.setStatus("200");
+			baseResponse.setResult(""+documentEntity.getId());
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" update document failed with JSON Conversion",e);
@@ -224,7 +227,7 @@ public class DocumentsController {
 	public String getDocument(@PathVariable("id") String id) {
 		LOG.info(" Retreiving document Details ");
 		
-		BaseResponse baseResponse = new BaseResponse();
+		ReadDocumentResponse readDocumentResponse = new ReadDocumentResponse();
 		DocumentEntity documentEntities = null;
 		
 		try {
@@ -239,10 +242,10 @@ public class DocumentsController {
 			if(documentEntities==null) {
 				throw new ResourceNotFoundException("No Documents Found");
 			}
-			baseResponse.setStatus("200");
-			baseResponse.setResult(id);
-			baseResponse.setResult(JSONFormatter.buildStringObject(documentEntities));
-			return JSONFormatter.buildStringObject(baseResponse);
+			readDocumentResponse.setStatus("200");
+			readDocumentResponse.setResult(documentEntities);
+			
+			return JSONFormatter.buildStringObject(readDocumentResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" retreiving document details failed",e);
 			throw new InvalidRequestException("retreiving document details failed");

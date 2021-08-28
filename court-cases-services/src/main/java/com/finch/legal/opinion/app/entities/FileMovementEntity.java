@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.finch.legal.opinion.app.exceptions.JSONConverterException;
 import com.finch.legal.opinion.app.util.JSONFormatter;
 
@@ -25,6 +28,8 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  */
 @Entity
 @Table(name = "file_movement")
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(Include.NON_NULL)
 public class FileMovementEntity {
 
 	
@@ -34,8 +39,8 @@ public class FileMovementEntity {
 	private int id=0;
 	
 	 /** case activity **/
-	@Column(name = "case_id")
-    private String case_id="";
+	@Column(name = "case_main_id")
+    private int case_main_id=0;
     
     /** case activity **/
 	@Column(name = "from_dept_id")
@@ -76,22 +81,6 @@ public class FileMovementEntity {
 	 */
 	public void setId(int id) {
 		this.id = id;
-	}
-
-
-	/**
-	 * @return the case_id
-	 */
-	public String getCase_id() {
-		return case_id;
-	}
-
-
-	/**
-	 * @param case_id the case_id to set
-	 */
-	public void setCase_id(String case_id) {
-		this.case_id = case_id;
 	}
 
 
@@ -164,7 +153,7 @@ public class FileMovementEntity {
 	public static void main(String[] args) {
 		FileMovementEntity fileMovementEntity = new FileMovementEntity();
 		
-		fileMovementEntity.setCase_id("1");
+		//fileMovementEntity.setCase_id("1");
 		fileMovementEntity.setComments("TESTING");
 		fileMovementEntity.setFile_move_date("12/12/2021");
 		

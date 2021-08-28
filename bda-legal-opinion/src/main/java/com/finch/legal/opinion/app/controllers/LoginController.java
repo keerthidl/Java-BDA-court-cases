@@ -46,7 +46,7 @@ public class LoginController {
 
 	@PostMapping(value=AppConstants.LOGIN_URL)
 	public String login(@RequestBody String strLoginDetails) {
-		LOG.info(" Entered Login Verification");
+		LOG.info(" Entered Login Verification <<<<< >>>>> "+strLoginDetails);
 	  
 		/** Employee Entity **/
 		EmployeeEntity employeeEntity = null;
@@ -70,7 +70,8 @@ public class LoginController {
 			LOG.error("No valid user found",e);
 			throw new ResourceNotFoundException("Invalid Login");
 		}catch(Exception e) {
-			LOG.error("Error while validating the credentials",e);
+			e.printStackTrace();
+			LOG.error("Error while validating the credentials"+strLoginDetails,e);
 			throw new InternalServerException("Error occurred while processing the Request");
 		}
 	}

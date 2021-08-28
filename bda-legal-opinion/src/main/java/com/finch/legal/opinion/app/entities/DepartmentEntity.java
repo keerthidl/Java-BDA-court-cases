@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bdadepartments")
+@Table(name = "dept_master")
 public class DepartmentEntity {
 	
 	@Id
