@@ -87,6 +87,8 @@ public class CourtCasesController {
 				throw new InvalidRequestException(" Invalid court case payload"); 
 			
 			} 
+			
+			System.out.println(" PAY LOAD IS "+strCourtCase);
 				
 			id = courtCaseService.addCourtCase(((CourtCaseDetailsModel)JSONFormatter.buildJSONObject(strCourtCase, CourtCaseDetailsModel.class)));
 		
@@ -98,7 +100,7 @@ public class CourtCasesController {
 			throw new InvalidRequestException(" Invalid enrolment details");
 		}catch(InvalidRequestException e) {
 			LOG.error(" add court case failed with invalid payload",e);
-			throw new InvalidRequestException(" Invalid enrolment details");
+			throw new InvalidRequestException(" Invalid new court case details");
 		}catch(Exception e) {
 			LOG.error(" add court case failed with general exception",e);
 			throw new InternalServerException(" error occurred while processing the request");

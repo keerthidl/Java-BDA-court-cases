@@ -16,7 +16,7 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  *
  */
 @Entity
-@Table(name = "courtcase_sections")
+@Table(name = "courtcase_prayers")
 public class PrayerEntity {
 
 	
@@ -27,7 +27,7 @@ public class PrayerEntity {
 	
 	 /** case activity **/
 	@Column(name = "section_id")
-    private String sectionId="";
+    private String prayerId="";
     
   
     /** case activity **/
@@ -61,22 +61,20 @@ public class PrayerEntity {
 		this.id = id;
 	}
 
-
-
 	/**
-	 * @return the sectionId
+	 * @return the prayerId
 	 */
-	public String getSectionId() {
-		return sectionId;
+	public String getPrayerId() {
+		return prayerId;
 	}
 
 
 
 	/**
-	 * @param sectionId the sectionId to set
+	 * @param prayerId the prayerId to set
 	 */
-	public void setSectionId(String sectionId) {
-		this.sectionId = sectionId;
+	public void setPrayerId(String prayerId) {
+		this.prayerId = prayerId;
 	}
 
 

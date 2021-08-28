@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import com.finch.legal.opinion.app.entities.ScheduleEntity;
 
 
-
+/**
+ * 
+ * @author 91948
+ *
+ */
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Integer> {
 	
 	/** find by id **/

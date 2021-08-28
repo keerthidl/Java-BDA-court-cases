@@ -6,6 +6,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.finch.legal.opinion.app.entities.CaseHistoryEntity;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
+import com.finch.legal.opinion.app.entities.DocumentEntity;
+import com.finch.legal.opinion.app.entities.FileMovementEntity;
 
 /**
  * 
@@ -106,10 +108,10 @@ public class CourtCaseDetailsModel {
 	private List<CaseHistoryEntity> case_history=new ArrayList();
 	
 	/** employee id **/
-	private List<CaseHistoryEntity> file_movement=new ArrayList();
+	private List<FileMovementEntity> file_movement=new ArrayList();
 	
 	/** employee id **/
-	private List<CaseHistoryEntity> document=new ArrayList();
+	private List<DocumentEntity> documents=new ArrayList();
 	
 	/** employee id **/
 	private List<String> sections=new ArrayList();
@@ -125,7 +127,7 @@ public class CourtCaseDetailsModel {
 	/**
 	 * @return the file_movement
 	 */
-	public List<CaseHistoryEntity> getFile_movement() {
+	public List<FileMovementEntity> getFile_movement() {
 		return file_movement;
 	}
 
@@ -133,7 +135,7 @@ public class CourtCaseDetailsModel {
 	/**
 	 * @param file_movement the file_movement to set
 	 */
-	public void setFile_movement(List<CaseHistoryEntity> file_movement) {
+	public void setFile_movement(List<FileMovementEntity> file_movement) {
 		this.file_movement = file_movement;
 	}
 
@@ -141,16 +143,16 @@ public class CourtCaseDetailsModel {
 	/**
 	 * @return the document
 	 */
-	public List<CaseHistoryEntity> getDocument() {
-		return document;
+	public List<DocumentEntity> getDocument() {
+		return documents;
 	}
 
 
 	/**
 	 * @param document the document to set
 	 */
-	public void setDocument(List<CaseHistoryEntity> document) {
-		this.document = document;
+	public void setDocument(List<DocumentEntity> document) {
+		this.documents = document;
 	}
 
 

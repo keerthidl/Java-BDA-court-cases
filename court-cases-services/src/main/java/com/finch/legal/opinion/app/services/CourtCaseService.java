@@ -11,10 +11,13 @@ import com.finch.legal.opinion.app.employee.model.ScheduleDetailsModel;
 import com.finch.legal.opinion.app.entities.CaseHistoryEntity;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
 import com.finch.legal.opinion.app.entities.CourtCaseEntity;
+import com.finch.legal.opinion.app.entities.DocumentEntity;
+import com.finch.legal.opinion.app.entities.FileMovementEntity;
+import com.finch.legal.opinion.app.entities.PrayerEntity;
 import com.finch.legal.opinion.app.entities.ScheduleEntity;
+import com.finch.legal.opinion.app.entities.SectionEntity;
 import com.finch.legal.opinion.app.logs.AppLogger;
 import com.finch.legal.opinion.app.logs.LogManager;
-import com.finch.legal.opinion.app.repositories.CaseHistoryRepository;
 import com.finch.legal.opinion.app.repositories.CourtCasesRepository;
 import com.finch.legal.opinion.app.repositories.ScheduleRepository;
 
@@ -46,6 +49,23 @@ public class CourtCaseService {
 	@Autowired
 	private ContemptService contenptyService;
 	
+	 /** employee repository **/
+	@Autowired
+	private SectionsService sectionsService;
+	
+	 /** employee repository **/
+	@Autowired
+	private PrayersService prayerService;
+	
+	
+	 /** employee repository **/
+	@Autowired
+	private FileMovementService fileMovementService;
+		
+		 /** employee repository **/
+	@Autowired
+	private DocumentsService documentsService;
+	
 	/**
 	 * is employee exists
 	 */
@@ -60,12 +80,34 @@ public class CourtCaseService {
 	 */
 	public int addCourtCase(CourtCaseDetailsModel courtCaseDetailsModel) {
 		
+		SectionEntity sectionEntity = null;
+		
+		PrayerEntity prayerEntity = null;
+		
 		CourtCaseEntity courtCaseEntity = courtCasesRepository.save(transformCaseModelToEntity(courtCaseDetailsModel));
 		
 		List<ScheduleEntity> lstScheduleEntity = getLstScheduleEntity(courtCaseDetailsModel.getSchedules(),courtCaseEntity);
 		
 		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
 			scheduleRepository.save(scheduleEntity);
+		}
+		
+		List<String> lstSections = courtCaseDetailsModel.getSections();
+		
+		for(String scetionId:lstSections) {
+			sectionEntity = new SectionEntity();
+			sectionEntity.setCase_main_id(courtCaseEntity.getId());	
+			sectionEntity.setSectionId(scetionId);
+			sectionsService.addSection(sectionEntity);
+		}
+		
+		List<String> lstPrayers = courtCaseDetailsModel.getPrayers();
+		
+		for(String prayerId:lstPrayers) {
+			prayerEntity = new PrayerEntity();
+			prayerEntity.setCase_main_id(courtCaseEntity.getId());	
+			prayerEntity.setPrayerId(prayerId);
+			prayerService.addPrayer(prayerEntity);
 		}
 		
 		caseHistoryService.addCaseHistory(buildCaseHistory(courtCaseEntity.getId(),courtCaseDetailsModel.getCase_no(),"Case Created","case Created","ADMIN"));
@@ -77,6 +119,10 @@ public class CourtCaseService {
 	 * is employee exists
 	 */
 	public CourtCaseDetailsModel getCourtCaseDetails(String id) {
+		
+		List<String> lstSections = new ArrayList();
+		
+		List<String> lstPrayers = new ArrayList();
 		
 		List<ScheduleDetailsModel> lstScheduleDetailsModel = new ArrayList<ScheduleDetailsModel>();
 		
@@ -90,16 +136,35 @@ public class CourtCaseService {
 		
 		List<ContemptEntity> lstContemptEntity = contenptyService.getAllRecords(""+courtCaseEntity.getId());
 		
+		List<DocumentEntity> lstDocumentEntity = documentsService.getAllRecords(""+courtCaseEntity.getId());
+		
+		List<FileMovementEntity> lsFileMovementEntity = fileMovementService.getAllRecords(""+courtCaseEntity.getId());
+		
 		CourtCaseDetailsModel courtCaseDetailsModel = transformCaseEntityToModel(courtCaseEntity);
 		
 		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
 			lstScheduleDetailsModel.add(transformScheduleEntityToModel(scheduleEntity));
 			
 		}
+		
+		List<SectionEntity> sections = sectionsService.getAllRecords(""+id);
+		List<PrayerEntity> prayers  = prayerService.getAllRecords(""+id);
+		
+		for(SectionEntity sectionEntity:sections) {
+			lstSections.add(sectionEntity.getSectionId());
+		}
+		
+		for(PrayerEntity prayerEntity:prayers) {
+			lstSections.add(prayerEntity.getPrayerId());
+		}
+		
 		courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
 		courtCaseDetailsModel.setContempt(lstContemptEntity);
 		courtCaseDetailsModel.setCase_history(lstCaseHistoryEntity);
-		
+		courtCaseDetailsModel.setSections(lstSections);
+		courtCaseDetailsModel.setPrayers(lstPrayers);
+		courtCaseDetailsModel.setDocument(lstDocumentEntity);
+		courtCaseDetailsModel.setFile_movement(lsFileMovementEntity);
 		
 	
 		
