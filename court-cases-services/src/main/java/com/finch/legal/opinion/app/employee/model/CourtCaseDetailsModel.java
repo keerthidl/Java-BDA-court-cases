@@ -93,8 +93,6 @@ public class CourtCaseDetailsModel {
 	private String opponent_name="";
 	
 	
-	
-	
 	/** employee id **/
 	private String opponent_advocate_id_number="";
 	
@@ -112,6 +110,12 @@ public class CourtCaseDetailsModel {
 	
 	/** employee id **/
 	private List<CaseHistoryEntity> document=new ArrayList();
+	
+	/** employee id **/
+	private List<String> sections=new ArrayList();
+	
+	/** employee id **/
+	private List<String> prayers=new ArrayList();
 	
 	/** default constructor **/
 	public CourtCaseDetailsModel() {
@@ -617,6 +621,33 @@ public class CourtCaseDetailsModel {
 	public void setOther_respondants(String other_respondants) {
 		this.other_respondants = other_respondants;
 	}
-	
+
+	/**
+	 * @return the sections
+	 */
+	public List<String> getSections() {
+		return sections;
+	}
+
+	/**
+	 * @param sections the sections to set
+	 */
+	public void setSections(List<String> sections) {
+		this.sections = sections;
+	}
+
+	/**
+	 * @return the prayers
+	 */
+	public List<String> getPrayers() {
+		return prayers;
+	}
+
+	/**
+	 * @param prayers the prayers to set
+	 */
+	public void setPrayers(List<String> prayers) {
+		this.prayers = prayers;
+	}
 	
 }

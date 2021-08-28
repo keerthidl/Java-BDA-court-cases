@@ -251,7 +251,7 @@ public class LegalOpinionsController {
 	 */
 	@DeleteMapping(value=AppConstants.LEGAL_OPINION_DELETE_URL)
 	public String deleteLegalRequest(@PathVariable("id") String id,HttpServletRequest httpServletRequest) {
-		LOG.info(" Entered LegalOpinion Request Deletion");		
+		LOG.info(" Entered LegalOpinion Request Deletion <<id>> "+id);		
 		LegalOpinionRequestEntity legalOpinionRequestEntity = null;
 		String strRquestId="";
 		EmployeeEntity employeeEntity = null;
@@ -266,7 +266,8 @@ public class LegalOpinionsController {
 			if(legalOpinionRequestEntity==null) {
 				throw new ResourceNotFoundException("Requested Resource Not Found");
 			}else if(legalOpinionRequestEntity.getStatus()!=null && !legalOpinionRequestEntity.getStatus().equalsIgnoreCase(AppConstants.REQUESTED_STATUS)){
-				throw new InvalidRequestException(" Invalid Request,Resource Cannot be Deleted at this status");
+				System.out.println(" TEST "+" Invalid Request,Resource Cannot be Deleted at this status << >> "+legalOpinionRequestEntity.getStatus());
+				throw new InvalidRequestException(" Invalid Request,Resource Cannot be Deleted at this status << >> "+legalOpinionRequestEntity.getStatus());
 			}
 			
 			strRquestId = ""+httpServletRequest.getHeader(AppConstants.USER_ID_KEY);
@@ -284,6 +285,7 @@ public class LegalOpinionsController {
 			LOG.error(" Error while Deleting the request",e);
 			throw new ResourceNotFoundException("Requested Resource Not Found");
 		}catch (InvalidRequestException e) {
+			e.printStackTrace();
 			LOG.error(" Invalid Request,Resource Cannot be Deleted at this status ",e);
 			throw new InvalidRequestException("Requested Resource Not Found");
 		} catch (Exception e) {
