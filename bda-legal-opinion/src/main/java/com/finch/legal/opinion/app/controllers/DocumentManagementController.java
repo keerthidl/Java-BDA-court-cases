@@ -52,7 +52,7 @@ public class DocumentManagementController {
 	
 	@PostMapping(value=AppConstants.ADD_SUPPORT_DOC_URL)
 	public String uploadSupportingDocuent(@RequestBody String strSupportingDocument) {
-		LOG.info(" Entered Adding a new Supporting Document");
+		LOG.info(" Entered Adding a new Supporting Document   "+strSupportingDocument);
 		SupportingDocumentsEntity supportingDocumentsEntity = null;
 		if(strSupportingDocument==null || strSupportingDocument.trim().length()<1){
 			throw new InvalidRequestException("Invalid Legal Opinion Document");
@@ -81,18 +81,18 @@ public class DocumentManagementController {
 	 * employee enrollment service
 	 */
 	@GetMapping(value=AppConstants.ALL_SUPPORT_DOC_URL)
-	public String getAllSupportingDocuments(@RequestBody String strLegalRequestId) {
+	public String getAllSupportingDocuments(@PathVariable("caseid") String caseId) {
 		LOG.info(" Entered query Supporting Documents");
 		SupportingDocumentsEntity supportingDocumentsEntity = null;
 		
-		if(strLegalRequestId==null || strLegalRequestId.trim().length()<1){
+		if(caseId==null || caseId.trim().length()<1){
 			throw new InvalidRequestException("Invalid Legal Opinion Document");
 		}
 		
 		SupportingDocumentsResponse supportingDocumentsResponse = new SupportingDocumentsResponse();
 		
 		try {		
-			supportingDocumentsResponse.setLstSupportingDocumentsEntity(legalOpinionService.getAllSupportingDocuents(strLegalRequestId));
+			supportingDocumentsResponse.setLstSupportingDocumentsEntity(legalOpinionService.getAllSupportingDocuents(caseId));
 			
 			if(supportingDocumentsResponse.getLstSupportingDocumentsEntity()==null || supportingDocumentsResponse.getLstSupportingDocumentsEntity().size()<1) {
 				throw new ResourceNotFoundException("No Documents Founcd");
@@ -116,17 +116,17 @@ public class DocumentManagementController {
 	 * employee enrollment service
 	 */
 	@GetMapping(value=AppConstants.SUPPORT_DOC_URL)
-	public String getSupportingDocument(@PathVariable("id") String strLegalRequestId) {
+	public String getSupportingDocument(@PathVariable("id") String id) {
 		LOG.info(" Entered Retreiving Supporting DOcument");
 		SupportingDocumentsEntity supportingDocumentsEntity = null;
 		
-		if(strLegalRequestId==null || strLegalRequestId.trim().length()<1){
+		if(id==null || id.trim().length()<1){
 			throw new InvalidRequestException("Invalid Legal Opinion Document");
 		}
 		
 		SupportingDocumentsResponse supportingDocumentsResponse = new SupportingDocumentsResponse();
 		try {
-			supportingDocumentsEntity = legalOpinionService.getSupportingDocuent(strLegalRequestId);
+			supportingDocumentsEntity = legalOpinionService.getSupportingDocuent(id);
 			
 			if(supportingDocumentsEntity==null) {
 				throw new ResourceNotFoundException("Requested Document Not Found");

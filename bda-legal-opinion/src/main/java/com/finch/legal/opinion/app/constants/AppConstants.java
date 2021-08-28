@@ -61,10 +61,10 @@ public class AppConstants {
 	public final static String SUPPORT_DOC_URL="/docs/{id}";
 	
 	/** UI URL **/
-	public final static String ALL_SUPPORT_DOC_URL="/adocs/";
+	public final static String ALL_SUPPORT_DOC_URL="/adocs/{caseid}";
 	
 	/** UI URL **/
-	public final static String ADD_SUPPORT_DOC_URL="/doc/";
+	public final static String ADD_SUPPORT_DOC_URL="/doc";
 	
 	/** UI URL **/
 	public final static String LEGAL_OPINIONS_URL="/lopinions";

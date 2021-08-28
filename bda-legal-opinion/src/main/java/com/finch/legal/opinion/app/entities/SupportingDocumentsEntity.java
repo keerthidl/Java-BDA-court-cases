@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.finch.legal.opinion.app.exceptions.JSONConverterException;
+import com.finch.legal.opinion.app.util.JSONFormatter;
+
 /**
  * 
  * @author dvsnk
@@ -177,5 +180,25 @@ public class SupportingDocumentsEntity {
 	 */
 	public void setDocumentData(String documentData) {
 		this.documentData = documentData;
+	}
+	
+	/**
+	 * main method
+	 */
+	public static void main(String[] args) {
+		SupportingDocumentsEntity supportingDocumentsEntity = new SupportingDocumentsEntity();
+		supportingDocumentsEntity.setDocType("PDF");
+		supportingDocumentsEntity.setDocumentData("TETETETETTETETETETETE " );
+		supportingDocumentsEntity.setDocumentName("LEGALOPINION");
+		supportingDocumentsEntity.setLegalRequestId("288");
+		supportingDocumentsEntity.setUploadedBy("admin");
+		supportingDocumentsEntity.setUploadedDate("12/12/2021");
+		
+		try {
+			System.out.println("MSG "+JSONFormatter.buildStringObject(supportingDocumentsEntity));
+		} catch (JSONConverterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
