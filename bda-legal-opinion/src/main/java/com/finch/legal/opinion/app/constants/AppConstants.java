@@ -28,13 +28,13 @@ public class AppConstants {
 	public final static String WILD_CARD_URL="*";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_1="SELECT * FROM legalopinions WHERE advocate_id=?1";
+	public final static String SEARCH_QUERY_1="SELECT * FROM legalopinions WHERE advocate_id=?1 order by date_requested desc";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_2="SELECT * FROM legalopinions where requestor_emp_id=?1";
+	public final static String SEARCH_QUERY_2="SELECT * FROM legalopinions where requestor_emp_id=?1 order by date_requested desc";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_3="SELECT * FROM legalopinions";
+	public final static String SEARCH_QUERY_3="SELECT * FROM legalopinions order by date_requested desc";
 	
 	/** UI URL **/
 	public final static String ROOT_URL="/bda/legalopinion/v1";
