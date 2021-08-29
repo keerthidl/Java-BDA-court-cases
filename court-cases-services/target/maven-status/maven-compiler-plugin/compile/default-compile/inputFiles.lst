@@ -13,6 +13,7 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\ma
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\FileMovementService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\constants\AppConstants.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\ReadCommentResponse.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\CourtService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\ErrorDetails.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\BaseResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\exceptions\InternalServerException.java
@@ -27,9 +28,11 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\ma
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\DocumentsService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\PrayersService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\ScheduleDetailsModel.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\AdvocatesEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\CaseAppealEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\repositories\CaseCommentsRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\CaseAppealService.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\AdvocatesService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\repositories\SectionRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\SectionsService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\ReadAllFileMovementResponse.java
@@ -40,6 +43,7 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\ma
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\DocumentEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\CaseHistoryEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\logs\LogManager.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\repositories\AdvocatesRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\CourtCasesApplication.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\exceptions\ResourceNotFoundException.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\repositories\DocumentsRepository.java
@@ -54,11 +58,13 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\ma
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\PrayerEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\exceptions\InvalidRequestException.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\controllers\CaseAppealController.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\CourtEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\CaseHistory.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\ReadFileMovementResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\CommentEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\ScheduleEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\controllers\FileMovementController.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\entities\ContemptEntity.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\repositories\CourtRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\employee\model\ReadCaseResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\court-cases-services\src\main\java\com\finch\legal\opinion\app\services\ContemptService.java

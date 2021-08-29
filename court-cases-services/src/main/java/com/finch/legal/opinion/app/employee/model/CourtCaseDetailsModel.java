@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.finch.legal.opinion.app.entities.CaseHistoryEntity;
+import com.finch.legal.opinion.app.entities.CommentEntity;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
 import com.finch.legal.opinion.app.entities.DocumentEntity;
 import com.finch.legal.opinion.app.entities.FileMovementEntity;
@@ -49,6 +50,14 @@ public class CourtCaseDetailsModel {
 	
 	/** employee id **/
 	private String thaluk="";
+	
+	
+	/** employee id **/
+	private String advocate_name="";
+	
+
+	/** employee id **/
+	private String court_name="";
 	
 	/** employee id **/
 	private String other_respondants="";
@@ -126,6 +135,9 @@ public class CourtCaseDetailsModel {
 	/** employee id **/
 	private List<String> sections=new ArrayList();
 	
+	/** employee id **/
+	private List<CommentEntity> comments=new ArrayList();
+	
 	
 	
 	/** default constructor **/
@@ -148,29 +160,6 @@ public class CourtCaseDetailsModel {
 		this.file_movement = file_movement;
 	}
 
-
-	/**
-	 * @return the document
-	 */
-	public List<DocumentEntity> getDocument() {
-		return documents;
-	}
-
-
-	/**
-	 * @param document the document to set
-	 */
-	public void setDocument(List<DocumentEntity> document) {
-		this.documents = document;
-	}
-
-
-	/**
-	 * @return the contempt
-	 */
-	public List<ContemptEntity> getContempt() {
-		return contempt;
-	}
 
 
 	/**
@@ -623,6 +612,7 @@ public class CourtCaseDetailsModel {
 	 * @return the sections
 	 */
 	public List<String> getSections() {
+		System.out.println(" JJJJJJJJJJJJJJJJJJJJJJJJJJJ <<SETTER>>"+sections);
 		return sections;
 	}
 
@@ -630,6 +620,7 @@ public class CourtCaseDetailsModel {
 	 * @param sections the sections to set
 	 */
 	public void setSections(List<String> sections) {
+		System.out.println(" JJJJJJJJJJJJJJJJJJJJJJJJJJJ <<GETTER>>"+sections);
 		this.sections = sections;
 	}
 
@@ -674,5 +665,53 @@ public class CourtCaseDetailsModel {
 	public void setDocuments(List<DocumentEntity> documents) {
 		this.documents = documents;
 	}
-	
+
+	/**
+	 * @return the comments
+	 */
+	public List<CommentEntity> getComments() {
+		return comments;
+	}
+
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
+	}
+
+	/**
+	 * @return the contempt
+	 */
+	public List<ContemptEntity> getContempt() {
+		return contempt;
+	}
+
+	/**
+	 * @return the advocate_name
+	 */
+	public String getAdvocate_name() {
+		return advocate_name;
+	}
+
+	/**
+	 * @param advocate_name the advocate_name to set
+	 */
+	public void setAdvocate_name(String advocate_name) {
+		this.advocate_name = advocate_name;
+	}
+
+	/**
+	 * @return the court_name
+	 */
+	public String getCourt_name() {
+		return court_name;
+	}
+
+	/**
+	 * @param court_name the court_name to set
+	 */
+	public void setCourt_name(String court_name) {
+		this.court_name = court_name;
+	}
 }

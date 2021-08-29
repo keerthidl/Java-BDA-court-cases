@@ -77,6 +77,22 @@ public class FileMovementEntity {
 
 
 	/**
+	 * @return the case_main_id
+	 */
+	public int getCase_main_id() {
+		return case_main_id;
+	}
+
+
+	/**
+	 * @param case_main_id the case_main_id to set
+	 */
+	public void setCase_main_id(int case_main_id) {
+		this.case_main_id = case_main_id;
+	}
+
+
+	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
@@ -159,6 +175,7 @@ public class FileMovementEntity {
 		
 		fileMovementEntity.setFrom_dept_id("admin");
 		fileMovementEntity.setTo_dept_id("law");
+		fileMovementEntity.setCase_main_id(23);
 		
 		try {
 			System.out.println(" MSG "+JSONFormatter.buildStringObject(fileMovementEntity));

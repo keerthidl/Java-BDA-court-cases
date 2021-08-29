@@ -27,6 +27,7 @@ import com.finch.common.logger.AppLogger;
 import com.finch.common.logger.LogManager;
 import com.finch.legal.opinion.app.constants.AppConstants;
 import com.finch.legal.opinion.app.employee.model.LegalOpinionAddResponse;
+import com.finch.legal.opinion.app.employee.model.LegalOpinionAllResponse;
 import com.finch.legal.opinion.app.employee.model.LegalOpinionQueryResponse;
 import com.finch.legal.opinion.app.employee.model.LegalOpinionUpdateRequest;
 import com.finch.legal.opinion.app.employee.model.LegalOpinionsSearchModel;
@@ -130,7 +131,7 @@ public class LegalOpinionsController {
 		    legalOpinionAddResponse.setErrors(null);
 			legalOpinionAddResponse.setMessage("Success");
 			httpServletResponse.setStatus(201);
-			legalOpinionAddResponse.setResponse(JSONFormatter.buildStringObject(legalOpinionRequestEntity));
+			legalOpinionAddResponse.setResponse(legalOpinionRequestEntity);
 		    return JSONFormatter.buildStringObject(legalOpinionAddResponse);
 			
 		} catch (JSONConverterException e) {
@@ -228,8 +229,14 @@ public class LegalOpinionsController {
 			legalOpinionRequestEntity = legalOpinionService.addLegalOpinionRequest(legalOpinionRequestEntity);
 			LOG.info(" Legal Opinion Request Entity Updated Successfully");
 			notificationService.send(legalOpinionRequestEntity.getStatus(), legalOpinionRequestEntity.getRequestedBy(), legalOpinionRequestEntity.getAssignedTo(), employeeEntity.getPhoneNum());
-			LOG.info(" Legal Opinion Request Entity Updated Notifications Successfully");		
-			return JSONFormatter.buildStringObject(legalOpinionRequestEntity);
+			LOG.info(" Legal Opinion Request Entity Updated Notifications Successfully");
+			
+			legalOpinionAddResponse.setErrors(null);
+			legalOpinionAddResponse.setMessage("Success");
+			httpServletResponse.setStatus(201);
+			legalOpinionAddResponse.setResponse(legalOpinionRequestEntity);
+				
+			return JSONFormatter.buildStringObject(legalOpinionAddResponse);
 			
 		} catch (JSONConverterException e) {
 			LOG.error("Error while updating the Legal Opinion Request Details, JSON Error",e);
@@ -306,6 +313,9 @@ public class LegalOpinionsController {
 		String strRquestId="";	
 		EmployeeEntity employeeEntity = null;
 		String userId="";
+		
+		LegalOpinionAddResponse legalOpinionAddResponse = new LegalOpinionAddResponse();
+		
 		if(strRequestId==null || strRequestId.trim().length()<1){
 			throw new InvalidRequestException("Invalid Legal Opinion Response Request");
 		}else if(httpServletRequest.getHeader(AppConstants.USER_ID_KEY)==null || httpServletRequest.getHeader(AppConstants.USER_ID_KEY).trim().length()<0) {
@@ -331,7 +341,9 @@ public class LegalOpinionsController {
 				throw new InvalidRequestException(" Not Allowed To Access this Record");
 			}
 			
-			return JSONFormatter.buildStringObject(legalOpinionRequestEntity);
+			legalOpinionAddResponse.setStatusCode("200");
+			legalOpinionAddResponse.setResponse(legalOpinionRequestEntity);
+			return JSONFormatter.buildStringObject(legalOpinionAddResponse);
 		} catch (JSONConverterException e) {
 			LOG.error(" Error while processing the Legal Opinion Request Details, JSON Conversion Failure",e);
 			throw new InternalServerException("Invalid Legal Opinion Response Request");
@@ -356,6 +368,9 @@ public class LegalOpinionsController {
 		LOG.info(" Entered Legal Opinion Details Request ");
 		LegalOpinionRequestEntity legalOpinionRequestEntity = null;
 		LegalOpinionsSearchModel legalOpinionsSearchModel = null;
+		
+		LegalOpinionAllResponse legalOpinionAllResponse = new LegalOpinionAllResponse();
+		
 		List<ErrorDetails> lstErrorDetails = null;
 		LegalOpinionQueryResponse legalOpinionSearchResponse = new LegalOpinionQueryResponse();
 		List<LegalOpinionRequestEntity> lstLegalOpinionRequestEntities = null;
@@ -370,6 +385,11 @@ public class LegalOpinionsController {
 		
 		try {
 			strRquestId = ""+httpServletRequest.getHeader(AppConstants.USER_ID_KEY);
+			LOG.info(" USER ID "+strRquestId);
+			
+			LOG.info("MESSSSSSSSSSSSSSSSSSSSSSSS  "+searchModel);
+			
+			
 			legalOpinionsSearchModel = (LegalOpinionsSearchModel)JSONFormatter.buildJSONObject(searchModel, LegalOpinionsSearchModel.class);
 			
 			lstErrorDetails = validateLegalOpinionSearchRequest.validate(legalOpinionsSearchModel);
@@ -389,21 +409,22 @@ public class LegalOpinionsController {
 				throw new ResourceNotFoundException(" Requested Legal Opinion Request Not Found");
 			}
 			
-			LOG.info("100000 About to Process Search Operations << legalOpinionSearchResponse >>"+legalOpinionSearchResponse);
+			LOG.info("100000 About to Process Search Operations << legalOpinionSearchResponse >>"+lstLegalOpinionRequestEntities.size());
 					
 					
-			legalOpinionSearchResponse.setErrors(null);
-			legalOpinionSearchResponse.setStatusCode("200");
-			legalOpinionSearchResponse.setMessage("Success");
-			legalOpinionSearchResponse.setResponse(JSONFormatter.buildStringObject(lstLegalOpinionRequestEntities));
+			legalOpinionAllResponse.setErrors(null);
+			legalOpinionAllResponse.setStatusCode("200");
+			legalOpinionAllResponse.setMessage("Success");
+			legalOpinionAllResponse.setResponse(lstLegalOpinionRequestEntities);
 			httpServletResponse.setStatus(200);
 			
 			LOG.info("200000000 About to Process Search Operations << legalOpinionSearchResponse >>"+legalOpinionSearchResponse);
 			
 			
-			return JSONFormatter.buildStringObject(legalOpinionSearchResponse);
+			return JSONFormatter.buildStringObject(legalOpinionAllResponse);
 		
 		} catch (JSONConverterException e) {
+			e.printStackTrace();
 			LOG.error(" Error while processing the Legal Opinion Request Details, JSON Conversion Failure",e);
 			throw new InternalServerException("Invalid Legal Opinion Response Request");
 		}catch (ResourceNotFoundException e) {

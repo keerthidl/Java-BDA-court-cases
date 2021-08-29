@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.finch.legal.opinion.app.exceptions.JSONConverterException;
+import com.finch.legal.opinion.app.util.JSONFormatter;
 
 /**
  * 
@@ -120,5 +122,24 @@ public class DocumentEntity {
 	 */
 	public void setCase_main_id(int case_main_id) {
 		this.case_main_id = case_main_id;
+	}
+	
+	/**
+	 * main method
+	 */
+	public static void main(String[] args) {
+		
+		DocumentEntity documentEntity = new DocumentEntity();
+        documentEntity.setCase_main_id(23);
+		documentEntity.setFile("LEGAL OPINION");
+		documentEntity.setFile_name("Great");
+		
+		try {
+			System.out.println(" MSG "+JSONFormatter.buildStringObject(documentEntity));
+		} catch (JSONConverterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

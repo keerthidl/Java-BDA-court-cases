@@ -130,8 +130,6 @@ public class CourtCasesController {
 			contemptService.getContemptEntity(id);
 			caseHistoryService.getLstCaseHistoryEntity(id);
 			
-			courtCaseDetailsModel.setSections(null);
-			
 			if(courtCaseDetailsModel==null) {
 				throw new ResourceNotFoundException(" Requested Court Case Details Not Found");
 			}

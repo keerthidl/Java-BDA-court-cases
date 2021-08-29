@@ -132,8 +132,8 @@ public class CourtCaseEntity {
 	private String case_last_updated="";
 	
 	/** name **/
-	@Column(name = "other_respondents")
-	private String other_respondents="";
+	@Column(name = "other_respondants")
+	private String other_respondants="";
 	
 	/** name **/
 	@Column(name = "type_of_opponent")
@@ -522,15 +522,15 @@ public class CourtCaseEntity {
 	/**
 	 * @return the other_respondents
 	 */
-	public String getOther_respondents() {
-		return other_respondents;
+	public String getOther_respondants() {
+		return other_respondants;
 	}
 
 	/**
 	 * @param other_respondents the other_respondents to set
 	 */
-	public void setOther_respondents(String other_respondents) {
-		this.other_respondents = other_respondents;
+	public void setOther_respondants(String other_respondants) {
+		this.other_respondants = other_respondants;
 	}
 
 	/**

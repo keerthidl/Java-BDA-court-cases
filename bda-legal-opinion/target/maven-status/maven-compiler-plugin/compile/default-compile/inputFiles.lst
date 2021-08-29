@@ -19,6 +19,7 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\services\BDAEmpDesignationsService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\repositories\DepartmentsRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\exceptions\InvalidRequestException.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionAllResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\controllers\DocumentManagementController.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\entities\SupportingDocumentsEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\util\NotificationService.java

@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
 import com.finch.legal.opinion.app.employee.model.ScheduleDetailsModel;
+import com.finch.legal.opinion.app.entities.AdvocatesEntity;
 import com.finch.legal.opinion.app.entities.CaseHistoryEntity;
+import com.finch.legal.opinion.app.entities.CommentEntity;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
 import com.finch.legal.opinion.app.entities.CourtCaseEntity;
+import com.finch.legal.opinion.app.entities.CourtEntity;
 import com.finch.legal.opinion.app.entities.DocumentEntity;
 import com.finch.legal.opinion.app.entities.FileMovementEntity;
 import com.finch.legal.opinion.app.entities.PrayerEntity;
@@ -53,6 +56,11 @@ public class CourtCaseService {
 	@Autowired
 	private SectionsService sectionsService;
 	
+	
+	 /** employee repository **/
+	@Autowired
+	private CommentService commentService;
+	
 	 /** employee repository **/
 	@Autowired
 	private PrayersService prayerService;
@@ -65,6 +73,14 @@ public class CourtCaseService {
 		 /** employee repository **/
 	@Autowired
 	private DocumentsService documentsService;
+
+	 /** employee repository **/
+	@Autowired
+	private AdvocatesService advocatesService;
+	
+	 /** employee repository **/
+	@Autowired
+	private CourtService courtService;
 	
 	/**
 	 * is employee exists
@@ -89,6 +105,7 @@ public class CourtCaseService {
 		List<ScheduleEntity> lstScheduleEntity = getLstScheduleEntity(courtCaseDetailsModel.getSchedules(),courtCaseEntity);
 		
 		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
+			LOG.info(" SCHEDULE INFO "+scheduleEntity);
 			scheduleRepository.save(scheduleEntity);
 		}
 		
@@ -114,6 +131,7 @@ public class CourtCaseService {
 		List<String> lstSections = new ArrayList();
 		
 		List<String> lstPrayers = new ArrayList();
+		AdvocatesEntity advocateEntity=null;
 		
 		List<ScheduleDetailsModel> lstScheduleDetailsModel = new ArrayList<ScheduleDetailsModel>();
 		
@@ -125,6 +143,8 @@ public class CourtCaseService {
 		
 		List<CaseHistoryEntity> lstCaseHistoryEntity = caseHistoryService.getLstCaseHistoryEntity(""+courtCaseEntity.getId());
 		
+		List<CommentEntity> lstCommentEntity = commentService.getAllRecords(""+courtCaseEntity.getId());
+		
 		List<ContemptEntity> lstContemptEntity = contenptyService.getAllRecords(""+courtCaseEntity.getId());
 		
 		List<DocumentEntity> lstDocumentEntity = documentsService.getAllRecords(""+courtCaseEntity.getId());
@@ -134,25 +154,48 @@ public class CourtCaseService {
 		CourtCaseDetailsModel courtCaseDetailsModel = transformCaseEntityToModel(courtCaseEntity);
 		courtCaseDetailsModel.setCase_id(""+courtCaseEntity.getId());
 		
+		
+		try {
+			advocateEntity =      advocatesService.getAdvocatesEntity(courtCaseEntity.getAdvocate_id());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		CourtEntity courtEntity = courtService.getCourtEntity(courtCaseEntity.getCourt_id());
+		
 		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
+			
 			lstScheduleDetailsModel.add(transformScheduleEntityToModel(scheduleEntity));
 			
 		}
 		
+		
 		List<SectionEntity> sections = sectionsService.getAllRecords(""+id);
 		
-		
+			
 		for(SectionEntity sectionEntity:sections) {
+			
 			lstSections.add(sectionEntity.getSectionId());
 		}
 		
-
+	
 		courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
 		courtCaseDetailsModel.setCase_history(lstCaseHistoryEntity);
 		courtCaseDetailsModel.setSections(lstSections);
 		courtCaseDetailsModel.setContempt(lstContemptEntity);
-		courtCaseDetailsModel.setDocument(lstDocumentEntity);
+		courtCaseDetailsModel.setDocuments(lstDocumentEntity);
 		courtCaseDetailsModel.setFile_movement(lsFileMovementEntity);
+		courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
+		courtCaseDetailsModel.setComments(lstCommentEntity);
+		
+		if(advocateEntity!=null) {
+			courtCaseDetailsModel.setAdvocate_name(advocateEntity.getName());
+		}
+		
+		if(courtEntity!=null) {
+			courtCaseDetailsModel.setCourt_name(courtEntity.getName());
+		}
+		
 		return courtCaseDetailsModel;
 		
 	}
@@ -219,11 +262,12 @@ public class CourtCaseService {
 		courtCaseEntity.setOpponent_advocate_id_number(courtCaseDetailsModel.getOpponent_advocate_id_number());
 		courtCaseEntity.setOpponent_name(courtCaseDetailsModel.getOpponent_name());
 		courtCaseEntity.setOrder_type(courtCaseDetailsModel.getOrder_type());
-		courtCaseEntity.setOther_respondents(courtCaseDetailsModel.getOther_respondents());
+		courtCaseEntity.setOther_respondants(courtCaseDetailsModel.getOther_respondants());
 		courtCaseEntity.setPetinitioner_name(courtCaseDetailsModel.getPetinitioner_name());
 		courtCaseEntity.setPrayer(courtCaseDetailsModel.getPrayer());
 		courtCaseEntity.setRemark(courtCaseDetailsModel.getRemark());
 		courtCaseEntity.setSchedule(courtCaseDetailsModel.getSchedule());
+		courtCaseEntity.setCase_year(courtCaseDetailsModel.getCase_year());
 		
 		courtCaseEntity.setSob_filed(courtCaseDetailsModel.getSob_filed());
 		courtCaseEntity.setStatus(courtCaseDetailsModel.getStatus());
@@ -235,28 +279,7 @@ public class CourtCaseService {
 		return courtCaseEntity;
 	}
 	
-	/**
-	 * convert court case data model to entity
-	 */
-	private ScheduleEntity transformScheduleModelToEntity(ScheduleDetailsModel scheduleDetailsModel, CourtCaseEntity courtCaseEntity) {
-		
-		ScheduleEntity scheduleEntity = new ScheduleEntity();
-		
-		scheduleEntity.setCase_no(courtCaseEntity.getCase_no());
-		scheduleEntity.setEast(scheduleDetailsModel.getEast());
-		scheduleEntity.setExtent(scheduleDetailsModel.getExtent());
-		scheduleEntity.setNorth(scheduleDetailsModel.getNorth());
-		scheduleEntity.setSite_no(scheduleDetailsModel.getSite_no());
-		scheduleEntity.setSouth(scheduleDetailsModel.getSouth());
-		scheduleEntity.setSurvey_no(scheduleDetailsModel.getSurvey_no());
-		scheduleEntity.setType(scheduleDetailsModel.getType());
-		scheduleEntity.setWest(scheduleDetailsModel.getWest());
-		
-		return scheduleEntity;
-		
-	}
-	
-	
+
 	/**
 	 * convert court case data model to entity
 	 */
@@ -282,7 +305,7 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setOpponent_advocate_id_number(courtCaseEntity.getOpponent_advocate_id_number());
 		courtCaseDetailsModel.setOpponent_name(courtCaseEntity.getOpponent_name());
 		courtCaseDetailsModel.setOrder_type(courtCaseEntity.getOrder_type());
-		courtCaseDetailsModel.setOther_respondents(courtCaseEntity.getOther_respondents());
+		courtCaseDetailsModel.setOther_respondents(courtCaseEntity.getOther_respondants());
 		courtCaseDetailsModel.setPetinitioner_name(courtCaseEntity.getPetinitioner_name());
 		courtCaseDetailsModel.setPrayer(courtCaseEntity.getPrayer());
 		courtCaseDetailsModel.setRemark(courtCaseEntity.getRemark());
@@ -295,7 +318,34 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setVillage(courtCaseEntity.getVillage());
 		courtCaseDetailsModel.setZone(courtCaseEntity.getZone());
 		
+		courtCaseDetailsModel.setCase_year(courtCaseEntity.getCase_year());
+		
+		
+
 		return courtCaseDetailsModel;
+	}
+	
+	
+	/**
+	 * convert court case data model to entity
+	 */
+	private ScheduleEntity transformScheduleModelToEntity(ScheduleDetailsModel scheduleDetailsModel, CourtCaseEntity courtCaseEntity) {
+		
+		ScheduleEntity scheduleEntity = new ScheduleEntity();
+		
+		scheduleEntity.setCase_main_id(""+courtCaseEntity.getId());
+		scheduleEntity.setCase_no(courtCaseEntity.getCase_no());
+		scheduleEntity.setEast(scheduleDetailsModel.getEast());
+		scheduleEntity.setExtent(scheduleDetailsModel.getExtent());
+		scheduleEntity.setNorth(scheduleDetailsModel.getNorth());
+		scheduleEntity.setSite_no(scheduleDetailsModel.getSite_no());
+		scheduleEntity.setSouth(scheduleDetailsModel.getSouth());
+		scheduleEntity.setSurvey_no(scheduleDetailsModel.getSurvey_no());
+		scheduleEntity.setType(scheduleDetailsModel.getType());
+		scheduleEntity.setWest(scheduleDetailsModel.getWest());
+		
+		return scheduleEntity;
+		
 	}
 	
 	/**

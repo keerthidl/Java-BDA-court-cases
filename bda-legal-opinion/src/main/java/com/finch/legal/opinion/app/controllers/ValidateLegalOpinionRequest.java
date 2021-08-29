@@ -58,16 +58,6 @@ public class ValidateLegalOpinionRequest {
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid Property Number Data crossed allowed 100 characters");
 			lstErrorDetails.add(errorDetails);
-		}else if(legalOpenionRequestEntity.getSurveyNumber()==null || legalOpenionRequestEntity.getSurveyNumber().trim().length()<1) {
-			errorDetails = new ErrorDetails();
-			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
-			errorDetails.setMessage("Invalid Request Details Survey Number not provided");
-			lstErrorDetails.add(errorDetails);
-		}else if(legalOpenionRequestEntity.getSurveyNumber()!=null && legalOpenionRequestEntity.getSurveyNumber().trim().length()>100) {
-			errorDetails = new ErrorDetails();
-			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
-			errorDetails.setMessage("Invalid Survey Number Data crossed allowed 100 characters");
-			lstErrorDetails.add(errorDetails);
 		}else if(legalOpenionRequestEntity.getOpinion()!=null  && legalOpenionRequestEntity.getOpinion().trim().length()>5000) {
 			errorDetails = new ErrorDetails();
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
@@ -142,6 +132,19 @@ public class ValidateLegalOpinionRequest {
 			errorDetails = new ErrorDetails();
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid Requested Date ,please provide a valid requested date");
+			lstErrorDetails.add(errorDetails);
+		}
+		
+		
+		if((legalOpenionRequestEntity.getPropertyNumber()==null || legalOpenionRequestEntity.getPropertyNumber().trim().length() <1) && legalOpenionRequestEntity.getSurveyNumber()==null || legalOpenionRequestEntity.getSurveyNumber().trim().length()<1) {
+			errorDetails = new ErrorDetails();
+			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
+			errorDetails.setMessage("Invalid Request Details Survey Number not provided");
+			lstErrorDetails.add(errorDetails);
+		}else if((legalOpenionRequestEntity.getPropertyNumber()==null || legalOpenionRequestEntity.getPropertyNumber().trim().length() <1) && legalOpenionRequestEntity.getSurveyNumber()!=null && legalOpenionRequestEntity.getSurveyNumber().trim().length()>100) {
+			errorDetails = new ErrorDetails();
+			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
+			errorDetails.setMessage("Invalid Survey Number Data crossed allowed 100 characters");
 			lstErrorDetails.add(errorDetails);
 		}
 		return lstErrorDetails;

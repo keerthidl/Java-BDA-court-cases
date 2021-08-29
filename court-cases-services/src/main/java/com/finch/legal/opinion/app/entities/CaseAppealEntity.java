@@ -41,7 +41,7 @@ public class CaseAppealEntity {
 	
 	 /** case activity **/
 	@Column(name = "PETINITIONER_NAME")
-	private String petitioner_name="";
+	private String petitioner_name=""; 
 		
 	/** case activity **/
 	@Column(name = "sob_field")

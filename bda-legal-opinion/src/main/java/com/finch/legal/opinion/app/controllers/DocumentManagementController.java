@@ -126,8 +126,10 @@ public class DocumentManagementController {
 		
 		SupportingDocumentsResponse supportingDocumentsResponse = new SupportingDocumentsResponse();
 		try {
-			supportingDocumentsEntity = legalOpinionService.getSupportingDocuent(id);
 			
+			LOG.info(" Entered Retreiving Supporting DOcument << ID >> "+id);
+			supportingDocumentsEntity = legalOpinionService.getSupportingDocuent(id);
+			LOG.info(" Entered Retreiving Supporting DOcument << bbbbbbb >> "+id);
 			if(supportingDocumentsEntity==null) {
 				throw new ResourceNotFoundException("Requested Document Not Found");
 			}
