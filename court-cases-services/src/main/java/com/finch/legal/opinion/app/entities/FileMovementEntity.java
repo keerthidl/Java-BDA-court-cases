@@ -51,7 +51,7 @@ public class FileMovementEntity {
     private String to_dept_id="";
     
     /** case activity **/
-	@Column(name = "file_move_date")
+	@Column(name = "file_moved_date")
     private String file_move_date="";
 	
 	 /** case activity **/

@@ -113,8 +113,19 @@ public class CourtCaseDetailsModel {
 	
    /** order summary **/    
 	private String order_summary="";
-
 	
+	  /** order summary **/    
+	private int  commentCount=0;
+	
+	  /** order summary **/    
+	private int  contemptCount=0;
+
+	  /** order summary **/    
+	private int  documentsCount=0;
+	
+	  /** order summary **/    
+	private int  historyCount=0;
+		
 	
 	
 	/** employee id **/
@@ -612,7 +623,7 @@ public class CourtCaseDetailsModel {
 	 * @return the sections
 	 */
 	public List<String> getSections() {
-		System.out.println(" JJJJJJJJJJJJJJJJJJJJJJJJJJJ <<SETTER>>"+sections);
+		//System.out.println(" JJJJJJJJJJJJJJJJJJJJJJJJJJJ <<SETTER>>"+sections);
 		return sections;
 	}
 
@@ -620,7 +631,7 @@ public class CourtCaseDetailsModel {
 	 * @param sections the sections to set
 	 */
 	public void setSections(List<String> sections) {
-		System.out.println(" JJJJJJJJJJJJJJJJJJJJJJJJJJJ <<GETTER>>"+sections);
+		//System.out.println(" JJJJJJJJJJJJJJJJJJJJJJJJJJJ <<GETTER>>"+sections);
 		this.sections = sections;
 	}
 
@@ -714,4 +725,62 @@ public class CourtCaseDetailsModel {
 	public void setCourt_name(String court_name) {
 		this.court_name = court_name;
 	}
+
+	/**
+	 * @return the commentCount
+	 */
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	/**
+	 * @param commentCount the commentCount to set
+	 */
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+
+	/**
+	 * @return the contemptCount
+	 */
+	public int getContemptCount() {
+		return contemptCount;
+	}
+
+	/**
+	 * @param contemptCount the contemptCount to set
+	 */
+	public void setContemptCount(int contemptCount) {
+		this.contemptCount = contemptCount;
+	}
+
+	/**
+	 * @return the documentsCount
+	 */
+	public int getDocumentsCount() {
+		return documentsCount;
+	}
+
+	/**
+	 * @param documentsCount the documentsCount to set
+	 */
+	public void setDocumentsCount(int documentsCount) {
+		this.documentsCount = documentsCount;
+	}
+
+	/**
+	 * @return the historyCount
+	 */
+	public int getHistoryCount() {
+		return historyCount;
+	}
+
+	/**
+	 * @param historyCount the historyCount to set
+	 */
+	public void setHistoryCount(int historyCount) {
+		this.historyCount = historyCount;
+	}
+	
+	
 }

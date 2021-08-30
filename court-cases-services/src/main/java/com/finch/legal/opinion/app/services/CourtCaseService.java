@@ -382,18 +382,21 @@ public class CourtCaseService {
 	 */
 	public List<CourtCaseDetailsModel> getAllCourtCases() {
 		
-		//CourtCaseEntity courtCaseEntity = null;
-		
 		List<CourtCaseEntity> lstAllCourtCases = courtCasesRepository.findAll();
 		
 		List<CourtCaseDetailsModel> lstCourtCaseDetailsModel = new ArrayList();
+		
+		CourtCaseDetailsModel courtCaseDetailsModel = null;
 		
 		if(lstAllCourtCases==null) {
 			return null;
 		}
 		
 		for(CourtCaseEntity courtCaseEntity: lstAllCourtCases) {
-			lstCourtCaseDetailsModel.add(transformCaseEntityToModel(courtCaseEntity));
+			
+			courtCaseDetailsModel = populateCourtCases(""+courtCaseEntity.getId(),courtCaseEntity);//transformCaseEntityToModel(courtCaseEntity);
+			
+			lstCourtCaseDetailsModel.add(courtCaseDetailsModel);
 		}
 		
 		return lstCourtCaseDetailsModel;
@@ -420,5 +423,84 @@ public class CourtCaseService {
 		caseHistoryEntity.setCreated_date(caseNumber);
 		caseHistoryEntity.setUser_dept(dept);
 		return caseHistoryEntity;
+	}
+	
+	/**
+	 * populate court case details
+	 */
+	private CourtCaseDetailsModel populateCourtCases(String id,CourtCaseEntity courtCaseEntity) {
+		List<String> lstSections = new ArrayList();
+		
+		List<String> lstPrayers = new ArrayList();
+		AdvocatesEntity advocateEntity=null;
+		
+		List<ScheduleDetailsModel> lstScheduleDetailsModel = new ArrayList<ScheduleDetailsModel>();
+		List<ScheduleEntity> lstScheduleEntity = scheduleRepository.findByCase_no(Integer.parseInt(id));
+		
+		List<CaseHistoryEntity> lstCaseHistoryEntity = caseHistoryService.getLstCaseHistoryEntity(""+courtCaseEntity.getId());
+		
+		List<CommentEntity> lstCommentEntity = commentService.getAllRecords(""+courtCaseEntity.getId());
+		
+		List<ContemptEntity> lstContemptEntity = contenptyService.getAllRecords(""+courtCaseEntity.getId());
+		
+		List<DocumentEntity> lstDocumentEntity = documentsService.getAllRecords(""+courtCaseEntity.getId());
+		
+		List<FileMovementEntity> lsFileMovementEntity = fileMovementService.getAllRecords(""+courtCaseEntity.getId());
+		
+		CourtCaseDetailsModel courtCaseDetailsModel = transformCaseEntityToModel(courtCaseEntity);
+		courtCaseDetailsModel.setCase_id(""+courtCaseEntity.getId());
+		
+		
+		try {
+			advocateEntity =      advocatesService.getAdvocatesEntity(courtCaseEntity.getAdvocate_id());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(lstCommentEntity!=null)
+		courtCaseDetailsModel.setCommentCount(lstCommentEntity.size());
+		if(lstContemptEntity!=null)
+		courtCaseDetailsModel.setContemptCount(lstContemptEntity.size());
+		if(lstDocumentEntity!=null)
+		courtCaseDetailsModel.setDocumentsCount(lstDocumentEntity.size());
+		if(lstCaseHistoryEntity!=null)
+		courtCaseDetailsModel.setHistoryCount(lstCaseHistoryEntity.size());
+		
+		
+		CourtEntity courtEntity = courtService.getCourtEntity(courtCaseEntity.getCourt_id());
+		
+		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
+			
+			lstScheduleDetailsModel.add(transformScheduleEntityToModel(scheduleEntity));
+			
+		}
+		
+		
+		List<SectionEntity> sections = sectionsService.getAllRecords(""+id);
+	
+		for(SectionEntity sectionEntity:sections) {
+			
+			lstSections.add(sectionEntity.getSectionId());
+		}
+		
+	
+		//courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
+		//courtCaseDetailsModel.setCase_history(lstCaseHistoryEntity);
+		courtCaseDetailsModel.setSections(lstSections);
+	//	courtCaseDetailsModel.setContempt(lstContemptEntity);
+	//	courtCaseDetailsModel.setDocuments(lstDocumentEntity);
+	//	courtCaseDetailsModel.setFile_movement(lsFileMovementEntity);
+		courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
+	//	courtCaseDetailsModel.setComments(lstCommentEntity);
+		
+		if(advocateEntity!=null) {
+			courtCaseDetailsModel.setAdvocate_name(advocateEntity.getName());
+		}
+		
+		if(courtEntity!=null) {
+			courtCaseDetailsModel.setCourt_name(courtEntity.getName());
+		}
+		
+		return courtCaseDetailsModel;
 	}
 }

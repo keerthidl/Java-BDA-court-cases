@@ -74,6 +74,7 @@ public class CommentService {
 		 * scheule entities
 		 */
 		public List<CommentEntity> getAllRecords(String caseId){
+			
 			return caseCommentsRepository.findByCase_main_id(Integer.parseInt(caseId));
 		}
 }

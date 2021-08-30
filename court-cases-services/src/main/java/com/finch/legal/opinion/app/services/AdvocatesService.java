@@ -26,8 +26,13 @@ public class AdvocatesService {
 	 */
 	public AdvocatesEntity getAdvocatesEntity(String id) {
 		
+		//System.out.println(" VVVVVVVVVVVVVVVVVVVVVVVVVVVV    "+id);
 		
-		return advocatesRepository.findById(Integer.parseInt(id));
+		if(id!=null && id.trim().length()>0) {
+			return advocatesRepository.findById(Integer.parseInt(id));
+		}else {
+			return new AdvocatesEntity();
+		}
 		
 	}
 	

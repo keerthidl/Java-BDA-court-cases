@@ -132,7 +132,7 @@ public class CourtCaseEntity {
 	private String case_last_updated="";
 	
 	/** name **/
-	@Column(name = "other_respondants")
+	@Column(name = "other_respondents")
 	private String other_respondants="";
 	
 	/** name **/

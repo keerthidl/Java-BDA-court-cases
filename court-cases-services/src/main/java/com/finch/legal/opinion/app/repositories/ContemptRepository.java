@@ -14,6 +14,6 @@ public interface ContemptRepository extends JpaRepository<ContemptEntity, Intege
 	/** find by id **/
 	ContemptEntity findById(int id);
 	/** find by id **/
-	@Query(value="SELECT * FROM case_contempt  WHERE case_main_id=?1",nativeQuery = true)
+	@Query(value="SELECT * FROM courtcase_contempt  WHERE case_main_id=?1",nativeQuery = true)
 	List<ContemptEntity> findByCase_main_id(int case_main_id); 
 }

@@ -19,7 +19,7 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  *
  */
 @Entity
-@Table(name = "case_comments")
+@Table(name = "courtcase_comment")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
 public class CommentEntity {
@@ -36,7 +36,7 @@ public class CommentEntity {
     private String comment="";
 	
 	 /** case activity **/
-	@Column(name = "type")
+	@Column(name = "contempt_no")
 	private String type="";
     
     /** case activity **/

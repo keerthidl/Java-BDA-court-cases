@@ -20,7 +20,7 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  */
 
 @Entity
-@Table(name = "case_contempt")
+@Table(name = "courtcase_contempt")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
 public class ContemptEntity {

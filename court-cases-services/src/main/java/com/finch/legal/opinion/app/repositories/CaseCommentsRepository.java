@@ -15,6 +15,6 @@ public interface CaseCommentsRepository extends JpaRepository<CommentEntity, Int
 	/** find by id **/
 	CommentEntity findById(String id);
 	/** find by id **/
-	@Query(value="SELECT * FROM case_comments  WHERE case_main_id=?1",nativeQuery = true)
+	@Query(value="SELECT * FROM courtcase_comment  WHERE case_main_id=?1",nativeQuery = true)
 	List<CommentEntity> findByCase_main_id(int case_main_id); 
 }
