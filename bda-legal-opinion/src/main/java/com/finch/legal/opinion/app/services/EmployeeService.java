@@ -67,7 +67,7 @@ public class EmployeeService {
 	 */
 	public EmployeeEntity getEmployeeById(String empId) {
 		
-		return employeeRepository.findByEmpId(empId);
+		return employeeRepository.findById(Integer.parseInt(empId)).get();
 	
 	}
 	

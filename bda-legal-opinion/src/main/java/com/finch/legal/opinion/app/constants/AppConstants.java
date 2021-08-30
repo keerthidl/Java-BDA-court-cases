@@ -28,13 +28,13 @@ public class AppConstants {
 	public final static String WILD_CARD_URL="*";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_1="SELECT * FROM legalopinions WHERE advocate_id=?1 order by date_requested desc";
+	public final static String SEARCH_QUERY_1="SELECT * FROM legal_opinion_requests WHERE advocate_id=?1 order by date_requested desc";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_2="SELECT * FROM legalopinions where requestor_emp_id=?1 order by date_requested desc";
+	public final static String SEARCH_QUERY_2="SELECT * FROM legal_opinion_requests where requestor_emp_id=?1 order by date_requested desc";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_3="SELECT * FROM legalopinions order by date_requested desc";
+	public final static String SEARCH_QUERY_3="SELECT * FROM legal_opinion_requests order by date_requested desc";
 	
 	/** UI URL **/
 	public final static String ROOT_URL="/bda/legalopinion/v1";
@@ -72,6 +72,33 @@ public class AppConstants {
 	public final static String LEGAL_OPINION_ADD_URL="/lopinion";
 	/** UI URL **/
 	public final static String LEGAL_OPINION_UPDATE_URL="/lopinions/lopinion/{id}";
+	
+	
+	/** UI URL **/
+	public final static String LEGAL_OPINIONS_ALL_COMMENTS_URL="/comments/{id}";
+	/** UI URL **/
+	public final static String LEGAL_OPINION_ADD_COMMENT_URL="/comments/comment";
+	/** UI URL **/
+	public final static String LEGAL_OPINION_UPDATE_COMMENT_URL="/comments/comment/{id}";
+	
+	/** UI URL **/
+	public final static String LEGAL_OPINION_DELETE_COMMENT_URL="/comments/comment/{id}";
+	
+	/** UI URL **/
+	public final static String LEGAL_OPINION_READ_COMMENT_URL="/comments/comment/{id}";
+	
+	
+	/** UI URL **/
+	public final static String LEGAL_OPINIONS_ALL_TRANS_HISTORY_URL="/transactions/transhistory/{id}";
+	
+	/** UI URL **/
+	public final static String LEGAL_OPINIONS_READ_TRANS_HISTORY_URL="/transhistory/{id}";
+	
+	
+	
+	
+	
+	
 	
 	/** UI URL **/
 	public final static String LEGAL_OPINION_DELETE_URL="/dlopinion/{id}";

@@ -1,6 +1,7 @@
 package com.finch.legal.opinion.app.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -36,10 +37,25 @@ public class GeneralUtil {
 	/**
 	 * date formatter
 	 */
+	public static java.util.Date getCurrentDate() {
+		String pattern = "MM-dd-yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		try {
+			return simpleDateFormat.parse(simpleDateFormat.format(new java.util.Date()));
+		} catch (ParseException e) {
+			 return null;
+		}
+	}
+	
+	/**
+	 * date formatter
+	 */
 	public static String getTodaysDate() {
 		String pattern = "MM-dd-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		return simpleDateFormat.format(new Date());
+		
+		return simpleDateFormat.format(new java.util.Date());
+		
 	}
 	
 	
@@ -54,12 +70,12 @@ public class GeneralUtil {
 	/**
 	 * date formatter
 	 */
-	public static boolean isFutureDate(String strDate) {
+	public static boolean isFutureDate(Date strDate) {
 		String pattern = "MM-dd-yyyy";
 		
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			Date date = simpleDateFormat.parse(strDate);
+			Date date = simpleDateFormat.parse(simpleDateFormat.format(strDate));
 			Date currentDate = new Date();
 			return date.before(currentDate);
 		}catch(Exception e) {
@@ -70,12 +86,12 @@ public class GeneralUtil {
 	/**
 	 * date formatter
 	 */
-	public static boolean isTodaysDate(String strDate) {
+	public static boolean isTodaysDate(Date strDate) {
 		String pattern = "MM-dd-yyyy";
 		
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			Date date = simpleDateFormat.parse(strDate);
+			Date date = simpleDateFormat.parse(simpleDateFormat.format(strDate));
 			Date currentDate = new Date();
 			if(date.compareTo(currentDate)==0) {
 				return true;
@@ -88,12 +104,12 @@ public class GeneralUtil {
 	/**
 	 * date formatter
 	 */
-	public static boolean isPreviousDate(String strDate) {
+	public static boolean isPreviousDate(Date strDate) {
 		String pattern = "MM-dd-yyyy";
 		
 		try {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			Date date = simpleDateFormat.parse(strDate);
+			Date date = simpleDateFormat.parse(simpleDateFormat.format(strDate));
 			Date currentDate = new Date();
 			return date.before(currentDate);
 		}catch(Exception e) {

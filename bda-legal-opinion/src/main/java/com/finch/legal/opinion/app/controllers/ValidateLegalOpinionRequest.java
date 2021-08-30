@@ -28,12 +28,12 @@ public class ValidateLegalOpinionRequest {
 			errorDetails.setMessage("Invalid Request Object");
 			lstErrorDetails.add(errorDetails);
 			
-		}else if(legalOpenionRequestEntity.getExpectedDate()==null || legalOpenionRequestEntity.getExpectedDate().trim().length()<1) {
+		}else if(legalOpenionRequestEntity.getExpectedDate()==null || legalOpenionRequestEntity.getExpectedDate()!=null) {
 			errorDetails = new ErrorDetails();
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid Expected Date, not provided");
 			lstErrorDetails.add(errorDetails);
-		}else if(legalOpenionRequestEntity.getExpectedDate()!=null && legalOpenionRequestEntity.getExpectedDate().trim().length()>12) {
+		}else if(legalOpenionRequestEntity.getExpectedDate()!=null && legalOpenionRequestEntity.getExpectedDate()!=null) {
 			errorDetails = new ErrorDetails();
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid Expected Date crossed allowed 12 characters");
@@ -73,15 +73,10 @@ public class ValidateLegalOpinionRequest {
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid data, assigned to not provided");
 			lstErrorDetails.add(errorDetails);
-		}else if(legalOpenionRequestEntity.getStatus()!=null && legalOpenionRequestEntity.getStatus().trim().length()>100) {
+		}else if(legalOpenionRequestEntity.getStatus()!=1) {
 			errorDetails = new ErrorDetails();
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid status Data crossed allowed 100 characters");
-			lstErrorDetails.add(errorDetails);
-		}else if(legalOpenionRequestEntity.getStatus()==null || legalOpenionRequestEntity.getStatus().trim().length()<1) {
-			errorDetails = new ErrorDetails();
-			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
-			errorDetails.setMessage("Invalid status , status not provided");
 			lstErrorDetails.add(errorDetails);
 		}else if(legalOpenionRequestEntity.getRequestedBy()!=null && legalOpenionRequestEntity.getRequestedBy().trim().length()>100) {
 			errorDetails = new ErrorDetails();
@@ -93,12 +88,12 @@ public class ValidateLegalOpinionRequest {
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid status , requested by not provided");
 			lstErrorDetails.add(errorDetails);
-		}else if(legalOpenionRequestEntity.getRequestedOn()!=null && legalOpenionRequestEntity.getRequestedOn().trim().length()>12) {
+		}else if(legalOpenionRequestEntity.getRequestedOn()!=null && legalOpenionRequestEntity.getRequestedOn()!=null) {
 			errorDetails = new ErrorDetails();
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid Requested On Data crossed allowed 100 characters");
 			lstErrorDetails.add(errorDetails);
-		}else if(legalOpenionRequestEntity.getRequestedOn()==null || legalOpenionRequestEntity.getRequestedOn().trim().length()<1) {
+		}else if(legalOpenionRequestEntity.getRequestedOn()==null || legalOpenionRequestEntity.getRequestedOn()!=null) {
 			errorDetails = new ErrorDetails();
 			errorDetails.setCode(AppConstants.INVALID_DATA_VALUE_ERROR_CODE);
 			errorDetails.setMessage("Invalid status , requested on not provided");

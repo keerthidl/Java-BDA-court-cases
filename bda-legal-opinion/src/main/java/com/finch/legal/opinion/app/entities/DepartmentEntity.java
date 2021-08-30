@@ -30,4 +30,48 @@ public class DepartmentEntity {
 	/** name **/
 	private String name ;
 
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the deptId
+	 */
+	public String getDeptId() {
+		return deptId;
+	}
+
+	/**
+	 * @param deptId the deptId to set
+	 */
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+
 }

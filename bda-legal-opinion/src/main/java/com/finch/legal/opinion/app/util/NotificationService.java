@@ -42,7 +42,7 @@ public class NotificationService {
 	 * send notification
 	 */
 	
-	public void send(String status,String requestedBy,String assignedTo,String loggedInUserPhoneNumber) {
+	public void send(String status,String requestedBy) {
 		List<String> lstAddresses = null;
 		List<EmployeeEntity> lstEmployeeEntities = null;
 		EmployeeEntity employeeEntity = null;	
@@ -62,17 +62,28 @@ public class NotificationService {
 					LOG.warn("No Law Officer Role Found for Sending Notifications");;
 				}
 				
+				employeeEntity = employeeService.getEmployeeById(requestedBy);
+				
+				if(employeeEntity!=null && employeeEntity.getPhoneNum().trim().length()>0) {
+					lstAddresses = new ArrayList();
+					employeeEntity = (EmployeeEntity)lstEmployeeEntities.get(0);
+					lstAddresses.add(employeeEntity.getPhoneNum());
+					communicationService.sendNewRequest(lstAddresses,AppConstants.LEGAL_OPINION_SOUGHT_SMS_MESSAGE);
+				}else {
+					LOG.warn("No Law Officer Role Found for Sending Notifications");;
+				}
+				
 				lstAddresses = new ArrayList();
-				lstAddresses.add(loggedInUserPhoneNumber);
+				lstAddresses.add(employeeEntity.getPhoneNum());
 				communicationService.sendNewRequest(lstAddresses, AppConstants.LEGAL_OPINION_REQUESTED_SMS_MESSAGE);
 				LOG.info("Successfully sent SMS notifications for Legela Opinion Request");
 				
-		}else if(status!=null && status.equalsIgnoreCase(AppConstants.ASSIGNEDTO_STATUS)) {
+		}else if(status!=null && status.equalsIgnoreCase("1"+AppConstants.ASSIGNEDTO_STATUS)) {
 			lstAddresses = new ArrayList();
 			lstEmployeeEntities = employeeService.getEmpByRole(AppConstants.LAW_OFFICER_ROLEID);
 		
 		    /** Sent to law officer **/	
-			lstAddresses.add(loggedInUserPhoneNumber);
+			lstAddresses.add(requestedBy);
 			communicationService.sendNewRequest(lstAddresses, AppConstants.LEGAL_OPINION_ASSIGNED_SMS_MESSAGE);
 			/**************************************/
 			
@@ -80,25 +91,25 @@ public class NotificationService {
 			
 			employeeEntity = employeeService.getEmployeeById(requestedBy);
 			lstAddresses = new ArrayList();
-			lstAddresses.add(loggedInUserPhoneNumber);
+			//lstAddresses.add(loggedInUserPhoneNumber);
 			communicationService.sendNewRequest(lstAddresses, AppConstants.LEGAL_OPINION_ASSIGNED_SMS_MESSAGE);
 			
 			/*************************************************/
 			
 			/*** communication to lawyer **/
 		
-			employeeEntity = employeeService.getEmployeeById(assignedTo);
+			employeeEntity = employeeService.getEmployeeById(requestedBy);
 			lstAddresses = new ArrayList();
-			lstAddresses.add(loggedInUserPhoneNumber);
+			lstAddresses.add(employeeEntity.getPhoneNum());
 			communicationService.sendNewRequest(lstAddresses, "Requested for Legal Opinion");
 			LOG.info("Successfully sent SMS notifications for Legela Opinion Request");
 			/*************************************************/
-	   }else if(status!=null && status.equalsIgnoreCase(AppConstants.CLOSED_STATUS)) {
+	   }else if(status!=null && status.equalsIgnoreCase("2"+AppConstants.CLOSED_STATUS)) {
 			lstAddresses = new ArrayList();
 			lstEmployeeEntities = employeeService.getEmpByRole(AppConstants.LAW_OFFICER_ROLEID);
 		
 		    /** Sent to law officer **/	
-			lstAddresses.add(loggedInUserPhoneNumber);
+			//lstAddresses.add(loggedInUserPhoneNumber);
 			communicationService.sendNewRequest(lstAddresses, AppConstants.LEGAL_OPINION_REQUESTED_SMS_MESSAGE);
 			/**************************************/
 			
@@ -106,15 +117,15 @@ public class NotificationService {
 			
 			employeeEntity = employeeService.getEmployeeById(requestedBy);
 			lstAddresses = new ArrayList();
-			lstAddresses.add(loggedInUserPhoneNumber);
+			//lstAddresses.add(loggedInUserPhoneNumber);
 			communicationService.sendNewRequest(lstAddresses, AppConstants.LEGAL_OPINION_REQUEST_CLOSED_SMS_MESSAGE);
 			
 			/*************************************************/
 			
 			/*** communication to lawyer **/
-			employeeEntity = employeeService.getEmployeeById(assignedTo);
+			//employeeEntity = employeeService.getEmployeeById(assignedTo);
 			lstAddresses = new ArrayList();
-			lstAddresses.add(loggedInUserPhoneNumber);
+			//lstAddresses.add(loggedInUserPhoneNumber);
 			communicationService.sendNewRequest(lstAddresses, AppConstants.LEGAL_OPINION_REQUEST_CLOSED_SMS_MESSAGE);
 			
 	   }

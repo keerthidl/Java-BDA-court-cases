@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.finch.common.logger.AppLogger;
 import com.finch.common.logger.LogManager;
 import com.finch.legal.opinion.app.constants.AppConstants;
+import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.EmployeeModel;
 import com.finch.legal.opinion.app.employee.model.LoginDetails;
 import com.finch.legal.opinion.app.employee.model.SupportingDocumentsResponse;
@@ -53,6 +54,9 @@ public class DocumentManagementController {
 	@PostMapping(value=AppConstants.ADD_SUPPORT_DOC_URL)
 	public String uploadSupportingDocuent(@RequestBody String strSupportingDocument) {
 		LOG.info(" Entered Adding a new Supporting Document   "+strSupportingDocument);
+		
+		BaseResponse baseResponse = new BaseResponse();
+		
 		SupportingDocumentsEntity supportingDocumentsEntity = null;
 		if(strSupportingDocument==null || strSupportingDocument.trim().length()<1){
 			throw new InvalidRequestException("Invalid Legal Opinion Document");
@@ -63,8 +67,9 @@ public class DocumentManagementController {
 			supportingDocumentsEntity = (SupportingDocumentsEntity)JSONFormatter.buildJSONObject(strSupportingDocument, SupportingDocumentsEntity.class);
 			
 			legalOpinionService.uploadSupportingDocuments(supportingDocumentsEntity);
-			
-			return JSONFormatter.buildStringObject(supportingDocumentsEntity);
+			baseResponse.setStatusCode("201");
+			baseResponse.setResponse(""+supportingDocumentsEntity.getId());
+			return JSONFormatter.buildStringObject(baseResponse);
 		} catch (JSONConverterException e) {
 			LOG.error(" Error while uploading document",e);
 			throw new InternalServerException("Invalid Legal Opinion Response Request");

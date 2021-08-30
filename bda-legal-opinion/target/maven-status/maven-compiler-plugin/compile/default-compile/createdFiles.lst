@@ -7,7 +7,6 @@ com\finch\legal\opinion\app\exceptions\JSONConverterException.class
 com\finch\legal\opinion\app\util\Tester.class
 com\finch\legal\opinion\app\entities\AdvocatesEntity.class
 com\finch\legal\opinion\app\controllers\LegalOpinionsController.class
-com\finch\legal\opinion\app\repositories\BDAEmpDesignationsRepository.class
 com\finch\legal\opinion\app\entities\LegalOpinionRequestEntity.class
 com\finch\legal\opinion\app\employee\model\LoginDetails.class
 com\finch\legal\opinion\app\exceptions\ResourceNotFoundException.class
@@ -25,7 +24,6 @@ com\finch\legal\opinion\app\repositories\SupportingDocumentRepository.class
 com\finch\legal\opinion\app\employee\model\ErrorDetails.class
 com\finch\legal\opinion\app\services\CommunicationService.class
 com\finch\legal\opinion\app\employee\model\TemplateBasedEmailMessageModel.class
-com\finch\legal\opinion\app\entities\EmployeeDesignationsEntity.class
 com\finch\legal\opinion\app\services\AdvocatesService.class
 com\finch\legal\opinion\app\util\JSONFormatter.class
 com\finch\legal\opinion\app\services\AWSDocuploader.class
@@ -33,7 +31,6 @@ com\finch\legal\opinion\app\controllers\DocumentManagementController.class
 com\finch\legal\opinion\app\employee\model\EmployeeModel.class
 com\finch\legal\opinion\app\entities\DepartmentEntity.class
 com\finch\legal\opinion\app\services\EmployeeService.class
-com\finch\legal\opinion\app\services\BDAEmpDesignationsService.class
 com\finch\legal\opinion\app\services\LegalOpinionService.class
 com\finch\legal\opinion\app\employee\model\AdvocateListResponse.class
 com\finch\legal\opinion\app\entities\SupportingDocumentsEntity.class
@@ -42,7 +39,6 @@ com\finch\legal\opinion\app\employee\model\BaseResponse.class
 com\finch\legal\opinion\app\employee\model\TemplateBasedSMSMessageModel.class
 com\finch\legal\opinion\app\employee\model\LegalOpinionsSearchModel.class
 com\finch\legal\opinion\app\constants\AppConstants.class
-com\finch\legal\opinion\app\entities\LegalOpinionResponseEntity.class
 com\finch\legal\opinion\app\controllers\EmployeeController.class
 com\finch\legal\opinion\app\util\NotificationService.class
 com\finch\legal\opinion\app\repositories\LegalOpinionRequestRepository.class

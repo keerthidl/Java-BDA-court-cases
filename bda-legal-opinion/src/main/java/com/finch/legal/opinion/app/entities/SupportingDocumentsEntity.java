@@ -17,7 +17,7 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  */
 
 @Entity
-@Table(name = "lglsupportingdocuments")
+@Table(name = "legal_opinion_supporting_docs")
 public class SupportingDocumentsEntity {
 
 	/** id **/

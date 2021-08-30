@@ -15,8 +15,11 @@ public class AdvocateListResponse {
 	/** message **/
 	private String message="";
 	
+	/** message **/
+	private String statusCode="200";
+	
 	/** list of advocates **/
-	private List<AdvocatesEntity> lstAdvocateEntities = new ArrayList();
+	private List<RegisteredAdvocatesModel> response = new ArrayList();
 
 	/**
 	 * @return the message
@@ -33,16 +36,30 @@ public class AdvocateListResponse {
 	}
 
 	/**
-	 * @return the lstAdvocateEntities
+	 * @return the statusCode
 	 */
-	public List<AdvocatesEntity> getLstAdvocateEntities() {
-		return lstAdvocateEntities;
+	public String getStatusCode() {
+		return statusCode;
 	}
 
 	/**
-	 * @param lstAdvocateEntities the lstAdvocateEntities to set
+	 * @param statusCode the statusCode to set
 	 */
-	public void setLstAdvocateEntities(List<AdvocatesEntity> lstAdvocateEntities) {
-		this.lstAdvocateEntities = lstAdvocateEntities;
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
+	}
+
+	/**
+	 * @return the response
+	 */
+	public List<RegisteredAdvocatesModel> getResponse() {
+		return response;
+	}
+
+	/**
+	 * @param response the response to set
+	 */
+	public void setResponse(List<RegisteredAdvocatesModel> response) {
+		this.response = response;
 	}
 }

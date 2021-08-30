@@ -15,7 +15,7 @@ public class LegalOpinionAddResponse {
 	/** status **/
 	private String message="Success";
 	/** response**/
-	private LegalOpinionRequestEntity response= new LegalOpinionRequestEntity();
+	private String response= "";
 	/**error **/
 	private String errors="";
 	/**
@@ -48,16 +48,18 @@ public class LegalOpinionAddResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	
 	/**
 	 * @return the response
 	 */
-	public LegalOpinionRequestEntity getResponse() {
+	public String getResponse() {
 		return response;
 	}
 	/**
 	 * @param response the response to set
 	 */
-	public void setResponse(LegalOpinionRequestEntity response) {
+	public void setResponse(String response) {
 		this.response = response;
 	}
 	/**

@@ -1,6 +1,8 @@
 package com.finch.legal.opinion.app.entities;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 /**
  * department entity
@@ -14,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "legalopinions")
+@Table(name = "legal_opinion_requests")
 public class LegalOpinionRequestEntity {
 	
 	@Id
@@ -22,11 +24,11 @@ public class LegalOpinionRequestEntity {
 	/** id **/
 	private int id;
 	
-	@Column(name = "req_id")
+	@Column(name = "request_id")
 	/** employee id **/
 	private String reqId;
 	
-	@Column(name = "dept_id")
+	@Column(name = "requested_dept_id")
 	/** employee id **/
 	private String deptId;
 	
@@ -39,31 +41,35 @@ public class LegalOpinionRequestEntity {
 	private String propertyNumber ;
 	
 	
-	@Column(name = "requestor_emp_id")
+	@Column(name = "requestor_user_id")
 	/** name **/
 	private String requestedBy ;
 	
-	@Column(name = "request_details")
+	@Column(name = "request_details_text")
 	/** name **/
 	private String requestDetails ;
 	
-	@Column(name = "date_requested")
+	@Column(name = "requested_on")
 	/** name **/
-	private String requestedOn ;
+	private Date requestedOn ;
 	
 	@Column(name = "status")
 	/** name **/
-	private String status ;
+	private int status ;
 	
-	@Column(name = "opinion")
+	@Column(name = "legal_opinion_text")
 	/** name **/
 	private String opinion ;
 	
-	@Column(name = "date_expected")
+	@Column(name = "legal_opinion_expected_date")
 	/** name **/
-	private String expectedDate ;
+	private  Date expectedDate ;
 	
-	@Column(name = "advocate_id")
+	@Column(name = "request_assigned_advocate_id")
+	/** name **/
+	private String advocateId ;
+	
+	@Column(name = "request_assigned_to")
 	/** name **/
 	private String assignedTo ;
 	
@@ -73,38 +79,6 @@ public class LegalOpinionRequestEntity {
 	 */
 	public LegalOpinionRequestEntity() {
 		
-	}
-
-	
-	/**
-	 * @return the deptId
-	 */
-	public String getDeptId() {
-		return deptId;
-	}
-
-
-	/**
-	 * @param deptId the deptId to set
-	 */
-	public void setDeptId(String deptId) {
-		this.deptId = deptId;
-	}
-
-
-	/**
-	 * @return the assignedTo
-	 */
-	public String getAssignedTo() {
-		return assignedTo;
-	}
-
-
-	/**
-	 * @param assignedTo the assignedTo to set
-	 */
-	public void setAssignedTo(String assignedTo) {
-		this.assignedTo = assignedTo;
 	}
 
 
@@ -137,6 +111,22 @@ public class LegalOpinionRequestEntity {
 	 */
 	public void setReqId(String reqId) {
 		this.reqId = reqId;
+	}
+
+
+	/**
+	 * @return the deptId
+	 */
+	public String getDeptId() {
+		return deptId;
+	}
+
+
+	/**
+	 * @param deptId the deptId to set
+	 */
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
 	}
 
 
@@ -207,7 +197,7 @@ public class LegalOpinionRequestEntity {
 	/**
 	 * @return the requestedOn
 	 */
-	public String getRequestedOn() {
+	public Date getRequestedOn() {
 		return requestedOn;
 	}
 
@@ -215,7 +205,7 @@ public class LegalOpinionRequestEntity {
 	/**
 	 * @param requestedOn the requestedOn to set
 	 */
-	public void setRequestedOn(String requestedOn) {
+	public void setRequestedOn(Date requestedOn) {
 		this.requestedOn = requestedOn;
 	}
 
@@ -223,7 +213,7 @@ public class LegalOpinionRequestEntity {
 	/**
 	 * @return the status
 	 */
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
@@ -231,7 +221,7 @@ public class LegalOpinionRequestEntity {
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -255,7 +245,7 @@ public class LegalOpinionRequestEntity {
 	/**
 	 * @return the expectedDate
 	 */
-	public String getExpectedDate() {
+	public Date getExpectedDate() {
 		return expectedDate;
 	}
 
@@ -263,7 +253,39 @@ public class LegalOpinionRequestEntity {
 	/**
 	 * @param expectedDate the expectedDate to set
 	 */
-	public void setExpectedDate(String expectedDate) {
+	public void setExpectedDate(Date expectedDate) {
 		this.expectedDate = expectedDate;
+	}
+
+
+	/**
+	 * @return the advocateId
+	 */
+	public String getAdvocateId() {
+		return advocateId;
+	}
+
+
+	/**
+	 * @param advocateId the advocateId to set
+	 */
+	public void setAdvocateId(String advocateId) {
+		this.advocateId = advocateId;
+	}
+
+
+	/**
+	 * @return the assignedTo
+	 */
+	public String getAssignedTo() {
+		return assignedTo;
+	}
+
+
+	/**
+	 * @param assignedTo the assignedTo to set
+	 */
+	public void setAssignedTo(String assignedTo) {
+		this.assignedTo = assignedTo;
 	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.finch.common.logger.AppLogger;
 import com.finch.common.logger.LogManager;
 import com.finch.legal.opinion.app.constants.AppConstants;
+import com.finch.legal.opinion.app.employee.model.AdvocateListResponse;
 import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.RegisteredAdvocatesModel;
 import com.finch.legal.opinion.app.entities.EmployeeEntity;
@@ -117,9 +118,9 @@ public class EmployeeController {
 	 */
 	@GetMapping(value=AppConstants.ADVOCATES_LIST_URL)
 	public String advocatesList() {
-		LOG.info("Entered Request for Employee Details ");
+		LOG.info("Entered Request for Advocates Details ");
 		EmployeeEntity employeeEntity = null;
-		BaseResponse baseResponse = new BaseResponse();
+		AdvocateListResponse baseResponse = new AdvocateListResponse();
 		
 		List<RegisteredAdvocatesModel> lstRegisteredAdvocatesModel = null;
 		
@@ -129,7 +130,7 @@ public class EmployeeController {
 				throw new ResourceNotFoundException(" Requested Advocates Details Could not be Found");
 			}
 			baseResponse.setStatusCode("200");
-			baseResponse.setResponse(JSONFormatter.buildStringObject(lstRegisteredAdvocatesModel));
+			baseResponse.setResponse(lstRegisteredAdvocatesModel);
 			return JSONFormatter.buildStringObject(baseResponse);
 		
 		}catch(JSONConverterException e) {

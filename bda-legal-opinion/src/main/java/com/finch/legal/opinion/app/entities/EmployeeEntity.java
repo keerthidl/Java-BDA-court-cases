@@ -1,14 +1,21 @@
 package com.finch.legal.opinion.app.entities;
 
+import java.sql.Date;
+
 /**
  * 
  * @author finch
  *
  */
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "legal_opinion_user")
+@Table(name = "tbl_users")
 public class EmployeeEntity {
 	
 	@Id
@@ -16,19 +23,19 @@ public class EmployeeEntity {
 	/** id **/
 	private int id;
 	
-	@Column(name = "emp_no")
+	@Column(name = "first_name")
 	/** employee id **/
 	private String empId;
 	
-	@Column(name = "emp_name")
+	@Column(name = "last_name")
 	/** name **/
 	private String name ;
 	
-	@Column(name = "phone_num")
+	@Column(name = "phone_no")
 	/** name **/
 	private String phoneNum ;
 	
-	@Column(name = "email_id")
+	@Column(name = "email")
 	/** name **/
 	private String emailId ;
 	
@@ -40,9 +47,21 @@ public class EmployeeEntity {
 	/** name **/
 	private String deptId ;
 	
-	@Column(name = "login_id")
+	@Column(name = "user_name")
 	/** name **/
 	private String loginId ;
+	
+	@Column(name = "secret")
+	/** name **/
+	private String password ;
+	
+	@Column(name = "created_at")
+	/** name **/
+	private Date createdAt ;
+	
+	@Column(name = "modified_at")
+	/** name **/
+	private Date modifiedAt ;
 	
 	
 	/**
@@ -156,5 +175,47 @@ public class EmployeeEntity {
 
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @return the createdAt
+	 */
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	/**
+	 * @param createdAt the createdAt to set
+	 */
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	/**
+	 * @return the modifiedAt
+	 */
+	public Date getModifiedAt() {
+		return modifiedAt;
+	}
+
+	/**
+	 * @param modifiedAt the modifiedAt to set
+	 */
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 }
