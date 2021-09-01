@@ -93,6 +93,9 @@ public class LegalOpinionRequestDataModel {
 	/** List file uploads **/
 	private List<LOpinionTransHistoryEntity> lstLOpinionTransHistoryEntity = new ArrayList();
 	
+	/** assigned to name **/
+	private String assignedToName="";
+	
 	
 	/**
 	 * default constructor
@@ -100,6 +103,22 @@ public class LegalOpinionRequestDataModel {
 	
 	public LegalOpinionRequestDataModel() {
 		
+	}
+
+
+	/**
+	 * @return the assignedToName
+	 */
+	public String getAssignedToName() {
+		return assignedToName;
+	}
+
+
+	/**
+	 * @param assignedToName the assignedToName to set
+	 */
+	public void setAssignedToName(String assignedToName) {
+		this.assignedToName = assignedToName;
 	}
 
 

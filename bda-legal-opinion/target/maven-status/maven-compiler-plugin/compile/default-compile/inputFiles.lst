@@ -5,6 +5,7 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\services\LOpinionCommentService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\TemplateBasedEmailMessageModel.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\services\AWSDocuploader.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\controllers\StatusController.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\RegisteredAdvocatesModel.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\repositories\EmployeeRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionRequestDataModel.java
@@ -15,6 +16,7 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\BaseResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\AdvocateListResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionReadResponse.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\services\StatusService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\controllers\EmployeeController.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\controllers\LegalOpinionsController.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\controllers\ValidateLegalOpinionSearchRequest.java
@@ -43,6 +45,7 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\repositories\SupportingDocumentRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\entities\EmployeeEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\TemplateBasedSMSMessageModel.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\entities\StatusEntity.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionsSearchModel.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\services\LegalOpinionService.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\controllers\LegalOpinionCommentsController.java
@@ -59,6 +62,7 @@ C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\EmployeeModel.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionAllCommentsResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionReadCommentsResponse.java
+C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\repositories\StatusRepository.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\controllers\ValidateLegalOpinionRequest.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionAddResponse.java
 C:\Nagendra\aws\gitcode_28Aug21\Java-BDA-court-cases\bda-legal-opinion\src\main\java\com\finch\legal\opinion\app\employee\model\LegalOpinionQueryResponse.java

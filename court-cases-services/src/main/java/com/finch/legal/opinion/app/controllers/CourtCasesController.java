@@ -41,7 +41,7 @@ import com.finch.legal.opinion.app.util.JSONFormatter;
  * @author finch
  *
  */
-@CrossOrigin(origins ={AppConstants.WILD_CARD_URL, AppConstants.LOCAL_HOST_URL}, allowedHeaders = "*")
+@CrossOrigin(origins ={AppConstants.WILD_CARD_URL, AppConstants.LOCAL_HOST_URL,"*"}, allowedHeaders = "*")
 @RestController
 @RequestMapping(AppConstants.COURT_CASE_BASE_URL)
 public class CourtCasesController {

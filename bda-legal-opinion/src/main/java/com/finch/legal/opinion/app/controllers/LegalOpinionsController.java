@@ -3,6 +3,7 @@ package com.finch.legal.opinion.app.controllers;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -144,17 +145,17 @@ public class LegalOpinionsController {
 	
 		try {
 			
-			LOG.info(" CONTROL HERE 1");
+			LOG.info(" CONTROL HERE 1 << ID >>"+id);
 			legalOpinionRequestDataModel = (LegalOpinionRequestDataModel)JSONFormatter.buildJSONObject(strLegalReqOpinionDetails, LegalOpinionRequestDataModel.class);
-			LOG.info(" CONTROL HERE 2 "+legalOpinionUpdateRequest);
+			LOG.info(" CONTROL HERE 2 "+legalOpinionRequestDataModel);
 			String requestedBy =httpServletRequest.getHeader(AppConstants.USER_ID_KEY);
 			
-			LOG.info(" CONTROL HERE 3 "+requestedBy);
-			employeeEntity = employeeService.getEmployeeByLoginId(requestedBy);
+			LOG.info(" CONTROL HERE 3 --------------"+requestedBy);
+			employeeEntity = employeeService.getEmployeeById(requestedBy);
 			
-			LOG.info(" CONTROL HERE 4 "+employeeEntity);
+			LOG.info(" CONTROL HERE 4 ============"+employeeEntity);
 			legalOpinionRequestEntity = legalOpinionService.getLegalOpinionRequest(id);
-			LOG.info(" CONTROL HERE 6 "+legalOpinionRequestEntity);
+			LOG.info(" CONTROL HERE 6 << ROLE ID>> "+employeeEntity.getRoleId());
 			lstEmployeeEntities = employeeService.getEmpByRole(AppConstants.LAW_OFFICER_ROLEID);
 			
 			if((employeeEntity!=null && employeeEntity.getRoleId()!=null) && employeeEntity.getRoleId().equalsIgnoreCase(AppConstants.HOD_ROLEID)) {
@@ -349,7 +350,7 @@ public class LegalOpinionsController {
 		
 		List<ErrorDetails> lstErrorDetails = null;
 		LegalOpinionQueryResponse legalOpinionSearchResponse = new LegalOpinionQueryResponse();
-		List<LegalOpinionRequestEntity> lstLegalOpinionRequestEntities = null;
+		List<LegalOpinionRequestDataModel> lstLegalOpinionRequestDataModel = null;
 		String strRquestId="";
 		ValidateLegalOpinionSearchRequest validateLegalOpinionSearchRequest = new ValidateLegalOpinionSearchRequest();
 		
@@ -361,14 +362,13 @@ public class LegalOpinionsController {
 		
 		try {
 			strRquestId = ""+httpServletRequest.getHeader(AppConstants.USER_ID_KEY);
-			LOG.info(" USER ID "+strRquestId);
+			LOG.info(" USER ID =============> "+strRquestId);
 			
-			LOG.info("MESSSSSSSSSSSSSSSSSSSSSSSS  "+searchModel);
-			
+	
 			
 			legalOpinionsSearchModel = (LegalOpinionsSearchModel)JSONFormatter.buildJSONObject(searchModel, LegalOpinionsSearchModel.class);
 			
-			lstErrorDetails = validateLegalOpinionSearchRequest.validate(legalOpinionsSearchModel);
+			//lstErrorDetails = validateLegalOpinionSearchRequest.validate(legalOpinionsSearchModel);
 			
 			if(lstErrorDetails!=null && lstErrorDetails.size()>0) {
 				legalOpinionSearchResponse.setErrors(JSONFormatter.buildStringObject(lstErrorDetails));
@@ -378,23 +378,20 @@ public class LegalOpinionsController {
 				return JSONFormatter.buildStringObject(legalOpinionSearchResponse);
 			}
 			
-			LOG.info(" About to Process Search Operations "+strRquestId);
-			lstLegalOpinionRequestEntities = legalOpinionService.searchLegalOpinionRequests(legalOpinionsSearchModel,strRquestId); 
-			LOG.info(" About to Process Search Operations << lstLegalOpinionRequestEntities >>"+lstLegalOpinionRequestEntities);
-			if(lstLegalOpinionRequestEntities==null) {
+		
+			lstLegalOpinionRequestDataModel = legalOpinionService.searchLegalOpinionRequests(legalOpinionsSearchModel,strRquestId); 
+			
+			if(lstLegalOpinionRequestDataModel==null) {
 				throw new ResourceNotFoundException(" Requested Legal Opinion Request Not Found");
 			}
 			
-			LOG.info("100000 About to Process Search Operations << legalOpinionSearchResponse >>"+lstLegalOpinionRequestEntities.size());
 					
 					
 			legalOpinionAllResponse.setErrors(null);
 			legalOpinionAllResponse.setStatusCode("200");
 			legalOpinionAllResponse.setMessage("Success");
-			legalOpinionAllResponse.setResponse(lstLegalOpinionRequestEntities);
+			legalOpinionAllResponse.setResponse(lstLegalOpinionRequestDataModel);
 			httpServletResponse.setStatus(200);
-			
-			LOG.info("200000000 About to Process Search Operations << legalOpinionSearchResponse >>"+legalOpinionSearchResponse);
 			
 			
 			return JSONFormatter.buildStringObject(legalOpinionAllResponse);
@@ -429,5 +426,28 @@ public class LegalOpinionsController {
 	 */
 	
 	
-	
+	public static void main(String[] args) {
+		
+		HashMap<String, String> hashMap = new HashMap();
+		
+		hashMap.put("ASSIGNEDTO", "ASSIGNEDTO");
+		hashMap.put("REQID", "REQID");
+		hashMap.put("REQDATE", "REQDATE");
+		
+		
+		LegalOpinionsSearchModel legalOpinionsSearchModel = new LegalOpinionsSearchModel();
+		
+		legalOpinionsSearchModel.setSortField("REQID");
+		legalOpinionsSearchModel.setSortingMode("ASC");
+		legalOpinionsSearchModel.setUserId("22");
+		legalOpinionsSearchModel.setHashMapSearchCriteria(hashMap);
+		
+		try {
+			System.out.println(" MSG"+JSONFormatter.buildStringObject(legalOpinionsSearchModel));
+		} catch (JSONConverterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

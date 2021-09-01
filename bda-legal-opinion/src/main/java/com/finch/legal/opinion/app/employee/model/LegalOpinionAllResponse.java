@@ -18,7 +18,7 @@ public class LegalOpinionAllResponse {
 	/** status **/
 	private String message="Success";
 	/** response**/
-	private List<LegalOpinionRequestEntity> response= new ArrayList();
+	private List<LegalOpinionRequestDataModel> response= new ArrayList();
 	/**error **/
 	private String errors="";
 	/**
@@ -54,13 +54,13 @@ public class LegalOpinionAllResponse {
 	/**
 	 * @return the response
 	 */
-	public List<LegalOpinionRequestEntity> getResponse() {
+	public List<LegalOpinionRequestDataModel> getResponse() {
 		return response;
 	}
 	/**
 	 * @param response the response to set
 	 */
-	public void setResponse(List<LegalOpinionRequestEntity> response) {
+	public void setResponse(List<LegalOpinionRequestDataModel> response) {
 		this.response = response;
 	}
 	/**

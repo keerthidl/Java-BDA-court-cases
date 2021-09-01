@@ -49,7 +49,7 @@ public class AppConstants {
 	public final static String LOCAL_HOST_URL="http://localhost:4200/";
 	
 	/** WILD_CARD_URL **/
-	public final static String WILD_CARD_URL = "*";
+	public final static String WILD_CARD_URL = "http://157.245.105.132:4200";
 	
 	
 	/** court case add URL **/

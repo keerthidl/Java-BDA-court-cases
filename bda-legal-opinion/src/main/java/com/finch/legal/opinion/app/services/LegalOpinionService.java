@@ -2,6 +2,7 @@ package com.finch.legal.opinion.app.services;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.finch.legal.opinion.app.entities.EmployeeEntity;
 import com.finch.legal.opinion.app.entities.LOpinionCommentEntity;
 import com.finch.legal.opinion.app.entities.LOpinionTransHistoryEntity;
 import com.finch.legal.opinion.app.entities.LegalOpinionRequestEntity;
+import com.finch.legal.opinion.app.entities.StatusEntity;
 import com.finch.legal.opinion.app.entities.SupportingDocumentsEntity;
 import com.finch.legal.opinion.app.exceptions.InvalidRequestException;
 import com.finch.legal.opinion.app.repositories.LegalOpinionRequestRepository;
@@ -76,6 +78,10 @@ public class LegalOpinionService {
 	
 	/** legal opinion service **/
 	@Autowired
+	private StatusService statusService;
+	
+	/** legal opinion service **/
+	@Autowired
 	private LOpinionTransactionsHistoryService lOpinionTransactionsHistoryService;
 	
 
@@ -86,7 +92,7 @@ public class LegalOpinionService {
 	 * is employee exists
 	 */
 	public LegalOpinionRequestDataModel getLegalOpinionRequestDataModel(String reqId,String requestedBy) { 
-		LOG.info(" BBBBBBBBBBBBBB   "+reqId+"::::::   "+requestedBy);
+		
 		LegalOpinionRequestEntity legalOpinionRequestEntity = legalOpinionRequestRepository.findById(Integer.parseInt(reqId));
 		 return transformEntityToDataModel(legalOpinionRequestEntity,requestedBy);
 	}
@@ -103,11 +109,14 @@ public class LegalOpinionService {
 	/**
 	 * is employee exists
 	 */
-	public List<LegalOpinionRequestEntity> searchLegalOpinionRequests(final LegalOpinionsSearchModel legalOpinionsSearchModel,String requestedBy) { 
-		LOG.info(" IN SERVICE << searchLegalOpinionRequests >> ");
-		EmployeeEntity employeeEntity = employeeService.getEmployeeByLoginId(requestedBy);
+	public List<LegalOpinionRequestDataModel> searchLegalOpinionRequests(final LegalOpinionsSearchModel legalOpinionsSearchModel,String requestedBy) { 
+		LOG.info(" IN SERVICE << searchLegalOpinionRequests ===========>> "+requestedBy);
+		EmployeeEntity employeeEntity = employeeService.getEmployeeById(requestedBy);
 		List<LegalOpinionRequestEntity> lstLegalOpinionRequestEntity = null;
 		
+		
+		List<LegalOpinionRequestDataModel> lstLegalOpinionRequestDataModel = new ArrayList();
+		LOG.info(" IN SERVICE << searchLegalOpinionRequests >> "+requestedBy+":::::::::::::::: "+employeeEntity.getRoleId());
 		
 		if(employeeEntity!=null && (employeeEntity.getRoleId()!=null && employeeEntity.getRoleId().equalsIgnoreCase(AppConstants.LAW_OFFICER_ROLEID))){
 			lstLegalOpinionRequestEntity = legalOpinionRequestRepository.findAllRequests();
@@ -120,7 +129,15 @@ public class LegalOpinionService {
 			lstLegalOpinionRequestEntity = legalOpinionRequestRepository.findByRequestedBy(requestedBy);
 		}
 		
-		return  lstLegalOpinionRequestEntity;
+		
+		if(lstLegalOpinionRequestEntity!=null) {
+			
+			for(LegalOpinionRequestEntity legalOpinionRequestEntity :lstLegalOpinionRequestEntity) {
+				lstLegalOpinionRequestDataModel.add (transformEntityToDataModel(legalOpinionRequestEntity,requestedBy));
+			}
+		}
+		
+		return  lstLegalOpinionRequestDataModel==null?null:lstLegalOpinionRequestDataModel;
 	}
 	
 	/**
@@ -197,7 +214,7 @@ public class LegalOpinionService {
 		ValidateLegalOpinionRequest validateLegalOpinionRequest = new ValidateLegalOpinionRequest();
 		validateLegalOpinionRequest.validate(legalOpinionRequestEntity);
 		
-		System.out.println(" HHHHHHHHHHHHHHHHHHHHHHH   "+legalOpinionRequestEntity);
+		System.out.println(" IN UPDATE   "+legalOpinionRequestEntity);
 		legalOpinionRequestEntity= legalOpinionRequestRepository.save(legalOpinionRequestEntity);
 		
 		/**
@@ -348,7 +365,7 @@ public class LegalOpinionService {
 		
 		LegalOpinionRequestDataModel legalOpinionRequestDataModel = new LegalOpinionRequestDataModel();
 		
-		LOG.info(" KKKKKKKKKKKKKKKKKKKK     MMMM   "+requesterId);
+	
 		
 		EmployeeEntity employeeEntity = employeeService.getEmployeeById(requesterId);
 		
@@ -363,19 +380,31 @@ public class LegalOpinionService {
 		legalOpinionRequestDataModel.setStatus(legalOpinionRequestEntity.getStatus());
 		legalOpinionRequestDataModel.setSurveyNumber(legalOpinionRequestEntity.getSurveyNumber());
 		
+		
+		StatusEntity statusEntity = statusService.getStatusEntity(""+legalOpinionRequestEntity.getStatus());
+		
+		if(statusEntity!=null) {
+			legalOpinionRequestDataModel.setStatusName(""+statusEntity.getName());
+		}
+		
 		EmployeeEntity requestedEmployee = employeeService.getEmployeeById(requesterId);
 		
+	
 		if(requestedEmployee!=null) {
 			legalOpinionRequestDataModel.setRequestorName(requestedEmployee.getName());
 		}
 		
 		EmployeeEntity assignedTo = employeeService.getEmployeeById(legalOpinionRequestEntity.getAssignedTo());
 		
+	
+		
 		if(assignedTo!=null) {
-			legalOpinionRequestDataModel.setRequestorName(assignedTo.getName());
+			legalOpinionRequestDataModel.setAssignedToName(assignedTo.getName());
 		}
 		
 		AdvocatesEntity advocatesEntity = advocatesService.getAdvocatesEntity(legalOpinionRequestEntity.getAdvocateId());
+		
+		
 		
 		if(advocatesEntity!=null) {
 			legalOpinionRequestDataModel.setAdvocateName(advocatesEntity.getName());
@@ -383,16 +412,21 @@ public class LegalOpinionService {
 		
 		
 		DepartmentEntity departmentEntity = departmentsService.getDepartmentDetails(legalOpinionRequestEntity.getAdvocateId());
+		
+	
 		if(departmentEntity!=null) {
 			legalOpinionRequestDataModel.setDeptName(departmentEntity.getName());
 		}
 		
-		List<LOpinionTransHistoryEntity> lstTransactionHistory = lOpinionTransactionsHistoryService.getLstLOpinionTransEntity(""+legalOpinionRequestEntity.getId());
+	/**	List<LOpinionTransHistoryEntity> lstTransactionHistory = lOpinionTransactionsHistoryService.getLstLOpinionTransEntity(""+legalOpinionRequestEntity.getId());
 		legalOpinionRequestDataModel.setLstLOpinionTransHistoryEntity(lstTransactionHistory);
 		
 		legalOpinionRequestDataModel.setLstLOpionionCommentsEntity(lOpinionCommentService.getAllRecords(""+legalOpinionRequestEntity.getId()));
 		
 		legalOpinionRequestDataModel.setLstSupportingDocumentsEntity(legalOpinionService.getAllSupportingDocuents(""+legalOpinionRequestEntity.getId()));
+		**/
+		
+		legalOpinionRequestDataModel.setId(legalOpinionRequestEntity.getId());
 		
 		return legalOpinionRequestDataModel;
 	}

@@ -28,13 +28,13 @@ public class AppConstants {
 	public final static String WILD_CARD_URL="*";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_1="SELECT * FROM legal_opinion_requests WHERE advocate_id=?1 order by date_requested desc";
+	public final static String SEARCH_QUERY_1="SELECT * FROM legal_opinion_requests WHERE advocate_id=?1 order by requested_on desc";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_2="SELECT * FROM legal_opinion_requests where requestor_emp_id=?1 order by date_requested desc";
+	public final static String SEARCH_QUERY_2="SELECT * FROM legal_opinion_requests where requestor_emp_id=?1 order by requested_on desc";
 	
 	/** UI URL **/
-	public final static String SEARCH_QUERY_3="SELECT * FROM legal_opinion_requests order by date_requested desc";
+	public final static String SEARCH_QUERY_3="SELECT * FROM legal_opinion_requests order by requested_on desc";
 	
 	/** UI URL **/
 	public final static String ROOT_URL="/bda/legalopinion/v1";
@@ -56,6 +56,13 @@ public class AppConstants {
 	public final static String PING_URL="/ping";
 	/** UI URL **/
 	public final static String LOGIN_URL="/login";
+	
+	/** UI URL **/
+	public final static String STATUS_READ_URL="/statuses";
+	
+	/** UI URL **/
+	public final static String ALL_STATUS_URL="/statuses/";
+	
 	
 	/** UI URL **/
 	public final static String SUPPORT_DOC_URL="/docs/{id}";
