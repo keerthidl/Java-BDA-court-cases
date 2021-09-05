@@ -3,6 +3,8 @@ package com.finch.legal.opinion.app.employee.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -45,6 +47,9 @@ public class CourtCaseDetailsModel {
 	
 	/** employee id **/
 	private String hobli="";
+	
+	/**case_entered_date **/
+	private String case_entered_date="";
 	
 	
 	
@@ -148,6 +153,27 @@ public class CourtCaseDetailsModel {
 	
 	/** employee id **/
 	private List<CommentEntity> comments=new ArrayList();
+	
+	
+	
+	
+	/**
+	 * @return the order_status
+	 */
+	public String getOrder_status() {
+		return order_status;
+	}
+
+	/**
+	 * @param order_status the order_status to set
+	 */
+	public void setOrder_status(String order_status) {
+		this.order_status = order_status;
+	}
+
+	/** name **/
+	
+	private String order_status="";
 	
 	
 	
@@ -780,6 +806,20 @@ public class CourtCaseDetailsModel {
 	 */
 	public void setHistoryCount(int historyCount) {
 		this.historyCount = historyCount;
+	}
+
+	/**
+	 * @return the case_entered_date
+	 */
+	public String getCase_entered_date() {
+		return case_entered_date;
+	}
+
+	/**
+	 * @param case_entered_date the case_entered_date to set
+	 */
+	public void setCase_entered_date(String case_entered_date) {
+		this.case_entered_date = case_entered_date;
 	}
 	
 	

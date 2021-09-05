@@ -29,9 +29,7 @@ public class CourtCaseEntity {
 	/** id **/
 	private int id;
 	
-	@Column(name = "name")
-	/** name **/
-	private String name;
+	
 	
 	/** name **/
 	@Column(name = "case_created_date")
@@ -41,9 +39,7 @@ public class CourtCaseEntity {
 	@Column(name = "petinitioner_name")
 	private String petinitioner_name="";
 	
-	/** name **/
-	@Column(name = "division")
-	private String division="";
+	
 	
 	/** name **/
 	@Column(name = "case_no")
@@ -122,10 +118,7 @@ public class CourtCaseEntity {
 	/** name **/
 	@Column(name = "bill_amount")
 	private String bill_amount="";
-	
-	/** name **/
-	@Column(name = "offices")
-	private String offices="";
+
 	
 	/** name **/
 	@Column(name = "case_last_updated")
@@ -147,6 +140,18 @@ public class CourtCaseEntity {
 	@Column(name = "opponent_advocate_id_number")
 	private String opponent_advocate_id_number="";
 	
+	/** name **/
+	@Column(name = "case_entered_date")
+	private String case_entered_date="";
+	
+	/** name **/
+	@Column(name = "order_summary")
+	private String order_summary="";
+	
+	/** name **/
+	@Column(name = "order_status")
+	private String order_status="";
+	
 	
 	/**
 	 * @return the id
@@ -155,19 +160,43 @@ public class CourtCaseEntity {
 		return id;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+	
 
 	/**
-	 * @param name the name to set
+	 * @return the order_summary
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public String getOrder_summary() {
+		return order_summary;
 	}
+
+
+
+	/**
+	 * @param order_summary the order_summary to set
+	 */
+	public void setOrder_summary(String order_summary) {
+		this.order_summary = order_summary;
+	}
+
+
+
+	/**
+	 * @return the order_status
+	 */
+	public String getOrder_status() {
+		return order_status;
+	}
+
+
+
+	/**
+	 * @param order_status the order_status to set
+	 */
+	public void setOrder_status(String order_status) {
+		this.order_status = order_status;
+	}
+
+
 
 	/**
 	 * @return the case_created_date
@@ -197,19 +226,6 @@ public class CourtCaseEntity {
 		this.petinitioner_name = petinitioner_name;
 	}
 
-	/**
-	 * @return the division
-	 */
-	public String getDivision() {
-		return division;
-	}
-
-	/**
-	 * @param division the division to set
-	 */
-	public void setDivision(String division) {
-		this.division = division;
-	}
 
 	/**
 	 * @return the case_no
@@ -491,20 +507,7 @@ public class CourtCaseEntity {
 		this.bill_amount = bill_amount;
 	}
 
-	/**
-	 * @return the offices
-	 */
-	public String getOffices() {
-		return offices;
-	}
-
-	/**
-	 * @param offices the offices to set
-	 */
-	public void setOffices(String offices) {
-		this.offices = offices;
-	}
-
+	
 	/**
 	 * @return the case_last_updated
 	 */
@@ -581,6 +584,24 @@ public class CourtCaseEntity {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+
+	/**
+	 * @return the case_entered_date
+	 */
+	public String getCase_entered_date() {
+		return case_entered_date;
+	}
+
+
+
+	/**
+	 * @param case_entered_date the case_entered_date to set
+	 */
+	public void setCase_entered_date(String case_entered_date) {
+		this.case_entered_date = case_entered_date;
 	}
 	
 }

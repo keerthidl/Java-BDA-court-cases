@@ -34,15 +34,15 @@ public class SectionsService {
 	/**
 	 * is employee exists
 	 */
-	public SectionEntity addSection(SectionEntity sectionEntity) {
-		return sectionRepository.save(sectionEntity);	
+	public void addSection(List<SectionEntity> lstSectionEntity) {
+		sectionRepository.saveAll(lstSectionEntity);	
 	}
 	
 	/**
 	 * is employee exists
 	 */
-	public SectionEntity updateSectionEntity(SectionEntity sectionEntity) {
-		return sectionRepository.save(sectionEntity);	
+	public void updateSectionEntity(List<SectionEntity> lstSectionEntity) {
+		 sectionRepository.saveAll(lstSectionEntity);	
 	}
 	
 	/**

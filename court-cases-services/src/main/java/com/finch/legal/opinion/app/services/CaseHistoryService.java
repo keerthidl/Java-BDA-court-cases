@@ -55,5 +55,19 @@ public class CaseHistoryService {
 		return caseHistoryRepository.findByCase_main_id(Integer.parseInt(caseId));
 	}
 	
-	
+
+	/**
+	 * court case history
+	 */
+	public CaseHistoryEntity buildCaseHistory(int caseMainId,String caseNumber,String activity,String caseDetails,String dept) {
+		
+		CaseHistoryEntity caseHistoryEntity = new CaseHistoryEntity();
+		caseHistoryEntity.setCase_activity(activity);
+		caseHistoryEntity.setCase_details(caseDetails);
+		caseHistoryEntity.setCase_id(caseNumber);
+		caseHistoryEntity.setCase_main_id(caseMainId);
+		caseHistoryEntity.setCreated_date(caseNumber);
+		caseHistoryEntity.setUser_dept(dept);
+		return caseHistoryEntity;
+	}
 }

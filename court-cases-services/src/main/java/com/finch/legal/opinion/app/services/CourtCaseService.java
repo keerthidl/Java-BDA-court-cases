@@ -23,6 +23,7 @@ import com.finch.legal.opinion.app.logs.AppLogger;
 import com.finch.legal.opinion.app.logs.LogManager;
 import com.finch.legal.opinion.app.repositories.CourtCasesRepository;
 import com.finch.legal.opinion.app.repositories.ScheduleRepository;
+import com.finch.legal.opinion.app.util.GeneralUtil;
 
 /**
  * 
@@ -82,12 +83,18 @@ public class CourtCaseService {
 	@Autowired
 	private CourtService courtService;
 	
+	
+	
 	/**
 	 * is employee exists
 	 */
 	public CourtCaseEntity getCourtCaseEntity(String caseId) {
-		
-		return courtCasesRepository.findById(Integer.parseInt(caseId)).get();
+		long startTime = System.currentTimeMillis();
+		CourtCaseEntity courtCaseEntity = courtCasesRepository.findById(Integer.parseInt(caseId));
+		long endTime = System.currentTimeMillis();
+	
+		LOG.info(" TIME TAKEN FOR Case READ "+((endTime-startTime)/1000));
+		return courtCaseEntity;
 		
 	}
 	
@@ -100,25 +107,36 @@ public class CourtCaseService {
 		
 		PrayerEntity prayerEntity = null;
 		
-		CourtCaseEntity courtCaseEntity = courtCasesRepository.save(transformCaseModelToEntity(courtCaseDetailsModel));
+	
+		CourtCaseEntity courtCaseEntity = courtCasesRepository.save(transformCaseModelToEntity(courtCaseDetailsModel,new CourtCaseEntity()));
 		
+			
 		List<ScheduleEntity> lstScheduleEntity = getLstScheduleEntity(courtCaseDetailsModel.getSchedules(),courtCaseEntity);
 		
+	
+		
 		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
-			LOG.info(" SCHEDULE INFO "+scheduleEntity);
+			
 			scheduleRepository.save(scheduleEntity);
 		}
 		
 		List<String> lstSections = courtCaseDetailsModel.getSections();
 		
+	
+		List<SectionEntity> lstSectionsEntities = new ArrayList<>();
 		for(String scetionId:lstSections) {
 			sectionEntity = new SectionEntity();
 			sectionEntity.setCase_main_id(courtCaseEntity.getId());	
 			sectionEntity.setSectionId(scetionId);
-			sectionsService.addSection(sectionEntity);
+			lstSectionsEntities.add(sectionEntity);
+			
 		}
-
-		caseHistoryService.addCaseHistory(buildCaseHistory(courtCaseEntity.getId(),courtCaseDetailsModel.getCase_no(),"Case Created","case Created","ADMIN"));
+		
+		courtCaseEntity.setCase_entered_date(GeneralUtil.getTodaysDate());
+		sectionsService.addSection(lstSectionsEntities);
+		
+		
+		
 		return courtCaseEntity.getId();
 		
 	}
@@ -133,33 +151,42 @@ public class CourtCaseService {
 		List<String> lstPrayers = new ArrayList();
 		AdvocatesEntity advocateEntity=null;
 		
+	
 		List<ScheduleDetailsModel> lstScheduleDetailsModel = new ArrayList<ScheduleDetailsModel>();
 		
+		CourtCaseEntity courtCaseEntity = courtCasesRepository.findById(Integer.parseInt(id));
 	
-		
-		CourtCaseEntity courtCaseEntity = courtCasesRepository.findById(Integer.parseInt(id)).get();
-		
 		List<ScheduleEntity> lstScheduleEntity = scheduleRepository.findByCase_no(Integer.parseInt(id));
-		
+	
 		List<CaseHistoryEntity> lstCaseHistoryEntity = caseHistoryService.getLstCaseHistoryEntity(""+courtCaseEntity.getId());
+		
 		
 		List<CommentEntity> lstCommentEntity = commentService.getAllRecords(""+courtCaseEntity.getId());
 		
+		
+		
 		List<ContemptEntity> lstContemptEntity = contenptyService.getAllRecords(""+courtCaseEntity.getId());
+		
+		
 		
 		List<DocumentEntity> lstDocumentEntity = documentsService.getAllRecords(""+courtCaseEntity.getId());
 		
+		
+		
 		List<FileMovementEntity> lsFileMovementEntity = fileMovementService.getAllRecords(""+courtCaseEntity.getId());
+		
+	
 		
 		CourtCaseDetailsModel courtCaseDetailsModel = transformCaseEntityToModel(courtCaseEntity);
 		courtCaseDetailsModel.setCase_id(""+courtCaseEntity.getId());
-		
+	
 		
 		try {
 			advocateEntity =      advocatesService.getAdvocatesEntity(courtCaseEntity.getAdvocate_id());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 		CourtEntity courtEntity = courtService.getCourtEntity(courtCaseEntity.getCourt_id());
 		
@@ -169,7 +196,7 @@ public class CourtCaseService {
 			
 		}
 		
-		
+	
 		List<SectionEntity> sections = sectionsService.getAllRecords(""+id);
 		
 			
@@ -178,7 +205,7 @@ public class CourtCaseService {
 			lstSections.add(sectionEntity.getSectionId());
 		}
 		
-	
+		
 		courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
 		courtCaseDetailsModel.setCase_history(lstCaseHistoryEntity);
 		courtCaseDetailsModel.setSections(lstSections);
@@ -207,7 +234,9 @@ public class CourtCaseService {
 		
 		CourtCaseEntity courtCaseEntity = null;
 		
-		courtCaseEntity = transformCaseModelToEntity(courtCaseDetailsModel);
+		courtCaseEntity = courtCasesRepository.findById(Integer.parseInt(id));
+		
+		courtCaseEntity = transformCaseModelToEntity(courtCaseDetailsModel,courtCaseEntity);
 		
 		courtCaseEntity.setId(Integer.parseInt(id));
 		courtCaseEntity = courtCasesRepository.save(courtCaseEntity);
@@ -218,7 +247,6 @@ public class CourtCaseService {
 			scheduleRepository.save(scheduleEntity);
 		}
 		
-		caseHistoryService.addCaseHistory(buildCaseHistory(courtCaseEntity.getId(),courtCaseDetailsModel.getCase_no(),"Case Updated","Case Updated","ADMIN"));
 		return courtCaseEntity.getId();
 		
 	}
@@ -241,40 +269,140 @@ public class CourtCaseService {
 	/**
 	 * convert court case data model to entity
 	 */
-	private CourtCaseEntity transformCaseModelToEntity(CourtCaseDetailsModel courtCaseDetailsModel) {
-		CourtCaseEntity courtCaseEntity = new CourtCaseEntity();
+	private CourtCaseEntity transformCaseModelToEntity(CourtCaseDetailsModel courtCaseDetailsModel,CourtCaseEntity courtCaseEntity) {
 		
-		courtCaseEntity.setAction_date(courtCaseDetailsModel.getAction_date());
-		courtCaseEntity.setAdvocate_id(""+courtCaseDetailsModel.getAdvocate_id());
-		courtCaseEntity.setBill_amount(courtCaseDetailsModel.getBill_amount());
-		courtCaseEntity.setCase_created_date(courtCaseDetailsModel.getCase_created_date());
-		courtCaseEntity.setCase_last_updated(courtCaseDetailsModel.getCase_last_updated());
-		courtCaseEntity.setCase_no(courtCaseDetailsModel.getCase_no());
-		courtCaseEntity.setCase_year(courtCaseDetailsModel.getCompliance_report());
-		courtCaseEntity.setCompliance_report(courtCaseDetailsModel.getCompliance_report());
-		courtCaseEntity.setCourt_id(courtCaseDetailsModel.getCourt_id());
-		courtCaseEntity.setDistrict(courtCaseDetailsModel.getDistrict());
-		courtCaseEntity.setDivision(courtCaseDetailsModel.getDivision());
-		courtCaseEntity.setHobli(courtCaseDetailsModel.getHobli());
-		courtCaseEntity.setJudgement_date(courtCaseDetailsModel.getJudgement_date());
-	//	courtCaseEntity.setName(courtCaseDetailsModel.getName());
-		courtCaseEntity.setOffices(courtCaseDetailsModel.getOffices());
-		courtCaseEntity.setOpponent_advocate_id_number(courtCaseDetailsModel.getOpponent_advocate_id_number());
-		courtCaseEntity.setOpponent_name(courtCaseDetailsModel.getOpponent_name());
-		courtCaseEntity.setOrder_type(courtCaseDetailsModel.getOrder_type());
-		courtCaseEntity.setOther_respondants(courtCaseDetailsModel.getOther_respondants());
-		courtCaseEntity.setPetinitioner_name(courtCaseDetailsModel.getPetinitioner_name());
-		courtCaseEntity.setPrayer(courtCaseDetailsModel.getPrayer());
-		courtCaseEntity.setRemark(courtCaseDetailsModel.getRemark());
-		courtCaseEntity.setSchedule(courtCaseDetailsModel.getSchedule());
-		courtCaseEntity.setCase_year(courtCaseDetailsModel.getCase_year());
 		
-		courtCaseEntity.setSob_filed(courtCaseDetailsModel.getSob_filed());
-		courtCaseEntity.setStatus(courtCaseDetailsModel.getStatus());
-		courtCaseEntity.setThaluk(courtCaseDetailsModel.getThaluk());
-		courtCaseEntity.setType_of_opponent(courtCaseDetailsModel.getType_of_opponent());
-		courtCaseEntity.setVillage(courtCaseDetailsModel.getVillage());
-		courtCaseEntity.setZone(courtCaseDetailsModel.getZone());
+		
+		if(courtCaseDetailsModel.getAction_date()!=null && courtCaseDetailsModel.getAction_date().trim().length()>0) {
+			courtCaseEntity.setAction_date(courtCaseDetailsModel.getAction_date());
+		}
+		if(courtCaseDetailsModel.getAdvocate_id()!=null && courtCaseDetailsModel.getAdvocate_id().trim().length()>0) {
+			courtCaseEntity.setAdvocate_id(""+courtCaseDetailsModel.getAdvocate_id());
+		}
+		if(courtCaseDetailsModel.getBill_amount()!=null && courtCaseDetailsModel.getBill_amount().trim().length()>0) {
+			courtCaseEntity.setBill_amount(courtCaseDetailsModel.getBill_amount());
+		}
+		
+		if(courtCaseDetailsModel.getCase_created_date()!=null && courtCaseDetailsModel.getCase_created_date().trim().length()>0) {
+			courtCaseEntity.setCase_created_date(courtCaseDetailsModel.getCase_created_date());
+		}
+		
+		if(courtCaseDetailsModel.getCase_last_updated()!=null && courtCaseDetailsModel.getCase_last_updated().trim().length()>0) {
+			courtCaseEntity.setCase_last_updated(courtCaseDetailsModel.getCase_last_updated());
+		}
+		if(courtCaseDetailsModel.getCase_no()!=null && courtCaseDetailsModel.getCase_no().trim().length()>0) {
+			courtCaseEntity.setCase_no(courtCaseDetailsModel.getCase_no());
+		}
+		if(courtCaseDetailsModel.getCompliance_report()!=null && courtCaseDetailsModel.getCompliance_report().trim().length()>0) {
+			courtCaseEntity.setCase_year(courtCaseDetailsModel.getCompliance_report());
+		}
+		
+		if(courtCaseDetailsModel.getOrder_status()!=null && courtCaseDetailsModel.getOrder_status().trim().length()>0) {
+			courtCaseEntity.setOrder_status(courtCaseDetailsModel.getOrder_status());
+		}
+		
+		if(courtCaseDetailsModel.getOrder_summary()!=null && courtCaseDetailsModel.getOrder_summary().trim().length()>0) {
+			courtCaseEntity.setOrder_summary(courtCaseDetailsModel.getOrder_summary());
+		}
+		
+		
+		courtCaseEntity.setCase_last_updated(GeneralUtil.getTodaysDate());
+		
+		LOG.info(" COURT CASE COURT ID "+courtCaseDetailsModel.getCourt_id());
+		if(courtCaseDetailsModel.getCourt_id()!=null && courtCaseDetailsModel.getCourt_id().trim().length()>0) {
+			courtCaseEntity.setCourt_id(courtCaseDetailsModel.getCourt_id());
+		}
+		
+		if(courtCaseDetailsModel.getDistrict()!=null && courtCaseDetailsModel.getDistrict().trim().length()>0) {
+		
+			courtCaseEntity.setDistrict(courtCaseDetailsModel.getDistrict());
+		}
+		
+		/*
+		 * if(courtCaseDetailsModel.getDivision()!=null &&
+		 * courtCaseDetailsModel.getDivision().trim().length()>0) {
+		 * courtCaseEntity.setDivision(courtCaseDetailsModel.getDivision()); }
+		 */
+		
+		if(courtCaseDetailsModel.getHobli()!=null && courtCaseDetailsModel.getHobli().trim().length()>0) {
+			courtCaseEntity.setHobli(courtCaseDetailsModel.getHobli());
+		}
+		
+		if(courtCaseDetailsModel.getJudgement_date()!=null && courtCaseDetailsModel.getJudgement_date().trim().length()>0) {
+			courtCaseEntity.setJudgement_date(courtCaseDetailsModel.getJudgement_date());
+		}
+
+		/*
+		 * if(courtCaseDetailsModel.getOffices()!=null &&
+		 * courtCaseDetailsModel.getOffices().trim().length()>0) {
+		 * courtCaseEntity.setOffices(courtCaseDetailsModel.getOffices()); }
+		 */
+		
+		if(courtCaseDetailsModel.getOpponent_advocate_id_number()!=null && courtCaseDetailsModel.getOpponent_advocate_id_number().trim().length()>0) {
+			courtCaseEntity.setOpponent_advocate_id_number(courtCaseDetailsModel.getOpponent_advocate_id_number());
+		}
+		
+		if(courtCaseDetailsModel.getOpponent_name()!=null && courtCaseDetailsModel.getOpponent_name().trim().length()>0) {
+			courtCaseEntity.setOpponent_name(courtCaseDetailsModel.getOpponent_name());
+		}
+		if(courtCaseDetailsModel.getOrder_type()!=null && courtCaseDetailsModel.getOrder_type().trim().length()>0) {
+			courtCaseEntity.setOrder_type(courtCaseDetailsModel.getOrder_type());
+		}
+		
+		if(courtCaseDetailsModel.getOther_respondants()!=null && courtCaseDetailsModel.getOther_respondants().trim().length()>0) {
+			courtCaseEntity.setOther_respondants(courtCaseDetailsModel.getOther_respondants());
+		}
+		
+		if(courtCaseDetailsModel.getPetinitioner_name()!=null && courtCaseDetailsModel.getPetinitioner_name().trim().length()>0) {
+			courtCaseEntity.setPetinitioner_name(courtCaseDetailsModel.getPetinitioner_name());
+		}
+		if(courtCaseDetailsModel.getPrayer()!=null && courtCaseDetailsModel.getPrayer().trim().length()>0) {
+			courtCaseEntity.setPrayer(courtCaseDetailsModel.getPrayer());
+		}
+		if(courtCaseDetailsModel.getRemark()!=null && courtCaseDetailsModel.getRemark().trim().length()>0) {
+			courtCaseEntity.setRemark(courtCaseDetailsModel.getRemark());
+		}
+		if(courtCaseDetailsModel.getSchedule()!=null && courtCaseDetailsModel.getSchedule().trim().length()>0) {
+			courtCaseEntity.setSchedule(courtCaseDetailsModel.getSchedule());
+		}
+		
+		if(courtCaseDetailsModel.getCase_year()!=null && courtCaseDetailsModel.getCase_year().trim().length()>0) {
+			courtCaseEntity.setCase_year(courtCaseDetailsModel.getCase_year());
+		}
+		
+		if(courtCaseDetailsModel.getSob_filed()!=null && courtCaseDetailsModel.getSob_filed().trim().length()>0) {
+			courtCaseEntity.setSob_filed(courtCaseDetailsModel.getSob_filed());
+		}
+		if(courtCaseDetailsModel.getStatus()!=null && courtCaseDetailsModel.getStatus().trim().length()>0) {
+			courtCaseEntity.setStatus(courtCaseDetailsModel.getStatus());
+		}
+		if(courtCaseDetailsModel.getThaluk()!=null && courtCaseDetailsModel.getThaluk().trim().length()>0) {
+			courtCaseEntity.setThaluk(courtCaseDetailsModel.getThaluk());
+		}
+		if(courtCaseDetailsModel.getType_of_opponent()!=null && courtCaseDetailsModel.getType_of_opponent().trim().length()>0) {
+			courtCaseEntity.setType_of_opponent(courtCaseDetailsModel.getType_of_opponent());
+		}
+		if(courtCaseDetailsModel.getVillage()!=null && courtCaseDetailsModel.getVillage().trim().length()>0) {
+			courtCaseEntity.setVillage(courtCaseDetailsModel.getVillage());
+		}
+		if(courtCaseDetailsModel.getZone()!=null && courtCaseDetailsModel.getZone().trim().length()>0) {
+			courtCaseEntity.setZone(courtCaseDetailsModel.getZone());
+		}
+		System.out.println(" ORDER STATUS "+courtCaseDetailsModel.getOrder_status());
+		if(courtCaseDetailsModel.getOrder_status()!=null && courtCaseDetailsModel.getOrder_status().trim().length()>0) {
+			courtCaseEntity.setOrder_status(courtCaseDetailsModel.getOrder_status());
+		}
+		
+		System.out.println(" ORDER STATUS "+courtCaseDetailsModel.getOrder_summary());
+		
+		if(courtCaseDetailsModel.getOrder_summary()!=null && courtCaseDetailsModel.getOrder_summary().trim().length()>0) {
+			courtCaseEntity.setOrder_summary(courtCaseDetailsModel.getOrder_summary());
+		}
+		
+		
+		if(courtCaseDetailsModel.getZone()!=null && courtCaseDetailsModel.getZone().trim().length()>0) {
+			courtCaseEntity.setZone(courtCaseDetailsModel.getZone());
+		}
 		
 		return courtCaseEntity;
 	}
@@ -297,11 +425,11 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setCompliance_report(courtCaseEntity.getCompliance_report());
 		courtCaseDetailsModel.setCourt_id(courtCaseEntity.getCourt_id());
 		courtCaseDetailsModel.setDistrict(courtCaseEntity.getDistrict());
-		courtCaseDetailsModel.setDivision(courtCaseEntity.getDivision());
+		//courtCaseDetailsModel.setDivision(courtCaseEntity.getDivision());
 		courtCaseDetailsModel.setHobli(courtCaseEntity.getHobli());
 		courtCaseDetailsModel.setJudgement_date(courtCaseEntity.getJudgement_date());
 		//courtCaseDetailsModel.setName(courtCaseEntity.getName());
-		courtCaseDetailsModel.setOffices(courtCaseEntity.getOffices());
+	//	courtCaseDetailsModel.setOffices(courtCaseEntity.getOffices());
 		courtCaseDetailsModel.setOpponent_advocate_id_number(courtCaseEntity.getOpponent_advocate_id_number());
 		courtCaseDetailsModel.setOpponent_name(courtCaseEntity.getOpponent_name());
 		courtCaseDetailsModel.setOrder_type(courtCaseEntity.getOrder_type());
@@ -317,10 +445,14 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setType_of_opponent(courtCaseEntity.getType_of_opponent());
 		courtCaseDetailsModel.setVillage(courtCaseEntity.getVillage());
 		courtCaseDetailsModel.setZone(courtCaseEntity.getZone());
+		courtCaseDetailsModel.setCase_entered_date(courtCaseEntity.getCase_entered_date());
 		
 		courtCaseDetailsModel.setCase_year(courtCaseEntity.getCase_year());
 		
+		courtCaseDetailsModel.setCase_entered_date(courtCaseEntity.getCase_entered_date());
 		
+		courtCaseDetailsModel.setOrder_status(courtCaseEntity.getOrder_status());
+		courtCaseDetailsModel.setOrder_summary(courtCaseEntity.getOrder_summary());
 
 		return courtCaseDetailsModel;
 	}
@@ -425,6 +557,11 @@ public class CourtCaseService {
 		return caseHistoryEntity;
 	}
 	
+	
+	/**
+	 * 1. Case Entered Date
+	 * 2. Case History Event Addition
+	 */
 	/**
 	 * populate court case details
 	 */

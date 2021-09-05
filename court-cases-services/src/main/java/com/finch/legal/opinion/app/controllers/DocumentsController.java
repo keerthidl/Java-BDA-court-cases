@@ -3,6 +3,7 @@ package com.finch.legal.opinion.app.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
 import com.finch.legal.opinion.app.employee.model.ReadAllDocumentResponse;
 import com.finch.legal.opinion.app.employee.model.ReadCaseResponse;
 import com.finch.legal.opinion.app.employee.model.ReadDocumentResponse;
+import com.finch.legal.opinion.app.entities.CaseHistoryEntity;
 import com.finch.legal.opinion.app.entities.ContemptEntity;
 import com.finch.legal.opinion.app.entities.CourtCaseEntity;
 import com.finch.legal.opinion.app.entities.DocumentEntity;
@@ -32,9 +34,13 @@ import com.finch.legal.opinion.app.exceptions.InternalServerException;
 import com.finch.legal.opinion.app.exceptions.InvalidRequestException;
 import com.finch.legal.opinion.app.exceptions.JSONConverterException;
 import com.finch.legal.opinion.app.exceptions.ResourceNotFoundException;
+import com.finch.legal.opinion.app.exceptions.UnAuthorizedAccessException;
 import com.finch.legal.opinion.app.logs.AppLogger;
 import com.finch.legal.opinion.app.logs.LogManager;
+import com.finch.legal.opinion.app.services.CaseHistoryService;
 import com.finch.legal.opinion.app.services.DocumentsService;
+import com.finch.legal.opinion.app.services.AuthenticationService;
+import com.finch.legal.opinion.app.util.GeneralUtil;
 import com.finch.legal.opinion.app.util.JSONFormatter;
 
 /**
@@ -54,20 +60,34 @@ public class DocumentsController {
 	@Autowired
 	private DocumentsService documentsService;
 	
+	/** ServiceAuthenticationService **/
+	@Autowired
+	private AuthenticationService authenticationService;
 	
 	
+	
+	
+	 /** employee repository **/
+		@Autowired
+		private CaseHistoryService caseHistoryService;
+		
 	/**
 	 * employee enrollment service
 	 */
 	
 	@PostMapping(value=AppConstants.DOCUMENT_ADD_URL)
-	public String addNewDocument(@RequestBody String strDocument) {
+	public String addNewDocument(@RequestBody String strDocument,HttpServletRequest httpServletRequest) {
 		LOG.info(" Entered Document Adding Service ");
 		DocumentEntity documentEntity = null;
 	    BaseResponse baseResponse = new BaseResponse();
+		String userId ="";
 		
 		try {
 			
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+		
 			if(strDocument==null || strDocument.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document payload"); 
 			
@@ -76,6 +96,8 @@ public class DocumentsController {
 			documentEntity = documentsService.addDocument(((DocumentEntity)JSONFormatter.buildJSONObject(strDocument, DocumentEntity.class)));
 		    baseResponse.setStatus("200");
 			baseResponse.setResult(""+documentEntity.getId());
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :<B>"+documentEntity.getFile_name() +"</B> uploaded on "+GeneralUtil.getTodaysDate()+ "</B>",userId));
+
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" add document failed with JSON Conversion",e);
@@ -83,6 +105,9 @@ public class DocumentsController {
 		}catch(InvalidRequestException e) {
 			LOG.error(" add document failed with invalid payload",e);
 			throw new InvalidRequestException(" Invalid document details");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(ResourceNotFoundException e) {
 			e.printStackTrace();
 			LOG.error("retreiving contempt details failed, requested resource not found",e);
@@ -98,12 +123,16 @@ public class DocumentsController {
 	 * employee enrollment service
 	 */
 	@GetMapping(value=AppConstants.DOCUMENTS_URL)
-	public String getDocuments(@PathParam("id") String caseId) {
+	public String getDocuments(@PathParam("id") String caseId,HttpServletRequest httpServletRequest) {
 		LOG.info(" Entered Reading contempt");
 		ReadAllDocumentResponse readAllDocumentResponse = new ReadAllDocumentResponse();
 		List<DocumentEntity> lstDocumentEntity = null;
-		
+		String userId="";
+
 		try {
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			
 			if(caseId==null || caseId.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid case id"); 
@@ -126,6 +155,9 @@ public class DocumentsController {
 			e.printStackTrace();
 			LOG.error("retreiving contempt details failed, invalid request",e);
 			throw new InternalServerException("retreiving contempt details failed, general exception");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(ResourceNotFoundException e) {
 			e.printStackTrace();
 			LOG.error("retreiving contempt details failed, requested resource not found",e);
@@ -142,11 +174,15 @@ public class DocumentsController {
 	 */
 	
 	@PutMapping(value=AppConstants.DOCUMENT_UPDATE_URL)
-	public String updateDocument(@RequestBody String strDocumentEntity, @PathParam("id") String id) {
+	public String updateDocument(@RequestBody String strDocumentEntity, @PathParam("id") String id,HttpServletRequest httpServletRequest) {
 		System.out.println(" entered update document details ");
 		DocumentEntity documentEntity = null;
 		BaseResponse baseResponse = new BaseResponse();
+		String userId="";
 		try {
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			
 			if(strDocumentEntity==null || strDocumentEntity.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document id");
@@ -161,10 +197,16 @@ public class DocumentsController {
 			documentEntity = documentsService.updateDocumentEntity(((DocumentEntity)JSONFormatter.buildJSONObject(strDocumentEntity, DocumentEntity.class)));
 			baseResponse.setStatus("200");
 			baseResponse.setResult(""+documentEntity.getId());
+			
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :<B>"+documentEntity.getFile_name() +"</B> uploaded on "+GeneralUtil.getTodaysDate()+ "</B>",userId));
+
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" update document failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid document details");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(InvalidRequestException e) {
 			LOG.error(" add document case failed with JSON Conversion",e);
 			throw new InvalidRequestException(" error occurred while processing the update document request");
@@ -182,13 +224,15 @@ public class DocumentsController {
 	 */
 	
 	@DeleteMapping(value=AppConstants.DOCUMENT_DELETE_URL)
-	public String deleteDocument(@PathParam("id") String id) {
+	public String deleteDocument(@PathParam("id") String id,HttpServletRequest httpServletRequest) {
 		LOG.info(" Entered Delete Document ");
 		DocumentEntity documentEntity = null;
 		BaseResponse baseResponse = new BaseResponse();
-		
+		String userId="";
 		try {
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document id");
 			
@@ -201,6 +245,8 @@ public class DocumentsController {
 			}
 			documentsService.deleteFDocument(id);
 			baseResponse.setStatus("200");
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :<B>"+documentEntity.getFile_name() +"</B> deleted on "+GeneralUtil.getTodaysDate()+ "</B>",userId));
+
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" delete document failed, json conversion",e);
@@ -208,6 +254,9 @@ public class DocumentsController {
 		}catch(InvalidRequestException e) {
 			LOG.error(" delete document failed with invalid request",e);
 			throw new InvalidRequestException(" Invalid contempt  id");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(ResourceNotFoundException e) {
 			
 			LOG.error(" retreiving document details failed",e);
@@ -224,14 +273,16 @@ public class DocumentsController {
 	
 	@RequestMapping(value=AppConstants.DOCUMENT_URL,method=RequestMethod.GET)
 	
-	public String getDocument(@PathVariable("id") String id) {
+	public String getDocument(@PathVariable("id") String id,HttpServletRequest httpServletRequest) {
 		LOG.info(" Retreiving document Details ");
 		
 		ReadDocumentResponse readDocumentResponse = new ReadDocumentResponse();
 		DocumentEntity documentEntities = null;
-		
+		String userId="";
 		try {
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document id"); 
 			
@@ -249,6 +300,9 @@ public class DocumentsController {
 		}catch(JSONConverterException e) {
 			LOG.error(" retreiving document details failed",e);
 			throw new InvalidRequestException("retreiving document details failed");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(ResourceNotFoundException e) {
 			
 			LOG.error(" retreiving document details failed",e);
@@ -262,4 +316,6 @@ public class DocumentsController {
 			throw new InternalServerException("retreiving document details failed, general exception");
 		}
 	}
+	
+
 }

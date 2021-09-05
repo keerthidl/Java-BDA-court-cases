@@ -136,4 +136,8 @@ public class AppConstants {
 	
 	/** court case add URL **/
 	public final static String CASE_APPEAL_DELETE_URL="caseappeals/appeal/{id}";
+	
+	
+	/** AUTH_HEADER_KEY **/
+	public final static String AUTH_HEADER_KEY="Authorization";
 }

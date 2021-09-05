@@ -9,5 +9,6 @@ import com.finch.legal.opinion.app.entities.CourtCaseEntity;
 
 
 public interface CourtCasesRepository extends JpaRepository<CourtCaseEntity, Integer> {
-	//List<CourtCaseEntity> findByCase_no(String case_no);
+	
+	CourtCaseEntity findById(int id);
 }

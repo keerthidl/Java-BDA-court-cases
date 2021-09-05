@@ -1,9 +1,8 @@
 package com.finch.legal.opinion.app.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,21 +17,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.finch.legal.opinion.app.constants.AppConstants;
-import com.finch.legal.opinion.app.employee.model.AddCaseResponse;
-import com.finch.legal.opinion.app.employee.model.AddCaseResult;
 import com.finch.legal.opinion.app.employee.model.BaseResponse;
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
 import com.finch.legal.opinion.app.employee.model.ReadAllCommentResponse;
-import com.finch.legal.opinion.app.employee.model.ReadCaseResponse;
 import com.finch.legal.opinion.app.employee.model.ReadCommentResponse;
+import com.finch.legal.opinion.app.entities.CaseHistoryEntity;
 import com.finch.legal.opinion.app.entities.CommentEntity;
 import com.finch.legal.opinion.app.exceptions.InternalServerException;
 import com.finch.legal.opinion.app.exceptions.InvalidRequestException;
 import com.finch.legal.opinion.app.exceptions.JSONConverterException;
 import com.finch.legal.opinion.app.exceptions.ResourceNotFoundException;
+import com.finch.legal.opinion.app.exceptions.UnAuthorizedAccessException;
 import com.finch.legal.opinion.app.logs.AppLogger;
 import com.finch.legal.opinion.app.logs.LogManager;
+import com.finch.legal.opinion.app.services.CaseHistoryService;
 import com.finch.legal.opinion.app.services.CommentService;
+import com.finch.legal.opinion.app.services.AuthenticationService;
 import com.finch.legal.opinion.app.util.JSONFormatter;
 
 /**
@@ -52,33 +52,52 @@ public class CommentsController {
 	@Autowired
 	private CommentService commentService;
 	
+	/** ServiceAuthenticationService **/
+	@Autowired
+	private AuthenticationService authenticationService;
 	
 	
+	
+	
+	/** ServiceAuthenticationService **/
+	@Autowired
+	private CaseHistoryService caseHistoryService;
 	/**
 	 * employee enrollment service
 	 */
 	
 	@PostMapping(value=AppConstants.COMMENT_ADD_URL)
-	public String addNewContempt(@RequestBody String strComment) {
+	public String addNewContempt(@RequestBody String strComment,HttpServletRequest httpServletRequest) {
 		LOG.info(" Entered Contempt Adding Service ");
 		CommentEntity commentEntity = null;
 	    BaseResponse baseResponse = new BaseResponse();
-	
+	    String userId="";
 		try {
+			
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+		
 			
 			if(strComment==null || strComment.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid comment payload"); 
 			
 			}
-				
-			commentEntity = commentService.addComment(((CommentEntity)JSONFormatter.buildJSONObject(strComment, CommentEntity.class)));
+			commentEntity = ((CommentEntity)JSONFormatter.buildJSONObject(strComment, CommentEntity.class));	
+			commentEntity = commentService.addComment(commentEntity);
 			
 		    baseResponse.setStatus("200");
 		    baseResponse.setResult(""+commentEntity.getId());
+		    
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments Added","Case Comment :<B>"+commentEntity.getComment() +"</B>  of Type :<B>"+commentEntity.getType()+ "</B> ADDED On <B>"+commentEntity.getRecorded_on()+"</B>",userId));
+			
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" add comment failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid comment details");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(InvalidRequestException e) {
 			LOG.error(" add comment failed with invalid payload",e);
 			throw new InvalidRequestException(" Invalid comment details");
@@ -93,12 +112,16 @@ public class CommentsController {
 	 * employee enrollment service
 	 */
 	@GetMapping(value=AppConstants.COMMENT_READ_URL)
-	public String getContempt(@PathVariable("id") String id) {
+	public String getContempt(@PathVariable("id") String id,HttpServletRequest httpServletRequest) {
 		LOG.info(" Entered Reading Comment");
 		CommentEntity commentEntity = null;
 	    ReadCommentResponse readCommentResponse = new ReadCommentResponse();
+	    String userId="";
 		try {
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+		
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid contempt id"); 
 			
@@ -118,6 +141,9 @@ public class CommentsController {
 			
 			LOG.error(" retreiving comment details failed",e);
 			throw new InvalidRequestException("retreiving comment details failed");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(InvalidRequestException e) {
 		
 			LOG.error("retreiving comment details failed, invalid request",e);
@@ -138,12 +164,18 @@ public class CommentsController {
 	 */
 	
 	@PutMapping(value=AppConstants.COMMENTT_UPDATE_URL)
-	public String updateCase(@RequestBody String strCommentDetails, @PathVariable("id") String id) {
+	public String updateCase(@RequestBody String strCommentDetails, @PathVariable("id") String id,HttpServletRequest httpServletRequest) {
 		System.out.println(" entered update comment details "+id);
 		CommentEntity commentEntity = null;
 		BaseResponse baseResponse = new BaseResponse();
+		String userId="";
 		
 		try {
+			
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+		
 			
 			if(strCommentDetails==null || strCommentDetails.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid comment details");
@@ -164,6 +196,8 @@ public class CommentsController {
 			baseResponse.setStatus("200");
 			baseResponse.setResult(""+commentEntity.getId());
 			
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments updated","Case Comment :<B>"+commentEntity.getComment() +"</B>  of Type :<B>"+commentEntity.getType()+ "</B> Updated On <B>"+commentEntity.getRecorded_on()+"</B>",userId));
+				
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" update comment failed with JSON Conversion",e);
@@ -172,6 +206,9 @@ public class CommentsController {
 		
 			LOG.error("retreiving comment details failed, invalid request",e);
 			throw new InternalServerException("retreiving comment details failed, general exception");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(ResourceNotFoundException e) {
 			e.printStackTrace();
 			LOG.error("retreiving comment details failed, requested resource not found",e);
@@ -188,12 +225,16 @@ public class CommentsController {
 	 */
 	
 	@DeleteMapping(value=AppConstants.COMMENT_DELETE_URL)
-	public String deleteComment(@PathVariable("id") String id) {
+	public String deleteComment(@PathVariable("id") String id,HttpServletRequest httpServletRequest) {
 		LOG.info(" Entered Delete Comment ");
 		CommentEntity commentEntity = null;
 		BaseResponse baseResponse = new BaseResponse();
+		String userId="";
 		try {
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+		
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid comment id");
 			
@@ -207,13 +248,17 @@ public class CommentsController {
 			}
 				
 			commentService.deleteComment(id);
-		
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments updated","Case Comment :<B>"+commentEntity.getComment() +"</B>  of Type :<B>"+commentEntity.getType()+ "</B> Deleted On <B>"+commentEntity.getRecorded_on()+"</B>",userId));
+				
 			baseResponse.setStatus("200");
 			baseResponse.setResult("");
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			LOG.error(" update comment failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid enrolment details");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(InvalidRequestException e) {
 		
 			LOG.error("retreiving comment details failed, invalid request",e);
@@ -235,12 +280,16 @@ public class CommentsController {
 	
 	@RequestMapping(value=AppConstants.ALL_COMMENTS_URL,method=RequestMethod.GET)
 	
-	public String getCase(@PathVariable("caseid") String caseId) {
+	public String getCase(@PathVariable("caseid") String caseId,HttpServletRequest httpServletRequest) {
 		System.out.println(" Retreiving all comments "+caseId);
 		CourtCaseDetailsModel courtCaseDetailsModel = null;
 		ReadAllCommentResponse readAllCommentResponse = new ReadAllCommentResponse();
+		String userId="";
 		
 		try {
+			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			
+			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
 			
 			if(caseId==null || caseId.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid comment id"); 
@@ -261,6 +310,9 @@ public class CommentsController {
 		}catch(JSONConverterException e) {
 			LOG.error(" update comment failed with JSON Conversion",e);
 			throw new InvalidRequestException(" Invalid enrolment details");
+		}catch(UnAuthorizedAccessException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(InvalidRequestException e) {
 		
 			LOG.error("retreiving comment details failed, invalid request",e);
