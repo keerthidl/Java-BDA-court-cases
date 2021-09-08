@@ -79,9 +79,9 @@ public class FileMovementController {
 		int id=0;
 	    String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(strFileMovementModel==null || strFileMovementModel.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid contempt payload"); 
@@ -125,9 +125,9 @@ public class FileMovementController {
 		ReadFileMovementResponse readFileMovementResponse = new ReadFileMovementResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid File Movement id"); 
@@ -176,9 +176,9 @@ public class FileMovementController {
 		String userId="";
 	
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			if(strFileMovementDetails==null || strFileMovementDetails.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid contempt id");
 			
@@ -228,9 +228,9 @@ public class FileMovementController {
 		BaseResponse baseResponse = new BaseResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid file movement id");
@@ -278,9 +278,9 @@ public class FileMovementController {
 		List<FileMovementEntity> lstFileMovementEntity=null;
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(caseId==null || caseId.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid court case id"); 

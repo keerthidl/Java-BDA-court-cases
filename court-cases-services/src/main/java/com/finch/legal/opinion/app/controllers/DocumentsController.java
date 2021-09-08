@@ -84,9 +84,9 @@ public class DocumentsController {
 		
 		try {
 			
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 		
 			if(strDocument==null || strDocument.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document payload"); 
@@ -130,9 +130,9 @@ public class DocumentsController {
 		String userId="";
 
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(caseId==null || caseId.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid case id"); 
@@ -180,9 +180,9 @@ public class DocumentsController {
 		BaseResponse baseResponse = new BaseResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(strDocumentEntity==null || strDocumentEntity.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document id");
@@ -230,9 +230,9 @@ public class DocumentsController {
 		BaseResponse baseResponse = new BaseResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document id");
 			
@@ -280,9 +280,9 @@ public class DocumentsController {
 		DocumentEntity documentEntities = null;
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid document id"); 
 			

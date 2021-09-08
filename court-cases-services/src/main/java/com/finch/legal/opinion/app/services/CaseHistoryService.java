@@ -14,6 +14,7 @@ import com.finch.legal.opinion.app.entities.ScheduleEntity;
 import com.finch.legal.opinion.app.logs.AppLogger;
 import com.finch.legal.opinion.app.logs.LogManager;
 import com.finch.legal.opinion.app.repositories.CaseHistoryRepository;
+import com.finch.legal.opinion.app.util.GeneralUtil;
 
 /**
  * 
@@ -44,7 +45,9 @@ public class CaseHistoryService {
 	 * is employee exists
 	 */
 	public void addCaseHistory(CaseHistoryEntity caseHistoryEntity) {
+		LOG.info(" ADDDDDDDDDDDDDDDDDDD   "+GeneralUtil.getTodaysDate());
 		caseHistoryRepository.save(caseHistoryEntity);	
+		LOG.info(" MMMMMMMMMMMMMMMMMMMMMMMMM   "+GeneralUtil.getTodaysDate());
 	}
 	
 	/**
@@ -59,15 +62,16 @@ public class CaseHistoryService {
 	/**
 	 * court case history
 	 */
-	public CaseHistoryEntity buildCaseHistory(int caseMainId,String caseNumber,String activity,String caseDetails,String dept) {
+	public CaseHistoryEntity buildCaseHistory(int caseMainId,String caseNumber,String activity,String caseDetails,String userid) {
 		
 		CaseHistoryEntity caseHistoryEntity = new CaseHistoryEntity();
 		caseHistoryEntity.setCase_activity(activity);
 		caseHistoryEntity.setCase_details(caseDetails);
 		caseHistoryEntity.setCase_id(caseNumber);
 		caseHistoryEntity.setCase_main_id(caseMainId);
-		caseHistoryEntity.setCreated_date(caseNumber);
-		caseHistoryEntity.setUser_dept(dept);
+		LOG.info(" TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT   "+GeneralUtil.getTodaysDate());
+		caseHistoryEntity.setCreated_date(GeneralUtil.getTodaysDate());
+		caseHistoryEntity.setUser_dept(userid);
 		return caseHistoryEntity;
 	}
 }

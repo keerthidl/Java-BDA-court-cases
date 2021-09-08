@@ -52,9 +52,10 @@ public class GeneralUtil {
 	 */
 	public static String getTodaysDate() {
 		String pattern = "MM-dd-yyyy HH:MM:SS";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		
-		return simpleDateFormat.format(new java.util.Date());
+		DateFormat inputFormat = new SimpleDateFormat("EEE MMM d yyyy HH:mm:ss 'GMT' Z", Locale.ENGLISH);
+		
+		return inputFormat.format(new java.util.Date())+ " (India Standard Time)";
 		
 	}
 	

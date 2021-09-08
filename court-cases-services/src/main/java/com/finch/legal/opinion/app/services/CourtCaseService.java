@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
 import com.finch.legal.opinion.app.employee.model.ScheduleDetailsModel;
@@ -101,8 +102,10 @@ public class CourtCaseService {
 	/**
 	 * is employee exists
 	 */
+	@Transactional
 	public int addCourtCase(CourtCaseDetailsModel courtCaseDetailsModel) {
 		
+		long startTime = System.currentTimeMillis();
 		SectionEntity sectionEntity = null;
 		
 		PrayerEntity prayerEntity = null;
@@ -114,16 +117,14 @@ public class CourtCaseService {
 		List<ScheduleEntity> lstScheduleEntity = getLstScheduleEntity(courtCaseDetailsModel.getSchedules(),courtCaseEntity);
 		
 	
+		scheduleRepository.saveAll(lstScheduleEntity);
 		
-		for(ScheduleEntity scheduleEntity:lstScheduleEntity) {
-			
-			scheduleRepository.save(scheduleEntity);
-		}
 		
 		List<String> lstSections = courtCaseDetailsModel.getSections();
 		
 	
 		List<SectionEntity> lstSectionsEntities = new ArrayList<>();
+	
 		for(String scetionId:lstSections) {
 			sectionEntity = new SectionEntity();
 			sectionEntity.setCase_main_id(courtCaseEntity.getId());	
@@ -132,11 +133,13 @@ public class CourtCaseService {
 			
 		}
 		
-		courtCaseEntity.setCase_entered_date(GeneralUtil.getTodaysDate());
+		
 		sectionsService.addSection(lstSectionsEntities);
 		
 		
+		long endTime = System.currentTimeMillis();
 		
+		LOG.info(" TIME TAKEN IS "+((endTime-startTime)/1000));
 		return courtCaseEntity.getId();
 		
 	}
@@ -230,6 +233,7 @@ public class CourtCaseService {
 	/**
 	 * is employee exists
 	 */
+	@Transactional
 	public int updateCourtCase(CourtCaseDetailsModel courtCaseDetailsModel,String id) {
 		
 		CourtCaseEntity courtCaseEntity = null;
@@ -399,6 +403,10 @@ public class CourtCaseService {
 			courtCaseEntity.setOrder_summary(courtCaseDetailsModel.getOrder_summary());
 		}
 		
+		if(courtCaseDetailsModel.getCompliance_report()!=null && courtCaseDetailsModel.getCompliance_report().trim().length()>0) {
+			courtCaseEntity.setCompliance_report(courtCaseDetailsModel.getCompliance_report());
+		}
+		
 		
 		if(courtCaseDetailsModel.getZone()!=null && courtCaseDetailsModel.getZone().trim().length()>0) {
 			courtCaseEntity.setZone(courtCaseDetailsModel.getZone());
@@ -453,6 +461,7 @@ public class CourtCaseService {
 		
 		courtCaseDetailsModel.setOrder_status(courtCaseEntity.getOrder_status());
 		courtCaseDetailsModel.setOrder_summary(courtCaseEntity.getOrder_summary());
+		courtCaseDetailsModel.setCompliance_report(courtCaseEntity.getCompliance_report());
 
 		return courtCaseDetailsModel;
 	}

@@ -87,19 +87,28 @@ public class CourtCasesController {
 		BaseResponse baseResponse = new BaseResponse();
 		int id=0;
 	    String userId="";
+	    
 		try {
 			
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			long startTime = System.currentTimeMillis();
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			long endTime = System.currentTimeMillis();
+			
+			LOG.info(" AUTH TIME ="+((endTime-startTime)/1000));
 			
 			if(strCourtCase==null || strCourtCase.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid court case payload"); 
 			
 			} 
 			
-			
+			startTime = System.currentTimeMillis();
 		   courtCaseDetailsModel = ((CourtCaseDetailsModel)JSONFormatter.buildJSONObject(strCourtCase, CourtCaseDetailsModel.class));
+		   
+		   endTime = System.currentTimeMillis();
+			
+			LOG.info(" OBJECT TIME ="+((endTime-startTime)/1000));
+			
 		   
 		   if(courtCaseDetailsModel.getPrayer()!=null && courtCaseDetailsModel.getPrayer().length()>5000) {
 			   throw new InvalidRequestException("Prayer Field Length more than allowed characters (>5000");
@@ -120,8 +129,12 @@ public class CourtCasesController {
 		    baseResponse.setStatus("200");
 		    baseResponse.setResult(""+id);
 		    
-		    caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(id,""+id,"Case Contempt Updated","Case No:<B>"+courtCaseDetailsModel.getCase_id() +" Created On"+GeneralUtil.getTodaysDate()+"</B>",userId));
+		    startTime = System.currentTimeMillis();															
+		    caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(id,""+id,"Case Created","Case No:<B>"+courtCaseDetailsModel.getCase_id() +" Created On"+GeneralUtil.getTodaysDate()+"</B>",userId));
 
+		    endTime = System.currentTimeMillis();
+			
+			LOG.info(" QUERY TIME ="+((endTime-startTime)/1000));
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
 			e.printStackTrace();
@@ -134,6 +147,7 @@ public class CourtCasesController {
 			LOG.error(" add court case failed with invalid payload",e);
 			throw new UnAuthorizedAccessException(" Un-Authorized Access");
 		}catch(Exception e) {
+			e.printStackTrace();
 			LOG.error(" add court case failed with general exception",e);
 			throw new InternalServerException(" error occurred while processing the request");
 		}
@@ -145,7 +159,7 @@ public class CourtCasesController {
 	 */
 	@GetMapping(value=AppConstants.COURT_CASE_READ_URL)
 	public String getCourtCases(@PathVariable("id") String id,HttpServletRequest httpServletRequest) {
-		LOG.info(" Entered Reading acourt case");
+		LOG.info(" Entered Reading acourt case ========");
 		CourtCaseDetailsModel courtCaseDetailsModel = null;
 	    String userId="";
 	    ReadCaseResponse readCaseResponse = null;
@@ -153,7 +167,7 @@ public class CourtCasesController {
 			
 			LOG.info(" BEARER TOKEN ================="+httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
-			LOG.info(" BEARER TOKEN  bbbbbb"+httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			
 			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			LOG.info(" BEARER TOKEN ccccc "+httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
@@ -210,9 +224,9 @@ public class CourtCasesController {
 		int id1=0;
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			if(strCourtCase==null || strCourtCase.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid advocate details");
 			
@@ -270,9 +284,9 @@ public class CourtCasesController {
 		String userId="";
 		try {
 			
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(caseId==null || caseId.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid advocate details");
@@ -326,9 +340,9 @@ public class CourtCasesController {
 	    String userId="";
 		try {
 			
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			lstCourtCaseDetailsModel = courtCaseService.getAllCourtCases();
 			
 			if(lstCourtCaseDetailsModel==null) {

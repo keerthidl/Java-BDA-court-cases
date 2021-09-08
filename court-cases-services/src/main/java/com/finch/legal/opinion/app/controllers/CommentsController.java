@@ -74,9 +74,9 @@ public class CommentsController {
 	    String userId="";
 		try {
 			
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 		
 			
 			if(strComment==null || strComment.trim().length()<1) {
@@ -118,9 +118,9 @@ public class CommentsController {
 	    ReadCommentResponse readCommentResponse = new ReadCommentResponse();
 	    String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 		
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid contempt id"); 
@@ -172,9 +172,9 @@ public class CommentsController {
 		
 		try {
 			
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 		
 			
 			if(strCommentDetails==null || strCommentDetails.trim().length()<1) {
@@ -231,9 +231,9 @@ public class CommentsController {
 		BaseResponse baseResponse = new BaseResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 		
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid comment id");
@@ -287,9 +287,9 @@ public class CommentsController {
 		String userId="";
 		
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(caseId==null || caseId.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid comment id"); 

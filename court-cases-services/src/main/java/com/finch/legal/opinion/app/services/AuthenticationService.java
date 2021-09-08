@@ -25,7 +25,7 @@ public class AuthenticationService {
 	
 	
 	/** secret key **/
-	private static final String secret = "asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4";
+	private static final String secret = "ff3i!25n#4@5c54h%^";
 	/**
 	 * default constructor
 	 */
@@ -43,7 +43,7 @@ public class AuthenticationService {
 		 Jws<Claims> jwt=null;
 		 long timeExpiry=0;
 		 
-		System.out.println(" BBBBBBBBBBBBBBBBBBBBBB    "+authHeaderValue);
+		System.out.println(" BBBBBBBBBBBBBBBBB <<< NEW >>>    "+authHeaderValue);
 		if(authHeaderValue==null || authHeaderValue.trim().length()<1) {
 			throw new UnAuthorizedAccessException("Un-Authorized Access No JWT Token Present ");
 		}else if(!authHeaderValue.trim().startsWith("Bearer")) {
@@ -57,21 +57,29 @@ public class AuthenticationService {
 			if(authHeaderValue!=null && authHeaderValue.startsWith("Bearer")) {
 				authHeaderValue = authHeaderValue.replace("Bearer", "");
 			}
+			System.out.println(" TEST JWT "+authHeaderValue);
 			hmacKey = new SecretKeySpec(Base64.decodeBase64(secret), 
-			                                    SignatureAlgorithm.HS256.getJcaName());
+			                                    SignatureAlgorithm.HS512.getJcaName());
 	
+			System.out.println(" TEST PASSSSSSSSSSSSSSSSSSSSSS  "+authHeaderValue);
 			jwt = Jwts.parserBuilder()
 			            .setSigningKey(hmacKey)
 			            .build()
 			            .parseClaimsJws(authHeaderValue);
+			
+			System.out.println(" TEST PASSSSSSSSSSSSSSSSSSSSSS <<JWT>> "+jwt);
 	
 			 timeExpiry = jwt.getBody().getExpiration().getTime();
+			 
+			 System.out.println(" TEST PASSSSSSSSSSSSSSSSSSSSSS <<EXPIRT DATE>> "+timeExpiry+"::::::::::::::::::::::::::::::::::: "+((System.currentTimeMillis()-timeExpiry)/1000));
 			  
-			  if(((System.currentTimeMillis()-timeExpiry)/1000)>(60*60)) {
+			  if(((System.currentTimeMillis()-timeExpiry)/1000)>(86400)) {
 				  throw new UnAuthorizedAccessException("Un-Authorized Access No JWT Token Present ");
 			  }
+			  
+			 
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return true;
 	}

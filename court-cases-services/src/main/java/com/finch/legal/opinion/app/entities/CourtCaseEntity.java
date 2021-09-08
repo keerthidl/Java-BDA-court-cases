@@ -36,7 +36,7 @@ public class CourtCaseEntity {
 	private String case_created_date="";
 	
 	/** name **/
-	@Column(name = "petinitioner_name")
+	@Column(name = "petitioner_name")
 	private String petinitioner_name="";
 	
 	

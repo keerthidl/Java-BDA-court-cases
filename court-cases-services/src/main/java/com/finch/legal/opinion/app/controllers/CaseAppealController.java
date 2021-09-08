@@ -74,9 +74,9 @@ public class CaseAppealController {
 		String userId="";
 	    try {
 	    	
-	    	authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+	    	authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(strComment==null || strComment.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid comment payload"); 
@@ -114,9 +114,9 @@ public class CaseAppealController {
 	    ReadCaseAppealResponse readCaseAppealResponse = new ReadCaseAppealResponse();
 	    String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid Case Appeal id"); 
 			
@@ -165,9 +165,9 @@ public class CaseAppealController {
 		BaseResponse baseResponse = new BaseResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			if(strCommentDetails==null || strCommentDetails.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid case appeal details");
 			
@@ -220,9 +220,9 @@ public class CaseAppealController {
 		BaseResponse baseResponse = new BaseResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			if(id==null || id.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid Case Appeal id");
@@ -274,9 +274,9 @@ public class CaseAppealController {
 		ReadAllCaseAppealResponse readAllCaseAppealResponse = new ReadAllCaseAppealResponse();
 		String userId="";
 		try {
-			authenticationService.isAuthenticationValid(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getParameter(AppConstants.AUTH_HEADER_KEY));
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			List<CourtCaseAppealDetailsModel> lstCaseAppealEntities = caseAppealService.getAllAppeals();
 			
