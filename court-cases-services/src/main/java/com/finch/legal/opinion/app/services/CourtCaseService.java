@@ -243,6 +243,7 @@ public class CourtCaseService {
 		courtCaseEntity = transformCaseModelToEntity(courtCaseDetailsModel,courtCaseEntity);
 		
 		courtCaseEntity.setId(Integer.parseInt(id));
+		courtCaseEntity.setCase_entered_date(GeneralUtil.getTodaysDate());
 		courtCaseEntity = courtCasesRepository.save(courtCaseEntity);
 		
 		List<ScheduleEntity> lstScheduleEntity = getLstScheduleEntity(courtCaseDetailsModel.getSchedules(),courtCaseEntity);
@@ -412,6 +413,7 @@ public class CourtCaseService {
 			courtCaseEntity.setZone(courtCaseDetailsModel.getZone());
 		}
 		
+		courtCaseEntity.setCase_entered_date(GeneralUtil.getTodaysDate());
 		return courtCaseEntity;
 	}
 	
@@ -462,6 +464,9 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setOrder_status(courtCaseEntity.getOrder_status());
 		courtCaseDetailsModel.setOrder_summary(courtCaseEntity.getOrder_summary());
 		courtCaseDetailsModel.setCompliance_report(courtCaseEntity.getCompliance_report());
+		
+		LOG.info(" CASE NETRERERERERE ===>"+courtCaseEntity.getCase_entered_date());
+		courtCaseDetailsModel.setCase_entered_date(courtCaseEntity.getCase_entered_date());
 
 		return courtCaseDetailsModel;
 	}

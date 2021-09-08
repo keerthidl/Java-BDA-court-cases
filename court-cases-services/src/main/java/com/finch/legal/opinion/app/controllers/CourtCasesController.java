@@ -248,7 +248,7 @@ public class CourtCasesController {
 			baseResponse.setStatus("200");
 		    baseResponse.setResult(""+id);
 		    
-		    caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(id1,""+id,"Case Contempt Updated","Case No:<B>"+courtCaseDetailsModel.getCase_id() +" Updated On"+GeneralUtil.getTodaysDate()+"</B>",userId));
+		    caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(id1,""+id,"Case Updated","Case No:<B>"+courtCaseDetailsModel.getCase_id() +" Updated On"+GeneralUtil.getTodaysDate()+"</B>",userId));
 
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
