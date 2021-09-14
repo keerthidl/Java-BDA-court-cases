@@ -124,6 +124,8 @@ public class CourtCasesController {
 			   throw new InvalidRequestException("Order Status Field Length more than allowed characters (>5000");
 		   }
 		   
+		  
+		   
 			id = courtCaseService.addCourtCase(courtCaseDetailsModel);
 		
 		    baseResponse.setStatus("200");
@@ -166,9 +168,9 @@ public class CourtCasesController {
 		try {
 			
 			LOG.info(" BEARER TOKEN ================="+httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
-			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
+			//authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
-			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
+			//userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			
 			LOG.info(" BEARER TOKEN ccccc "+httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			

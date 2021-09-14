@@ -26,7 +26,7 @@ public class CaseAppealEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	/** id **/
 	private int id=0;
-	 
+	
 	 /** case activity **/
 	@Column(name = "appeal_no")
     private String appeal_no="";
@@ -44,48 +44,40 @@ public class CaseAppealEntity {
 	private String petitioner_name=""; 
 		
 	/** case activity **/
-	@Column(name = "sob_field")
-    private String sob_field="";
+	@Column(name = "prayer")
+    private String prayer="";
 	
 	 /** case activity **/
 	@Column(name = "advocate_id")
 	private String advocate_id="";
 			
 	/** case activity **/
-	@Column(name = "court_name")
-	private String court_name="";
+	@Column(name = "court_id")
+	private String court_id="";
 	
 	 /** case activity **/
-	@Column(name = "remarks")
-	private String remarks="";
+	@Column(name = "remark")
+	private String remark="";
 				
-	/** case activity **/
-	@Column(name = "status")
-	private String status="";
+
 	
 	 /** case activity **/
-	@Column(name = "other_respondents")
-	private String other_respondents="";
+	@Column(name = "other_respondants")
+	private String other_respondants="";
 					
 	/** case activity **/
 	@Column(name = "order_type")
 	private String order_type="";
+
 	
 	/** case activity **/
-	@Column(name = "judgement_date")
-	private Date judgement_date;
+	@Column(name = "appeal_created_date")
+	private String appeal_created_date="";
+	
 	
 	/** case activity **/
-	@Column(name = "type_of_opponent")
-	private String type_of_opponent;
-	
-	/** case activity **/
-	@Column(name = "opponent_name")
-	private String opponent_name;
-	
-	/** case activity **/
-	@Column(name = "opponent_advocate_id_name")
-	private String opponent_advocate_id_name;
+	@Column(name = "opponent_advocate_id_number")
+	private String opponent_advocate_id_number;
 	
 	
 	/**
@@ -177,18 +169,18 @@ public class CaseAppealEntity {
 
 
 	/**
-	 * @return the sob_field
+	 * @return the prayer
 	 */
-	public String getSob_field() {
-		return sob_field;
+	public String getPrayer() {
+		return prayer;
 	}
 
 
 	/**
-	 * @param sob_field the sob_field to set
+	 * @param prayer the prayer to set
 	 */
-	public void setSob_field(String sob_field) {
-		this.sob_field = sob_field;
+	public void setPrayer(String prayer) {
+		this.prayer = prayer;
 	}
 
 
@@ -209,66 +201,50 @@ public class CaseAppealEntity {
 
 
 	/**
-	 * @return the court_name
+	 * @return the court_id
 	 */
-	public String getCourt_name() {
-		return court_name;
+	public String getCourt_id() {
+		return court_id;
 	}
 
 
 	/**
-	 * @param court_name the court_name to set
+	 * @param court_id the court_id to set
 	 */
-	public void setCourt_name(String court_name) {
-		this.court_name = court_name;
+	public void setCourt_id(String court_id) {
+		this.court_id = court_id;
 	}
 
 
 	/**
-	 * @return the remarks
+	 * @return the remark
 	 */
-	public String getRemarks() {
-		return remarks;
+	public String getRemark() {
+		return remark;
 	}
 
 
 	/**
-	 * @param remarks the remarks to set
+	 * @param remark the remark to set
 	 */
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 
 	/**
-	 * @return the status
+	 * @return the other_respondants
 	 */
-	public String getStatus() {
-		return status;
+	public String getOther_respondants() {
+		return other_respondants;
 	}
 
 
 	/**
-	 * @param status the status to set
+	 * @param other_respondants the other_respondants to set
 	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-
-	/**
-	 * @return the other_respondents
-	 */
-	public String getOther_respondents() {
-		return other_respondents;
-	}
-
-
-	/**
-	 * @param other_respondents the other_respondents to set
-	 */
-	public void setOther_respondents(String other_respondents) {
-		this.other_respondents = other_respondents;
+	public void setOther_respondants(String other_respondants) {
+		this.other_respondants = other_respondants;
 	}
 
 
@@ -289,66 +265,33 @@ public class CaseAppealEntity {
 
 
 	/**
-	 * @return the judgement_date
+	 * @return the appeal_created_date
 	 */
-	public Date getJudgement_date() {
-		return judgement_date;
+	public String getAppeal_created_date() {
+		return appeal_created_date;
 	}
 
 
 	/**
-	 * @param judgement_date the judgement_date to set
+	 * @param appeal_created_date the appeal_created_date to set
 	 */
-	public void setJudgement_date(Date judgement_date) {
-		this.judgement_date = judgement_date;
+	public void setAppeal_created_date(String appeal_created_date) {
+		this.appeal_created_date = appeal_created_date;
 	}
 
 
 	/**
-	 * @return the type_of_opponent
+	 * @return the opponent_advocate_id_number
 	 */
-	public String getType_of_opponent() {
-		return type_of_opponent;
+	public String getOpponent_advocate_id_number() {
+		return opponent_advocate_id_number;
 	}
 
 
 	/**
-	 * @param type_of_opponent the type_of_opponent to set
+	 * @param opponent_advocate_id_number the opponent_advocate_id_number to set
 	 */
-	public void setType_of_opponent(String type_of_opponent) {
-		this.type_of_opponent = type_of_opponent;
+	public void setOpponent_advocate_id_number(String opponent_advocate_id_number) {
+		this.opponent_advocate_id_number = opponent_advocate_id_number;
 	}
-
-
-	/**
-	 * @return the opponent_name
-	 */
-	public String getOpponent_name() {
-		return opponent_name;
-	}
-
-
-	/**
-	 * @param opponent_name the opponent_name to set
-	 */
-	public void setOpponent_name(String opponent_name) {
-		this.opponent_name = opponent_name;
-	}
-
-
-	/**
-	 * @return the opponent_advocate_id_name
-	 */
-	public String getOpponent_advocate_id_name() {
-		return opponent_advocate_id_name;
-	}
-
-
-	/**
-	 * @param opponent_advocate_id_name the opponent_advocate_id_name to set
-	 */
-	public void setOpponent_advocate_id_name(String opponent_advocate_id_name) {
-		this.opponent_advocate_id_name = opponent_advocate_id_name;
-	}
-	
 }

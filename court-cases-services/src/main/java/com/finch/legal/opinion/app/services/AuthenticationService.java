@@ -25,7 +25,7 @@ public class AuthenticationService {
 	
 	
 	/** secret key **/
-	private static final String secret = "ff3i!25n#4@5c54h%^";
+	private static final String secret = "javainusebdafinchcases4hfghhtrtyrtytrteteteteetetee";
 	/**
 	 * default constructor
 	 */
@@ -57,9 +57,9 @@ public class AuthenticationService {
 			if(authHeaderValue!=null && authHeaderValue.startsWith("Bearer")) {
 				authHeaderValue = authHeaderValue.replace("Bearer", "");
 			}
-			System.out.println(" TEST JWT "+authHeaderValue);
-			hmacKey = new SecretKeySpec(Base64.decodeBase64(secret), 
-			                                    SignatureAlgorithm.HS512.getJcaName());
+			System.out.println(" TEST JWT "+secret);
+			hmacKey = new SecretKeySpec(secret.getBytes(), 
+			                                    SignatureAlgorithm.HS256.getJcaName());
 	
 			System.out.println(" TEST PASSSSSSSSSSSSSSSSSSSSSS  "+authHeaderValue);
 			jwt = Jwts.parserBuilder()

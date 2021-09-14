@@ -137,21 +137,21 @@ public class CaseAppealService {
 		
 		caseAppealEntity.setAdvocate_id(""+courtCaseAppealDetailsModel.getAdvocate_id());
 		caseAppealEntity.setCase_no(courtCaseAppealDetailsModel.getCase_no());
-		caseAppealEntity.setJudgement_date(courtCaseAppealDetailsModel.getJudgement_date());
-		caseAppealEntity.setOpponent_advocate_id_name(courtCaseAppealDetailsModel.getOpponent_advocate_id_name());
-		caseAppealEntity.setOpponent_name(courtCaseAppealDetailsModel.getOpponent_name());
+	//	caseAppealEntity.setJudgement_date(courtCaseAppealDetailsModel.getJudgement_date());
+		//caseAppealEntity.setOpponent_advocate_id(courtCaseAppealDetailsModel.getOpponent_advocate_id_name());
+		//caseAppealEntity.setOpponent_name(courtCaseAppealDetailsModel.getOpponent_name());
 		caseAppealEntity.setOrder_type(courtCaseAppealDetailsModel.getOrder_type());
-		caseAppealEntity.setOther_respondents(courtCaseAppealDetailsModel.getOther_respondents());
+		caseAppealEntity.setOther_respondants(courtCaseAppealDetailsModel.getOther_respondents());
 		caseAppealEntity.setPetitioner_name(courtCaseAppealDetailsModel.getPetitioner_name());
 		caseAppealEntity.setAppeal_no(courtCaseAppealDetailsModel.getAppeal_no());
 		caseAppealEntity.setCase_id(courtCaseAppealDetailsModel.getCase_id());
-		caseAppealEntity.setCourt_name(courtCaseAppealDetailsModel.getCourt_name());
+		caseAppealEntity.setCourt_id(courtCaseAppealDetailsModel.getCourt_name());
 		
 		
-		caseAppealEntity.setRemarks(courtCaseAppealDetailsModel.getRemarks());
-		caseAppealEntity.setType_of_opponent(courtCaseAppealDetailsModel.getType_of_opponent());
-		caseAppealEntity.setStatus(courtCaseAppealDetailsModel.getStatus());
-		caseAppealEntity.setSob_field(courtCaseAppealDetailsModel.getSob_field());
+		caseAppealEntity.setRemark(courtCaseAppealDetailsModel.getRemarks());
+		//caseAppealEntity.setType_of_opponent(courtCaseAppealDetailsModel.getType_of_opponent());
+		//caseAppealEntity.setStatus(courtCaseAppealDetailsModel.getStatus());
+		//caseAppealEntity.setSob_field(courtCaseAppealDetailsModel.getSob_field());
 		
 		return caseAppealEntity;
 	}
@@ -184,7 +184,7 @@ public class CaseAppealService {
 	private CourtCaseAppealDetailsModel transformCaseEntityToModel(CaseAppealEntity caseAppealEntity) {
 		CourtCaseAppealDetailsModel courtCaseAppealDetailsModel = new CourtCaseAppealDetailsModel();
 		
-		courtCaseAppealDetailsModel.setAppealId(""+caseAppealEntity.getId());
+	/**	courtCaseAppealDetailsModel.setAppealId(""+caseAppealEntity.getId());
 		
 		courtCaseAppealDetailsModel.setAdvocate_id(""+caseAppealEntity.getAdvocate_id());
 		courtCaseAppealDetailsModel.setCase_no(caseAppealEntity.getCase_no());
@@ -203,6 +203,7 @@ public class CaseAppealService {
 		courtCaseAppealDetailsModel.setType_of_opponent(caseAppealEntity.getType_of_opponent());
 		courtCaseAppealDetailsModel.setStatus(caseAppealEntity.getStatus());
 		courtCaseAppealDetailsModel.setSob_field(caseAppealEntity.getSob_field());
+		**/
 		
 		return courtCaseAppealDetailsModel;
 	}

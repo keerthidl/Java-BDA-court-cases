@@ -130,6 +130,13 @@ public class CourtCaseDetailsModel {
 	
 	  /** order summary **/    
 	private int  historyCount=0;
+	
+	
+	  /** order summary **/    
+	private String  caseType="";
+	
+	  /** order summary **/    
+	private String  parentCaseId="-1";
 		
 	
 	
@@ -263,6 +270,35 @@ public class CourtCaseDetailsModel {
 	 */
 	public void setDivision(String division) {
 		this.division = division;
+	}
+
+	
+	/**
+	 * @return the caseType
+	 */
+	public String getCaseType() {
+		return caseType;
+	}
+
+	/**
+	 * @param caseType the caseType to set
+	 */
+	public void setCaseType(String caseType) {
+		this.caseType = caseType;
+	}
+
+	/**
+	 * @return the parentCaseId
+	 */
+	public String getParentCaseId() {
+		return parentCaseId;
+	}
+
+	/**
+	 * @param parentCaseId the parentCaseId to set
+	 */
+	public void setParentCaseId(String parentCaseId) {
+		this.parentCaseId = parentCaseId;
 	}
 
 	/**

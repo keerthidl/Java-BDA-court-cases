@@ -306,6 +306,20 @@ public class CourtCaseService {
 			courtCaseEntity.setOrder_status(courtCaseDetailsModel.getOrder_status());
 		}
 		
+		LOG.info(" COURT CASE getParentCaseIdgetParentCaseId ID "+courtCaseDetailsModel.getParentCaseId());
+		
+		if(courtCaseDetailsModel.getParentCaseId()!=null && courtCaseDetailsModel.getParentCaseId().trim().length()>0) {
+			courtCaseEntity.setParent_case_id(Integer.parseInt(courtCaseDetailsModel.getParentCaseId()));
+		}else {
+			courtCaseEntity.setParent_case_id(-1);
+		}
+		
+		if(courtCaseDetailsModel.getCaseType()!=null && courtCaseDetailsModel.getCaseType().trim().length()>0) {
+			courtCaseEntity.setCase_type(courtCaseDetailsModel.getCaseType());
+		}else {
+			courtCaseEntity.setCase_type("MAIN");
+		}
+		
 		if(courtCaseDetailsModel.getOrder_summary()!=null && courtCaseDetailsModel.getOrder_summary().trim().length()>0) {
 			courtCaseEntity.setOrder_summary(courtCaseDetailsModel.getOrder_summary());
 		}
@@ -464,6 +478,10 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setOrder_status(courtCaseEntity.getOrder_status());
 		courtCaseDetailsModel.setOrder_summary(courtCaseEntity.getOrder_summary());
 		courtCaseDetailsModel.setCompliance_report(courtCaseEntity.getCompliance_report());
+		
+		
+		courtCaseDetailsModel.setParentCaseId(""+courtCaseEntity.getParent_case_id());
+		courtCaseDetailsModel.setCaseType(courtCaseEntity.getCase_type());
 		
 		LOG.info(" CASE NETRERERERERE ===>"+courtCaseEntity.getCase_entered_date());
 		courtCaseDetailsModel.setCase_entered_date(courtCaseEntity.getCase_entered_date());

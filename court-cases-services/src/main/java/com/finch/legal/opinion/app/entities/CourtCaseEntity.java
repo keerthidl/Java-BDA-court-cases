@@ -40,6 +40,15 @@ public class CourtCaseEntity {
 	private String petinitioner_name="";
 	
 	
+	  /** order summary **/   
+	@Column(name = "case_type")
+	private String  case_type="";
+		
+		  /** order summary **/   
+	@Column(name = "parent_case_id")
+	private int  parent_case_id=-1;
+	
+	
 	
 	/** name **/
 	@Column(name = "case_no")
@@ -602,6 +611,42 @@ public class CourtCaseEntity {
 	 */
 	public void setCase_entered_date(String case_entered_date) {
 		this.case_entered_date = case_entered_date;
+	}
+
+
+
+	/**
+	 * @return the case_type
+	 */
+	public String getCase_type() {
+		return case_type;
+	}
+
+
+
+	/**
+	 * @param case_type the case_type to set
+	 */
+	public void setCase_type(String case_type) {
+		this.case_type = case_type;
+	}
+
+
+
+	/**
+	 * @return the parent_case_id
+	 */
+	public int getParent_case_id() {
+		return parent_case_id;
+	}
+
+
+
+	/**
+	 * @param parent_case_id the parent_case_id to set
+	 */
+	public void setParent_case_id(int parent_case_id) {
+		this.parent_case_id = parent_case_id;
 	}
 	
 }
