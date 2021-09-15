@@ -1,10 +1,13 @@
 package com.finch.legal.opinion.app.controllers;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -148,6 +151,15 @@ public class CourtCasesController {
 		}catch(UnAuthorizedAccessException e) {
 			LOG.error(" add court case failed with invalid payload",e);
 			throw new UnAuthorizedAccessException(" Un-Authorized Access");
+		}catch(SQLIntegrityConstraintViolationException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new InvalidRequestException(" Duplicate Record");
+		}catch(DataIntegrityViolationException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new InvalidRequestException(" Duplicate Record");
+		}catch(ConstraintViolationException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new InvalidRequestException(" Duplicate Record");
 		}catch(Exception e) {
 			e.printStackTrace();
 			LOG.error(" add court case failed with general exception",e);
@@ -268,6 +280,15 @@ public class CourtCasesController {
 			e.printStackTrace();
 			LOG.error("retreiving court case details failed, requested resource not found",e);
 			throw new ResourceNotFoundException("retreiving court case details failed, general exception");
+		}catch(SQLIntegrityConstraintViolationException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new InvalidRequestException(" Duplicate Record");
+		}catch(DataIntegrityViolationException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new InvalidRequestException(" Duplicate Record");
+		}catch(ConstraintViolationException e) {
+			LOG.error(" add court case failed with invalid payload",e);
+			throw new InvalidRequestException(" Duplicate Record");
 		}catch(Exception e) {
 			LOG.error(" add court case failed with JSON Conversion",e);
 			throw new InternalServerException(" error occurred while processing the request");

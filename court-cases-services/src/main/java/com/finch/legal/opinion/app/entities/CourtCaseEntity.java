@@ -43,21 +43,12 @@ public class CourtCaseEntity {
 	@Column(name = "parent_case_no")
 	private String parent_case_no="";
 	
-<<<<<<< HEAD
+
 	  /** order summary **/   
 	@Column(name = "case_type")
 	private String  case_type="";
 		
-		  /** order summary **/   
-	@Column(name = "parent_case_id")
-	private int  parent_case_id=-1;
 	
-	
-=======
-	/** employee id **/
-	@Column(name = "case_type")
-	private String case_type="";
->>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
 	
 	/** name **/
 	@Column(name = "case_no")
@@ -169,8 +160,7 @@ public class CourtCaseEntity {
 	/** name **/
 	@Column(name = "order_status")
 	private String order_status="";
-	
-	
+
 	/**
 	 * @return the id
 	 */
@@ -178,43 +168,12 @@ public class CourtCaseEntity {
 		return id;
 	}
 
-	
-
 	/**
-	 * @return the order_summary
+	 * @param id the id to set
 	 */
-	public String getOrder_summary() {
-		return order_summary;
+	public void setId(int id) {
+		this.id = id;
 	}
-
-
-
-	/**
-	 * @param order_summary the order_summary to set
-	 */
-	public void setOrder_summary(String order_summary) {
-		this.order_summary = order_summary;
-	}
-
-
-
-	/**
-	 * @return the order_status
-	 */
-	public String getOrder_status() {
-		return order_status;
-	}
-
-
-
-	/**
-	 * @param order_status the order_status to set
-	 */
-	public void setOrder_status(String order_status) {
-		this.order_status = order_status;
-	}
-
-
 
 	/**
 	 * @return the case_created_date
@@ -244,6 +203,35 @@ public class CourtCaseEntity {
 		this.petinitioner_name = petinitioner_name;
 	}
 
+	/**
+	 * @return the parent_case_no
+	 */
+	public String getParent_case_no() {
+		return parent_case_no;
+	}
+
+	/**
+	 * @param parent_case_no the parent_case_no to set
+	 */
+	public void setParent_case_no(String parent_case_no) {
+		this.parent_case_no = parent_case_no;
+	}
+
+	/**
+	 * @return the case_type
+	 */
+	public String getCase_type() {
+		return case_type;
+	}
+
+	/**
+	 * @param case_type the case_type to set
+	 */
+	public void setCase_type(String case_type) {
+		this.case_type = case_type;
+	}
+
+	
 
 	/**
 	 * @return the case_no
@@ -525,7 +513,6 @@ public class CourtCaseEntity {
 		this.bill_amount = bill_amount;
 	}
 
-	
 	/**
 	 * @return the case_last_updated
 	 */
@@ -541,14 +528,14 @@ public class CourtCaseEntity {
 	}
 
 	/**
-	 * @return the other_respondents
+	 * @return the other_respondants
 	 */
 	public String getOther_respondants() {
 		return other_respondants;
 	}
 
 	/**
-	 * @param other_respondents the other_respondents to set
+	 * @param other_respondants the other_respondants to set
 	 */
 	public void setOther_respondants(String other_respondants) {
 		this.other_respondants = other_respondants;
@@ -596,24 +583,12 @@ public class CourtCaseEntity {
 		this.opponent_advocate_id_number = opponent_advocate_id_number;
 	}
 
-	
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-
 	/**
 	 * @return the case_entered_date
 	 */
 	public String getCase_entered_date() {
 		return case_entered_date;
 	}
-
-
 
 	/**
 	 * @param case_entered_date the case_entered_date to set
@@ -622,72 +597,35 @@ public class CourtCaseEntity {
 		this.case_entered_date = case_entered_date;
 	}
 
-
-
 	/**
-<<<<<<< HEAD
-	 * @return the case_type
+	 * @return the order_summary
 	 */
-	public String getCase_type() {
-		return case_type;
-=======
-	 * @return the parent_case_no
-	 */
-	public String getParent_case_no() {
-		return parent_case_no;
->>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
+	public String getOrder_summary() {
+		return order_summary;
 	}
 
-
-
 	/**
-<<<<<<< HEAD
-	 * @param case_type the case_type to set
+	 * @param order_summary the order_summary to set
 	 */
-	public void setCase_type(String case_type) {
-		this.case_type = case_type;
-=======
-	 * @param parent_case_no the parent_case_no to set
-	 */
-	public void setParent_case_no(String parent_case_no) {
-		this.parent_case_no = parent_case_no;
->>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
+	public void setOrder_summary(String order_summary) {
+		this.order_summary = order_summary;
 	}
 
-
-
 	/**
-<<<<<<< HEAD
-	 * @return the parent_case_id
+	 * @return the order_status
 	 */
-	public int getParent_case_id() {
-		return parent_case_id;
-=======
-	 * @return the case_type
-	 */
-	public String getCase_type() {
-		return case_type;
->>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
+	public String getOrder_status() {
+		return order_status;
 	}
 
-
-
 	/**
-<<<<<<< HEAD
-	 * @param parent_case_id the parent_case_id to set
+	 * @param order_status the order_status to set
 	 */
-	public void setParent_case_id(int parent_case_id) {
-		this.parent_case_id = parent_case_id;
-	}
-=======
-	 * @param case_type the case_type to set
-	 */
-	public void setCase_type(String case_type) {
-		this.case_type = case_type;
+	public void setOrder_status(String order_status) {
+		this.order_status = order_status;
 	}
 	
 	
->>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
 	
 }
 

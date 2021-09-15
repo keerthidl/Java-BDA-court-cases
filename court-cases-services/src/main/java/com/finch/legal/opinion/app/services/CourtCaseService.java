@@ -1,5 +1,6 @@
 package com.finch.legal.opinion.app.services;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +104,7 @@ public class CourtCaseService {
 	 * is employee exists
 	 */
 	@Transactional
-	public int addCourtCase(CourtCaseDetailsModel courtCaseDetailsModel) {
+	public int addCourtCase(CourtCaseDetailsModel courtCaseDetailsModel) throws SQLIntegrityConstraintViolationException{
 		
 		long startTime = System.currentTimeMillis();
 		SectionEntity sectionEntity = null;
@@ -234,7 +235,7 @@ public class CourtCaseService {
 	 * is employee exists
 	 */
 	@Transactional
-	public int updateCourtCase(CourtCaseDetailsModel courtCaseDetailsModel,String id) {
+	public int updateCourtCase(CourtCaseDetailsModel courtCaseDetailsModel,String id) throws SQLIntegrityConstraintViolationException {
 		
 		CourtCaseEntity courtCaseEntity = null;
 		
@@ -308,11 +309,6 @@ public class CourtCaseService {
 		
 		LOG.info(" COURT CASE getParentCaseIdgetParentCaseId ID "+courtCaseDetailsModel.getParentCaseId());
 		
-		if(courtCaseDetailsModel.getParentCaseId()!=null && courtCaseDetailsModel.getParentCaseId().trim().length()>0) {
-			courtCaseEntity.setParent_case_id(Integer.parseInt(courtCaseDetailsModel.getParentCaseId()));
-		}else {
-			courtCaseEntity.setParent_case_id(-1);
-		}
 		
 		if(courtCaseDetailsModel.getCaseType()!=null && courtCaseDetailsModel.getCaseType().trim().length()>0) {
 			courtCaseEntity.setCase_type(courtCaseDetailsModel.getCaseType());
@@ -495,7 +491,7 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setCompliance_report(courtCaseEntity.getCompliance_report());
 		
 		
-		courtCaseDetailsModel.setParentCaseId(""+courtCaseEntity.getParent_case_id());
+		courtCaseDetailsModel.setParent_case_no(""+courtCaseEntity.getParent_case_no());
 		courtCaseDetailsModel.setCaseType(courtCaseEntity.getCase_type());
 		
 		LOG.info(" CASE NETRERERERERE ===>"+courtCaseEntity.getCase_entered_date());
