@@ -74,7 +74,7 @@ public class AuthenticationService {
 	
 			 timeExpiry = jwt.getBody().getExpiration().getTime();
 			 
-			  
+			  LOG.info(" BODY IS "+jwt.getBody());
 			  if(((System.currentTimeMillis()-timeExpiry)/1000)>(86400)) {
 				  throw new UnAuthorizedAccessException("Un-Authorized Access No JWT Token Present ");
 			  }
@@ -138,7 +138,7 @@ public class AuthenticationService {
 			 }
 			 
 			 if(jwt.getBody().containsKey("lastName")) {
-				 userId = ""+userId+"  "+jwt.getBody().get("lastName");
+				// userId = ""+userId+"  "+jwt.getBody().get("lastName");
 			 }
 		
 			 
