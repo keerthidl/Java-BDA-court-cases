@@ -95,10 +95,10 @@ public class CourtCasesController {
 			
 			long startTime = System.currentTimeMillis();
 			authenticationService.isAuthenticationValid(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
-			
+			userId = authenticationService.getUserId(httpServletRequest.getHeader(AppConstants.AUTH_HEADER_KEY));
 			long endTime = System.currentTimeMillis();
 			
-			LOG.info(" AUTH TIME ="+((endTime-startTime)/1000));
+			LOG.info(" AUTH TIME <, userIduserIduserIduserIduserIduserIduserId >>="+userId);
 			
 			if(strCourtCase==null || strCourtCase.trim().length()<1) {
 				throw new InvalidRequestException(" Invalid court case payload"); 
@@ -258,7 +258,7 @@ public class CourtCasesController {
 			//courtCaseDetailsModel = (CourtCaseDetailsModel)JSONFormatter.buildJSONObject(strCourtCase, CourtCaseDetailsModel.class);
 			
 			//id1 = courtCaseService.updateCourtCase(courtCaseDetailsModel,id);
-		
+		LOG.info(" USER ID IS =============================================  "+userId);
 			baseResponse.setStatus("200");
 		    baseResponse.setResult(""+id);
 		    
