@@ -39,7 +39,11 @@ public class CourtCaseEntity {
 	@Column(name = "petitioner_name")
 	private String petinitioner_name="";
 	
+	/** employee id **/
+	@Column(name = "parent_case_no")
+	private String parent_case_no="";
 	
+<<<<<<< HEAD
 	  /** order summary **/   
 	@Column(name = "case_type")
 	private String  case_type="";
@@ -49,6 +53,11 @@ public class CourtCaseEntity {
 	private int  parent_case_id=-1;
 	
 	
+=======
+	/** employee id **/
+	@Column(name = "case_type")
+	private String case_type="";
+>>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
 	
 	/** name **/
 	@Column(name = "case_no")
@@ -616,38 +625,69 @@ public class CourtCaseEntity {
 
 
 	/**
+<<<<<<< HEAD
 	 * @return the case_type
 	 */
 	public String getCase_type() {
 		return case_type;
+=======
+	 * @return the parent_case_no
+	 */
+	public String getParent_case_no() {
+		return parent_case_no;
+>>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
 	}
 
 
 
 	/**
+<<<<<<< HEAD
 	 * @param case_type the case_type to set
 	 */
 	public void setCase_type(String case_type) {
 		this.case_type = case_type;
+=======
+	 * @param parent_case_no the parent_case_no to set
+	 */
+	public void setParent_case_no(String parent_case_no) {
+		this.parent_case_no = parent_case_no;
+>>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
 	}
 
 
 
 	/**
+<<<<<<< HEAD
 	 * @return the parent_case_id
 	 */
 	public int getParent_case_id() {
 		return parent_case_id;
+=======
+	 * @return the case_type
+	 */
+	public String getCase_type() {
+		return case_type;
+>>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
 	}
 
 
 
 	/**
+<<<<<<< HEAD
 	 * @param parent_case_id the parent_case_id to set
 	 */
 	public void setParent_case_id(int parent_case_id) {
 		this.parent_case_id = parent_case_id;
 	}
+=======
+	 * @param case_type the case_type to set
+	 */
+	public void setCase_type(String case_type) {
+		this.case_type = case_type;
+	}
+	
+	
+>>>>>>> 6d769e09936347da13d84c550860b3fe713583f3
 	
 }
 
