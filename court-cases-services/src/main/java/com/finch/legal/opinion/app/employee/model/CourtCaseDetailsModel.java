@@ -168,6 +168,10 @@ public class CourtCaseDetailsModel {
 	private List<CommentEntity> comments=new ArrayList();
 	
 	
+	/** court case AppealDetails **/
+	private CourtCaseAppealDetailsModel courtCaseAppealDetailsModel = null;
+	
+	
 	
 	
 	/**
@@ -176,6 +180,26 @@ public class CourtCaseDetailsModel {
 	public String getOrder_status() {
 		return order_status;
 	}
+	
+	
+
+	/**
+	 * @return the courtCaseAppealDetailsModel
+	 */
+	public CourtCaseAppealDetailsModel getCourtCaseAppealDetailsModel() {
+		return courtCaseAppealDetailsModel;
+	}
+
+
+
+	/**
+	 * @param courtCaseAppealDetailsModel the courtCaseAppealDetailsModel to set
+	 */
+	public void setCourtCaseAppealDetailsModel(CourtCaseAppealDetailsModel courtCaseAppealDetailsModel) {
+		this.courtCaseAppealDetailsModel = courtCaseAppealDetailsModel;
+	}
+
+
 
 	/**
 	 * @param order_status the order_status to set

@@ -94,7 +94,7 @@ public class FileMovementController {
 			baseResponse.setResult(""+fileMovementEntity.getId());
 			
 			
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(fileMovementEntity.getCase_main_id(),""+fileMovementEntity.getCase_main_id(),"Case Document Added","File Movement from :<B>"+fileMovementEntity.getFrom_dept_id() +"</B> to on "+fileMovementEntity.getTo_dept_id()+ " on "+GeneralUtil.getTodaysDate()+"</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(fileMovementEntity.getCase_main_id(),""+fileMovementEntity.getCase_main_id(),"Case Document Added","File Movement from :"+fileMovementEntity.getFrom_dept_id() +" to on "+fileMovementEntity.getTo_dept_id()+ " on "+GeneralUtil.getTodaysDate()+"",userId));
 		
 			
 			
@@ -195,7 +195,7 @@ public class FileMovementController {
 			baseResponse.setStatus("200");
 			baseResponse.setResult(""+fileMovementEntity.getId());
 			
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(fileMovementEntity.getCase_main_id(),""+fileMovementEntity.getCase_main_id(),"Case Document Added","File Movement from :<B>"+fileMovementEntity.getFrom_dept_id() +"</B> to on "+fileMovementEntity.getTo_dept_id()+ " on "+GeneralUtil.getTodaysDate()+"</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(fileMovementEntity.getCase_main_id(),""+fileMovementEntity.getCase_main_id(),"Case Document Added","File Movement from :"+fileMovementEntity.getFrom_dept_id() +" to on "+fileMovementEntity.getTo_dept_id()+ " on "+GeneralUtil.getTodaysDate()+"",userId));
 			
 			
 			return JSONFormatter.buildStringObject(baseResponse);
@@ -244,7 +244,7 @@ public class FileMovementController {
 			fileMovementService.deleteFileMovementRecord(id);
 			baseResponse.setStatus("200");
 			baseResponse.setResult("");
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(fileMovementEntity.getCase_main_id(),""+fileMovementEntity.getCase_main_id(),"Case Document Added","File Movement from :<B>"+fileMovementEntity.getFrom_dept_id() +"</B> to on "+fileMovementEntity.getTo_dept_id()+ " on "+GeneralUtil.getTodaysDate()+"</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(fileMovementEntity.getCase_main_id(),""+fileMovementEntity.getCase_main_id(),"Case Document Added","File Movement from :"+fileMovementEntity.getFrom_dept_id() +" to on "+fileMovementEntity.getTo_dept_id()+ " on "+GeneralUtil.getTodaysDate()+"",userId));
 			
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {

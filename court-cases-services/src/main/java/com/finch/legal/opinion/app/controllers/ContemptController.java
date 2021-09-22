@@ -96,7 +96,7 @@ public class ContemptController {
 			contemptEntity = contemptService.addContempt(((ContemptEntity)JSONFormatter.buildJSONObject(strContempt, ContemptEntity.class)));
 			
 		    
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(contemptEntity.getCase_main_id(),""+contemptEntity.getCase_main_id(),"Case Contempt Added","Case Contempt :<B>"+contemptEntity.getContempt_details() +"</B>  of No :<B>"+contemptEntity.getContempt_no()+ "</B> contempt date <B>"+contemptEntity.getContempt_date()+" added</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(contemptEntity.getCase_main_id(),""+contemptEntity.getCase_main_id(),"Case Contempt Added","Case Contempt :"+contemptEntity.getContempt_details() +"  of No :"+contemptEntity.getContempt_no()+ " contempt date "+contemptEntity.getContempt_date()+" added",userId));
 
 			
 			baseResponse.setStatus("200");
@@ -209,7 +209,7 @@ public class ContemptController {
 			baseResponse.setResult(""+contemptEntity.getId());
 	
 		    
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(contemptEntity.getCase_main_id(),""+contemptEntity.getCase_main_id(),"Case Contempt Updated","Case Contempt :<B>"+contemptEntity.getContempt_details() +"</B>  of No :<B>"+contemptEntity.getContempt_no()+ "</B> contempt date <B>"+contemptEntity.getContempt_date()+" updated</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(contemptEntity.getCase_main_id(),""+contemptEntity.getCase_main_id(),"Case Contempt Updated","Case Contempt :"+contemptEntity.getContempt_details() +"  of No :"+contemptEntity.getContempt_no()+ " contempt date "+contemptEntity.getContempt_date()+" updated",userId));
 
 			return JSONFormatter.buildStringObject(baseResponse);
 			
@@ -266,7 +266,7 @@ public class ContemptController {
 			baseResponse.setStatus("200");
 			baseResponse.setResult("");
 			  
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(contemptEntity.getCase_main_id(),""+contemptEntity.getCase_main_id(),"Case Contempt Added","Case Contempt :<B>"+contemptEntity.getContempt_details() +"</B>  of No :<B>"+contemptEntity.getContempt_no()+ "</B> contempt date <B>"+contemptEntity.getContempt_date()+" added</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(contemptEntity.getCase_main_id(),""+contemptEntity.getCase_main_id(),"Case Contempt Added","Case Contempt :"+contemptEntity.getContempt_details() +"  of No :"+contemptEntity.getContempt_no()+ " contempt date "+contemptEntity.getContempt_date()+" added",userId));
 
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {

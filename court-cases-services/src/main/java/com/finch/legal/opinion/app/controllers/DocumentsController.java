@@ -96,7 +96,7 @@ public class DocumentsController {
 			documentEntity = documentsService.addDocument(((DocumentEntity)JSONFormatter.buildJSONObject(strDocument, DocumentEntity.class)));
 		    baseResponse.setStatus("200");
 			baseResponse.setResult(""+documentEntity.getId());
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :<B>"+documentEntity.getFile_name() +"</B> uploaded on "+GeneralUtil.getTodaysDate()+ "</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :"+documentEntity.getFile_name() +" uploaded on "+GeneralUtil.getTodaysDate()+ "",userId));
 
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
@@ -198,7 +198,7 @@ public class DocumentsController {
 			baseResponse.setStatus("200");
 			baseResponse.setResult(""+documentEntity.getId());
 			
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :<B>"+documentEntity.getFile_name() +"</B> uploaded on "+GeneralUtil.getTodaysDate()+ "</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :"+documentEntity.getFile_name() +" uploaded on "+GeneralUtil.getTodaysDate()+ "",userId));
 
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
@@ -245,7 +245,7 @@ public class DocumentsController {
 			}
 			documentsService.deleteFDocument(id);
 			baseResponse.setStatus("200");
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :<B>"+documentEntity.getFile_name() +"</B> deleted on "+GeneralUtil.getTodaysDate()+ "</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(documentEntity.getCase_main_id(),""+documentEntity.getCase_main_id(),"Case Document Added","Case Document :"+documentEntity.getFile_name() +" deleted on "+GeneralUtil.getTodaysDate()+ "",userId));
 
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {

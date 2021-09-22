@@ -89,7 +89,7 @@ public class CommentsController {
 		    baseResponse.setStatus("200");
 		    baseResponse.setResult(""+commentEntity.getId());
 		    
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments Added","Case Comment :<B>"+commentEntity.getComment() +"</B>  of Type :<B>"+commentEntity.getType()+ "</B> ADDED On <B>"+commentEntity.getRecorded_on()+"</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments Added","Case Comment :"+commentEntity.getComment() +"  of Type :"+commentEntity.getType()+ " ADDED On "+commentEntity.getRecorded_on()+"",userId));
 			
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
@@ -196,7 +196,7 @@ public class CommentsController {
 			baseResponse.setStatus("200");
 			baseResponse.setResult(""+commentEntity.getId());
 			
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments updated","Case Comment :<B>"+commentEntity.getComment() +"</B>  of Type :<B>"+commentEntity.getType()+ "</B> Updated On <B>"+commentEntity.getRecorded_on()+"</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments updated","Case Comment :"+commentEntity.getComment() +"  of Type :"+commentEntity.getType()+ " Updated On "+commentEntity.getRecorded_on()+"",userId));
 				
 			return JSONFormatter.buildStringObject(baseResponse);
 		}catch(JSONConverterException e) {
@@ -248,7 +248,7 @@ public class CommentsController {
 			}
 				
 			commentService.deleteComment(id);
-			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments updated","Case Comment :<B>"+commentEntity.getComment() +"</B>  of Type :<B>"+commentEntity.getType()+ "</B> Deleted On <B>"+commentEntity.getRecorded_on()+"</B>",userId));
+			caseHistoryService.addCaseHistory(caseHistoryService.buildCaseHistory(commentEntity.getCase_main_id(),""+commentEntity.getCase_main_id(),"Case Comments updated","Case Comment :"+commentEntity.getComment() +"  of Type :"+commentEntity.getType()+ " Deleted On "+commentEntity.getRecorded_on()+"",userId));
 				
 			baseResponse.setStatus("200");
 			baseResponse.setResult("");

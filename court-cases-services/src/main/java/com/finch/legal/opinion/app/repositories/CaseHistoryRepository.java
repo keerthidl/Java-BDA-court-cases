@@ -16,6 +16,6 @@ public interface CaseHistoryRepository extends JpaRepository<CaseHistoryEntity, 
 	CaseHistoryEntity findById(String id);
 	/** find by id **/
 	/** find by id **/
-	@Query(value="SELECT * FROM courtcase_history  WHERE case_main_id=?1",nativeQuery = true)
+	@Query(value="SELECT * FROM courtcase_history  WHERE case_main_id=?1 ORDER BY created_date",nativeQuery = true)
 	List<CaseHistoryEntity> findByCase_main_id(int case_main_id);
 }

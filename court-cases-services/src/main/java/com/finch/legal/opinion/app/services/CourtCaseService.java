@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finch.legal.opinion.app.employee.model.CourtCaseAppealDetailsModel;
 import com.finch.legal.opinion.app.employee.model.CourtCaseDetailsModel;
 import com.finch.legal.opinion.app.employee.model.ScheduleDetailsModel;
 import com.finch.legal.opinion.app.entities.AdvocatesEntity;
@@ -84,6 +85,10 @@ public class CourtCaseService {
 	 /** employee repository **/
 	@Autowired
 	private CourtService courtService;
+	
+	 /** employee repository **/
+	@Autowired
+	private CaseAppealService caseAppealService;
 	
 	
 	
@@ -218,6 +223,14 @@ public class CourtCaseService {
 		courtCaseDetailsModel.setFile_movement(lsFileMovementEntity);
 		courtCaseDetailsModel.setSchedules(lstScheduleDetailsModel);
 		courtCaseDetailsModel.setComments(lstCommentEntity);
+		
+		
+		CourtCaseAppealDetailsModel courtCaseAppealDetailsModel=caseAppealService.getCourtAppeaLDetails(""+courtCaseEntity.getId());
+		
+		
+		if(courtCaseAppealDetailsModel!=null) {
+			courtCaseDetailsModel.setCourtCaseAppealDetailsModel(courtCaseAppealDetailsModel);
+		}
 		
 		if(advocateEntity!=null) {
 			courtCaseDetailsModel.setAdvocate_name(advocateEntity.getName());
