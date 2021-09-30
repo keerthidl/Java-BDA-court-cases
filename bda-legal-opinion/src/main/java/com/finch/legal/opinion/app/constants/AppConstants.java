@@ -31,6 +31,9 @@ public class AppConstants {
 	public final static String SEARCH_QUERY_1="SELECT * FROM legal_opinion_requests WHERE advocate_id=?1 order by requested_on desc";
 	
 	/** UI URL **/
+	public final static String SEARCH_QUERY_4="SELECT * FROM legal_opinion_requests WHERE advocate_id=?1 order by requested_on desc";
+	
+	/** UI URL **/
 	public final static String SEARCH_QUERY_2="SELECT * FROM legal_opinion_requests where requestor_emp_id=?1 order by requested_on desc";
 	
 	/** UI URL **/

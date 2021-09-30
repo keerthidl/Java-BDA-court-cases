@@ -52,6 +52,10 @@ public class CourtCaseDetailsModel {
 	private String case_entered_date="";
 	
 	
+	/**case_entered_date **/
+	private String layout="";
+	
+	
 	
 	/** employee id **/
 	private String thaluk="";
@@ -197,6 +201,24 @@ public class CourtCaseDetailsModel {
 	 */
 	public void setCourtCaseAppealDetailsModel(CourtCaseAppealDetailsModel courtCaseAppealDetailsModel) {
 		this.courtCaseAppealDetailsModel = courtCaseAppealDetailsModel;
+	}
+
+
+
+	/**
+	 * @return the layout
+	 */
+	public String getLayout() {
+		return layout;
+	}
+
+
+
+	/**
+	 * @param layout the layout to set
+	 */
+	public void setLayout(String layout) {
+		this.layout = layout;
 	}
 
 

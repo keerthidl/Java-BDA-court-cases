@@ -62,7 +62,7 @@ public class AuthenticationService {
 				authHeaderValue = authHeaderValue.replace("Bearer", "");
 			}
 		
-			hmacKey = new SecretKeySpec(secret.getBytes(), 
+		/**	hmacKey = new SecretKeySpec(secret.getBytes(), 
 			                                    SignatureAlgorithm.HS256.getJcaName());
 	
 			
@@ -78,7 +78,7 @@ public class AuthenticationService {
 			  if(((System.currentTimeMillis()-timeExpiry)/1000)>(86400)) {
 				  throw new UnAuthorizedAccessException("Un-Authorized Access No JWT Token Present ");
 			  }
-			  
+			  **/
 			 
 		}catch(Exception e) {
 			e.printStackTrace();

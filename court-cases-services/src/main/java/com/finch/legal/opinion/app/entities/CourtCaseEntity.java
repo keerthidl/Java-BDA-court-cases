@@ -35,6 +35,12 @@ public class CourtCaseEntity {
 	@Column(name = "case_created_date")
 	private String case_created_date="";
 	
+	
+	/** name **/
+	@Column(name = "layout")
+	private String layout="";
+	
+	
 	/** name **/
 	@Column(name = "petitioner_name")
 	private String petinitioner_name="";
@@ -91,6 +97,11 @@ public class CourtCaseEntity {
 	/** name **/
 	@Column(name = "case_year")
 	private String case_year="";
+	
+	/** name **/
+	@Column(name = "bda_case_id")
+	private String bda_case_id="";
+	
 	/** name **/
 	@Column(name = "court_id")
 	private String court_id="";
@@ -343,6 +354,21 @@ public class CourtCaseEntity {
 	 */
 	public void setSchedule(String schedule) {
 		this.schedule = schedule;
+	}
+
+	
+	/**
+	 * @return the layout
+	 */
+	public String getLayout() {
+		return layout;
+	}
+
+	/**
+	 * @param layout the layout to set
+	 */
+	public void setLayout(String layout) {
+		this.layout = layout;
 	}
 
 	/**
@@ -624,8 +650,19 @@ public class CourtCaseEntity {
 	public void setOrder_status(String order_status) {
 		this.order_status = order_status;
 	}
-	
-	
-	
+
+	/**
+	 * @return the bda_case_id
+	 */
+	public String getBda_case_id() {
+		return bda_case_id;
+	}
+
+	/**
+	 * @param bda_case_id the bda_case_id to set
+	 */
+	public void setBda_case_id(String bda_case_id) {
+		this.bda_case_id = bda_case_id;
+	}
 }
 

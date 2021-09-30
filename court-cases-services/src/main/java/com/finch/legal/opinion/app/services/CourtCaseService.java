@@ -116,8 +116,12 @@ public class CourtCaseService {
 		
 		PrayerEntity prayerEntity = null;
 		
-	
-		CourtCaseEntity courtCaseEntity = courtCasesRepository.save(transformCaseModelToEntity(courtCaseDetailsModel,new CourtCaseEntity()));
+		CourtCaseEntity courtCaseEntity = new CourtCaseEntity();
+		
+		courtCaseEntity.setBda_case_id(generateID(courtCaseDetailsModel.getCase_year(), courtCaseDetailsModel.getZone()));
+		
+		System.out.println(" BBBBBBBBBBBBBBBBBBBBBBBBBBBB    "+courtCaseEntity.getBda_case_id());
+		courtCaseEntity = courtCasesRepository.save(transformCaseModelToEntity(courtCaseDetailsModel,courtCaseEntity));
 		
 			
 		List<ScheduleEntity> lstScheduleEntity = getLstScheduleEntity(courtCaseDetailsModel.getSchedules(),courtCaseEntity);
@@ -148,6 +152,23 @@ public class CourtCaseService {
 		LOG.info(" TIME TAKEN IS "+((endTime-startTime)/1000));
 		return courtCaseEntity.getId();
 		
+	}
+	
+	/**
+	 * generate ID
+	 */
+	private String generateID(String year, String zone) {
+		
+		String bdaCaseID = "";
+		
+		System.out.println(" MAX ID IS "+year + "    "+zone);
+		int maxId = courtCasesRepository.findMaxId(year,zone);
+		System.out.println(" MAX ID IS << maxId  >> "+maxId);
+		
+		bdaCaseID = year+"/"+zone+"/"+(maxId+1);
+		
+		System.out.println(" MAX ID IS << maxId  >> "+bdaCaseID);
+		return bdaCaseID;
 	}
 	
 	/**
@@ -318,6 +339,10 @@ public class CourtCaseService {
 		
 		if(courtCaseDetailsModel.getOrder_status()!=null && courtCaseDetailsModel.getOrder_status().trim().length()>0) {
 			courtCaseEntity.setOrder_status(courtCaseDetailsModel.getOrder_status());
+		}
+		
+		if(courtCaseDetailsModel.getLayout()!=null && courtCaseDetailsModel.getLayout().trim().length()>0) {
+			courtCaseEntity.setLayout(courtCaseDetailsModel.getLayout());
 		}
 		
 		LOG.info(" COURT CASE getParentCaseIdgetParentCaseId ID "+courtCaseDetailsModel.getParentCaseId());
@@ -494,6 +519,9 @@ public class CourtCaseService {
 		
 		
 		courtCaseDetailsModel.setCase_type(courtCaseEntity.getCase_type());
+		
+		
+		courtCaseDetailsModel.setLayout(courtCaseEntity.getLayout());
 		
 		courtCaseDetailsModel.setParent_case_no(courtCaseEntity.getParent_case_no());
 		
